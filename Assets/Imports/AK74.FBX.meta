@@ -1,0 +1,145 @@
+fileFormatVersion: 2
+guid: 7654d1ee7e8628c48832411e2275d3cc
+timeCreated: 1509966771
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: AkBarrel
+    100004: AkBolt
+    100006: AKBoltBone001
+    100008: AkGrip
+    100010: AkHeatShield
+    100012: AkLever
+    100014: AkLowerReciever
+    100016: AkMag
+    100018: AKMagBone002
+    100020: AkMainBone001
+    100022: AkSightBlock
+    100024: AKSights
+    100026: AkStock
+    100028: AkTrigger
+    100030: AKTriggerBone003
+    100032: AkTriggerGuard
+    100034: AkUpperReciever
+    400000: //RootNode
+    400002: AkBarrel
+    400004: AkBolt
+    400006: AKBoltBone001
+    400008: AkGrip
+    400010: AkHeatShield
+    400012: AkLever
+    400014: AkLowerReciever
+    400016: AkMag
+    400018: AKMagBone002
+    400020: AkMainBone001
+    400022: AkSightBlock
+    400024: AKSights
+    400026: AkStock
+    400028: AkTrigger
+    400030: AKTriggerBone003
+    400032: AkTriggerGuard
+    400034: AkUpperReciever
+    4300000: AkGrip
+    4300002: AkLowerReciever
+    4300004: AkUpperReciever
+    4300006: AkSightBlock
+    4300008: AkHeatShield
+    4300010: AkStock
+    4300012: AkMag
+    4300014: AkTrigger
+    4300016: AkTriggerGuard
+    4300018: AkBarrel
+    4300020: AkBolt
+    4300022: AkLever
+    4300024: AKSights
+    9500000: //RootNode
+    13700000: AkBarrel
+    13700002: AkBolt
+    13700004: AkGrip
+    13700006: AkHeatShield
+    13700008: AkLever
+    13700010: AkLowerReciever
+    13700012: AkMag
+    13700014: AkSightBlock
+    13700016: AKSights
+    13700018: AkStock
+    13700020: AkTrigger
+    13700022: AkTriggerGuard
+    13700024: AkUpperReciever
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

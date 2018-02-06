@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 2e9cfe0984d2b5046adc92653059a1a2
+timeCreated: 1495199056
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bip
+    100002: Bip Footsteps
+    100004: Bip HeadNub
+    100006: Bip L Finger0Nub
+    100008: Bip L Finger1Nub
+    100010: Bip L Finger2Nub
+    100012: Bip L Finger3Nub
+    100014: Bip L Finger4Nub
+    100016: Bip L Toe0Nub
+    100018: Bip R Finger0Nub
+    100020: Bip R Finger1Nub
+    100022: Bip R Finger2Nub
+    100024: Bip R Finger3Nub
+    100026: Bip R Finger4Nub
+    100028: Bip R Toe0Nub
+    100030: CMan0020-Mesh
+    100032: ESM_CONNECTOR_arse
+    100034: ESM_CONNECTOR_base
+    100036: ESM_CONNECTOR_head
+    100038: ESM_CONNECTOR_left_hand
+    100040: ESM_CONNECTOR_right_hand
+    100042: Head
+    100044: L Calf
+    100046: L Clavicle
+    100048: L Finger0
+    100050: L Finger01
+    100052: L Finger02
+    100054: L Finger1
+    100056: L Finger11
+    100058: L Finger12
+    100060: L Finger2
+    100062: L Finger21
+    100064: L Finger22
+    100066: L Finger3
+    100068: L Finger31
+    100070: L Finger32
+    100072: L Finger4
+    100074: L Finger41
+    100076: L Finger42
+    100078: L Foot
+    100080: L Forearm
+    100082: L ForeTwist
+    100084: L ForeTwist1
+    100086: L Hand
+    100088: L Thigh
+    100090: L Toe0
+    100092: L UpperArm
+    100094: LThighTwist
+    100096: LThighTwist1
+    100098: LUpArmTwist
+    100100: LUpArmTwist1
+    100102: //RootNode
+    100104: Neck
+    100106: Pelvis
+    100108: R Calf
+    100110: R Clavicle
+    100112: R Finger0
+    100114: R Finger01
+    100116: R Finger02
+    100118: R Finger1
+    100120: R Finger11
+    100122: R Finger12
+    100124: R Finger2
+    100126: R Finger21
+    100128: R Finger22
+    100130: R Finger3
+    100132: R Finger31
+    100134: R Finger32
+    100136: R Finger4
+    100138: R Finger41
+    100140: R Finger42
+    100142: R Foot
+    100144: R Forearm
+    100146: R ForeTwist
+    100148: R ForeTwist1
+    100150: R Hand
+    100152: R Thigh
+    100154: R Toe0
+    100156: R UpperArm
+    100158: RThighTwist
+    100160: RThighTwist1
+    100162: RUpArmTwist
+    100164: RUpArmTwist1
+    100166: Spine
+    100168: Spine1
+    100170: Spine2
+    400000: Bip
+    400002: Bip Footsteps
+    400004: Bip HeadNub
+    400006: Bip L Finger0Nub
+    400008: Bip L Finger1Nub
+    400010: Bip L Finger2Nub
+    400012: Bip L Finger3Nub
+    400014: Bip L Finger4Nub
+    400016: Bip L Toe0Nub
+    400018: Bip R Finger0Nub
+    400020: Bip R Finger1Nub
+    400022: Bip R Finger2Nub
+    400024: Bip R Finger3Nub
+    400026: Bip R Finger4Nub
+    400028: Bip R Toe0Nub
+    400030: CMan0020-Mesh
+    400032: ESM_CONNECTOR_arse
+    400034: ESM_CONNECTOR_base
+    400036: ESM_CONNECTOR_head
+    400038: ESM_CONNECTOR_left_hand
+    400040: ESM_CONNECTOR_right_hand
+    400042: Head
+    400044: L Calf
+    400046: L Clavicle
+    400048: L Finger0
+    400050: L Finger01
+    400052: L Finger02
+    400054: L Finger1
+    400056: L Finger11
+    400058: L Finger12
+    400060: L Finger2
+    400062: L Finger21
+    400064: L Finger22
+    400066: L Finger3
+    400068: L Finger31
+    400070: L Finger32
+    400072: L Finger4
+    400074: L Finger41
+    400076: L Finger42
+    400078: L Foot
+    400080: L Forearm
+    400082: L ForeTwist
+    400084: L ForeTwist1
+    400086: L Hand
+    400088: L Thigh
+    400090: L Toe0
+    400092: L UpperArm
+    400094: LThighTwist
+    400096: LThighTwist1
+    400098: LUpArmTwist
+    400100: LUpArmTwist1
+    400102: //RootNode
+    400104: Neck
+    400106: Pelvis
+    400108: R Calf
+    400110: R Clavicle
+    400112: R Finger0
+    400114: R Finger01
+    400116: R Finger02
+    400118: R Finger1
+    400120: R Finger11
+    400122: R Finger12
+    400124: R Finger2
+    400126: R Finger21
+    400128: R Finger22
+    400130: R Finger3
+    400132: R Finger31
+    400134: R Finger32
+    400136: R Finger4
+    400138: R Finger41
+    400140: R Finger42
+    400142: R Foot
+    400144: R Forearm
+    400146: R ForeTwist
+    400148: R ForeTwist1
+    400150: R Hand
+    400152: R Thigh
+    400154: R Toe0
+    400156: R UpperArm
+    400158: RThighTwist
+    400160: RThighTwist1
+    400162: RUpArmTwist
+    400164: RUpArmTwist1
+    400166: Spine
+    400168: Spine1
+    400170: Spine2
+    4300000: CMan0020-Mesh
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: CMan0020-Mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

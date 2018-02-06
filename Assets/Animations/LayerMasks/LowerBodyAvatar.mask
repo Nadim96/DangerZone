@@ -1,0 +1,222 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: LowerBodyAvatar
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Bip
+    m_Weight: 1
+  - m_Path: Bip/Footsteps
+    m_Weight: 1
+  - m_Path: Bip/Pelvis
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/L Thigh
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/LThighTwist
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1/L Calf
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1/L Calf/L Foot
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1/L Calf/L Foot/L Toe0
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1/L Calf/L Foot/L Toe0/L Toe0Nub
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/R Thigh
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/RThighTwist
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1/R Calf
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1/R Calf/R Foot
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1/R Calf/R Foot/R Toe0
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1/R Calf/R Foot/R Toe0/R Toe0Nub
+    m_Weight: 1
+  - m_Path: Bip/Pelvis/Spine/Spine1
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/Head
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/Head/HeadNub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/L UpperArm
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/L UpperArm/L Forearm
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger0
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger0/L Finger01
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger0/L Finger01/L Finger02
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger0/L Finger01/L Finger02/L Finger0Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger1
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger1/L Finger11
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger1/L Finger11/L Finger12
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger1/L Finger11/L Finger12/L Finger1Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger2
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger2/L Finger21
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger2/L Finger21/L Finger22
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger2/L Finger21/L Finger22/L Finger2Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger3
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger3/L Finger31
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger3/L Finger31/L Finger32
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger3/L Finger31/L Finger32/L Finger3Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger4
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger4/L Finger41
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger4/L Finger41/L Finger42
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+      ForeTwist/L ForeTwist1/L Hand/L Finger4/L Finger41/L Finger42/L Finger4Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/R UpperArm
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/R UpperArm/R Forearm
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger0
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger0/R Finger01
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger0/R Finger01/R Finger02
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger0/R Finger01/R Finger02/R Finger0Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger1
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger1/R Finger11
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger1/R Finger11/R Finger12
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger1/R Finger11/R Finger12/R Finger1Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger2
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger2/R Finger21
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger2/R Finger21/R Finger22
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger2/R Finger21/R Finger22/R Finger2Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger3
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger3/R Finger31
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger3/R Finger31/R Finger32
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger3/R Finger31/R Finger32/R Finger3Nub
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger4
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger4/R Finger41
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger4/R Finger41/R Finger42
+    m_Weight: 0
+  - m_Path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+      ForeTwist/R ForeTwist1/R Hand/R Finger4/R Finger41/R Finger42/R Finger4Nub
+    m_Weight: 0
+  - m_Path: Casual_Man_7
+    m_Weight: 1
+  - m_Path: Morpher Targets
+    m_Weight: 0
+  - m_Path: Morpher Targets/Target - Talking
+    m_Weight: 0

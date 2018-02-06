@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Scenario>
+  <Name>Scenario 1</Name>
+  <Settings>
+    <TargetType>Person</TargetType>
+    <GoalType>Neutralise</GoalType>
+  </Settings>
+  <Targets>
+    <Target>
+      <Item>P99</Item>
+      <Difficulty>Easy</Difficulty>
+      <IsHostile>true</IsHostile>
+      <Waypoints>
+        <Waypoint x="5" y="0" z="5" />
+        <Waypoint x="-5" y="0" z="-5" />
+      </Waypoints>
+    </Target>
+    <Target>
+      <Item>P99</Item>
+      <Difficulty>Easy</Difficulty>
+      <IsHostile>true</IsHostile>
+      <Waypoints>
+        <Waypoint x="-3" y="0" z="-3" />
+        <Waypoint x="3" y="0" z="3" />
+      </Waypoints>
+    </Target>
+  </Targets>
+</Scenario>

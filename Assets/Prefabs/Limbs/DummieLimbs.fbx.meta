@@ -1,0 +1,278 @@
+fileFormatVersion: 2
+guid: e817e7294429048449b7450fda1f9fc5
+timeCreated: 1512573866
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: L Calf
+    100004: L Finger0
+    100006: L Finger01
+    100008: L Finger02
+    100010: L Finger0Nub
+    100012: L Finger1
+    100014: L Finger11
+    100016: L Finger12
+    100018: L Finger1Nub
+    100020: L Finger2
+    100022: L Finger21
+    100024: L Finger22
+    100026: L Finger2Nub
+    100028: L Finger3
+    100030: L Finger31
+    100032: L Finger32
+    100034: L Finger3Nub
+    100036: L Finger4
+    100038: L Finger41
+    100040: L Finger42
+    100042: L Finger4Nub
+    100044: L Foot
+    100046: L ForeTwist
+    100048: L ForeTwist1
+    100050: L Hand
+    100052: L Toe0
+    100054: L Toe0Nub
+    100056: Larm
+    100058: Lleg
+    100060: LThighTwist
+    100062: LThighTwist1
+    100064: LUpArmTwist
+    100066: LUpArmTwist1
+    100068: P1_:Head
+    100070: P1_:Head 1
+    100072: P1_:HeadNub
+    100074: P1_:PolyHead
+    100076: P1_:polyHead
+    100078: polySurface1
+    100080: polySurface27
+    100082: polySurface42
+    100084: polySurface55
+    100086: R Calf
+    100088: R Finger0
+    100090: R Finger01
+    100092: R Finger02
+    100094: R Finger0Nub
+    100096: R Finger1
+    100098: R Finger11
+    100100: R Finger12
+    100102: R Finger1Nub
+    100104: R Finger2
+    100106: R Finger21
+    100108: R Finger22
+    100110: R Finger2Nub
+    100112: R Finger3
+    100114: R Finger31
+    100116: R Finger32
+    100118: R Finger3Nub
+    100120: R Finger4
+    100122: R Finger41
+    100124: R Finger42
+    100126: R Finger4Nub
+    100128: R Foot
+    100130: R ForeTwist
+    100132: R ForeTwist1
+    100134: R Hand
+    100136: R Toe0
+    100138: R Toe0Nub
+    100140: Rarm
+    100142: Rleg
+    100144: RThighTwist
+    100146: RThighTwist1
+    100148: RUpArmTwist
+    100150: RUpArmTwist1
+    100152: Head
+    100154: PolyHead
+    100156: polyLArm
+    100158: PolyLleg
+    100160: PolyRArm
+    100162: PolyRleg
+    400000: //RootNode
+    400002: L Calf
+    400004: L Finger0
+    400006: L Finger01
+    400008: L Finger02
+    400010: L Finger0Nub
+    400012: L Finger1
+    400014: L Finger11
+    400016: L Finger12
+    400018: L Finger1Nub
+    400020: L Finger2
+    400022: L Finger21
+    400024: L Finger22
+    400026: L Finger2Nub
+    400028: L Finger3
+    400030: L Finger31
+    400032: L Finger32
+    400034: L Finger3Nub
+    400036: L Finger4
+    400038: L Finger41
+    400040: L Finger42
+    400042: L Finger4Nub
+    400044: L Foot
+    400046: L ForeTwist
+    400048: L ForeTwist1
+    400050: L Hand
+    400052: L Toe0
+    400054: L Toe0Nub
+    400056: Larm
+    400058: Lleg
+    400060: LThighTwist
+    400062: LThighTwist1
+    400064: LUpArmTwist
+    400066: LUpArmTwist1
+    400068: P1_:Head
+    400070: P1_:Head 1
+    400072: P1_:HeadNub
+    400074: P1_:PolyHead
+    400076: P1_:polyHead
+    400078: polySurface1
+    400080: polySurface27
+    400082: polySurface42
+    400084: polySurface55
+    400086: R Calf
+    400088: R Finger0
+    400090: R Finger01
+    400092: R Finger02
+    400094: R Finger0Nub
+    400096: R Finger1
+    400098: R Finger11
+    400100: R Finger12
+    400102: R Finger1Nub
+    400104: R Finger2
+    400106: R Finger21
+    400108: R Finger22
+    400110: R Finger2Nub
+    400112: R Finger3
+    400114: R Finger31
+    400116: R Finger32
+    400118: R Finger3Nub
+    400120: R Finger4
+    400122: R Finger41
+    400124: R Finger42
+    400126: R Finger4Nub
+    400128: R Foot
+    400130: R ForeTwist
+    400132: R ForeTwist1
+    400134: R Hand
+    400136: R Toe0
+    400138: R Toe0Nub
+    400140: Rarm
+    400142: Rleg
+    400144: RThighTwist
+    400146: RThighTwist1
+    400148: RUpArmTwist
+    400150: RUpArmTwist1
+    400152: Head
+    400154: PolyHead
+    400156: polyLArm
+    400158: PolyLleg
+    400160: PolyRArm
+    400162: PolyRleg
+    4300000: polySurface1
+    4300002: polySurface27
+    4300004: polySurface42
+    4300006: polySurface55
+    4300008: polyLArm
+    4300010: PolyRArm
+    4300012: PolyLleg
+    4300014: PolyHead
+    4300016: PolyRleg
+    9500000: //RootNode
+    13700000: polySurface1
+    13700002: polySurface27
+    13700004: polySurface42
+    13700006: polySurface55
+    13700008: PolyHead
+    13700010: polyLArm
+    13700012: PolyLleg
+    13700014: PolyRArm
+    13700016: PolyRleg
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChrashTestDummy
+    second: {fileID: 2100000, guid: cf95a6b32b75e484ba64af24bf080dc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: P1__ChrashTestDummy
+    second: {fileID: 2100000, guid: e2ea85de0bb0c5e45a2fb83ec36e47a1, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: 799b41d31295b784d961d3cffb6061a3
+timeCreated: 1512383645
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Door
+    100002: FloorPanelType1
+    100004: FloorPanelType2
+    100006: //RootNode
+    100008: WallType1
+    100010: WallType1Copy
+    100012: WallType2
+    100014: WallType3
+    100016: WallType4
+    100018: WallType5
+    100020: WallType6
+    100022: WallType7
+    400000: Door
+    400002: FloorPanelType1
+    400004: FloorPanelType2
+    400006: //RootNode
+    400008: WallType1
+    400010: WallType1Copy
+    400012: WallType2
+    400014: WallType3
+    400016: WallType4
+    400018: WallType5
+    400020: WallType6
+    400022: WallType7
+    2300000: Door
+    2300002: FloorPanelType1
+    2300004: FloorPanelType2
+    2300006: WallType1
+    2300008: WallType1Copy
+    2300010: WallType2
+    2300012: WallType3
+    2300014: WallType4
+    2300016: WallType5
+    2300018: WallType6
+    2300020: WallType7
+    3300000: Door
+    3300002: FloorPanelType1
+    3300004: FloorPanelType2
+    3300006: WallType1
+    3300008: WallType1Copy
+    3300010: WallType2
+    3300012: WallType3
+    3300014: WallType4
+    3300016: WallType5
+    3300018: WallType6
+    3300020: WallType7
+    4300000: FloorPanelType1
+    4300002: FloorPanelType2
+    4300004: WallType1
+    4300006: WallType2
+    4300008: WallType3
+    4300010: WallType4
+    4300012: WallType5
+    4300014: Door
+    4300016: WallType6
+    4300018: WallType7
+    4300020: WallType1Copy
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door
+    second: {fileID: 2100000, guid: d9e2d87fa8efd21418731b52cd47804e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FloorPanelType1
+    second: {fileID: 2100000, guid: ed287e06e945b314ea66030ef620d941, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FloorPanelType2
+    second: {fileID: 2100000, guid: 9fdd5c26e474fa54db7b2234f7c2fa55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallType1
+    second: {fileID: 2100000, guid: c98627704e3eb244bb0959691f6ad71e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallType2
+    second: {fileID: 2100000, guid: b596c4b89064ae14d8c8fd7f45641e8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallType3
+    second: {fileID: 2100000, guid: 13c7f829e844adc43a604b851b75ec35, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallType4
+    second: {fileID: 2100000, guid: 270f23a6c3a1a194fa78493feb4c3dbe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallType5
+    second: {fileID: 2100000, guid: 4601ee6ab82282c429022bb7ac566403, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallType6
+    second: {fileID: 2100000, guid: ec8f66573c7caa24b9921a1c7f8e45ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallType7
+    second: {fileID: 2100000, guid: 42b5b162126900e46a474cf39e8d0bda, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

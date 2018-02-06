@@ -1,0 +1,407 @@
+fileFormatVersion: 2
+guid: 3c0c60fc89d411c47a6c18bc17b514ad
+timeCreated: 1495542482
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bip
+    100002: Head
+    100004: L Calf
+    100006: L Clavicle
+    100008: L Finger0
+    100010: L Finger01
+    100012: L Finger02
+    100014: L Finger1
+    100016: L Finger11
+    100018: L Finger12
+    100020: L Finger2
+    100022: L Finger21
+    100024: L Finger22
+    100026: L Finger3
+    100028: L Finger31
+    100030: L Finger32
+    100032: L Finger4
+    100034: L Finger41
+    100036: L Finger42
+    100038: L Foot
+    100040: L Forearm
+    100042: L ForeTwist
+    100044: L ForeTwist1
+    100046: L Hand
+    100048: L Thigh
+    100050: L Toe0
+    100052: L UpperArm
+    100054: LThighTwist
+    100056: LThighTwist1
+    100058: LUpArmTwist
+    100060: LUpArmTwist1
+    100062: //RootNode
+    100064: Neck
+    100066: Pelvis
+    100068: R Calf
+    100070: R Clavicle
+    100072: R Finger0
+    100074: R Finger01
+    100076: R Finger02
+    100078: R Finger1
+    100080: R Finger11
+    100082: R Finger12
+    100084: R Finger2
+    100086: R Finger21
+    100088: R Finger22
+    100090: R Finger3
+    100092: R Finger31
+    100094: R Finger32
+    100096: R Finger4
+    100098: R Finger41
+    100100: R Finger42
+    100102: R Foot
+    100104: R Forearm
+    100106: R ForeTwist
+    100108: R ForeTwist1
+    100110: R Hand
+    100112: R Thigh
+    100114: R Toe0
+    100116: R UpperArm
+    100118: RThighTwist
+    100120: RThighTwist1
+    100122: RUpArmTwist
+    100124: RUpArmTwist1
+    100126: Spine
+    100128: Spine1
+    100130: Spine2
+    400000: Bip
+    400002: Head
+    400004: L Calf
+    400006: L Clavicle
+    400008: L Finger0
+    400010: L Finger01
+    400012: L Finger02
+    400014: L Finger1
+    400016: L Finger11
+    400018: L Finger12
+    400020: L Finger2
+    400022: L Finger21
+    400024: L Finger22
+    400026: L Finger3
+    400028: L Finger31
+    400030: L Finger32
+    400032: L Finger4
+    400034: L Finger41
+    400036: L Finger42
+    400038: L Foot
+    400040: L Forearm
+    400042: L ForeTwist
+    400044: L ForeTwist1
+    400046: L Hand
+    400048: L Thigh
+    400050: L Toe0
+    400052: L UpperArm
+    400054: LThighTwist
+    400056: LThighTwist1
+    400058: LUpArmTwist
+    400060: LUpArmTwist1
+    400062: //RootNode
+    400064: Neck
+    400066: Pelvis
+    400068: R Calf
+    400070: R Clavicle
+    400072: R Finger0
+    400074: R Finger01
+    400076: R Finger02
+    400078: R Finger1
+    400080: R Finger11
+    400082: R Finger12
+    400084: R Finger2
+    400086: R Finger21
+    400088: R Finger22
+    400090: R Finger3
+    400092: R Finger31
+    400094: R Finger32
+    400096: R Finger4
+    400098: R Finger41
+    400100: R Finger42
+    400102: R Foot
+    400104: R Forearm
+    400106: R ForeTwist
+    400108: R ForeTwist1
+    400110: R Hand
+    400112: R Thigh
+    400114: R Toe0
+    400116: R UpperArm
+    400118: RThighTwist
+    400120: RThighTwist1
+    400122: RUpArmTwist
+    400124: RUpArmTwist1
+    400126: Spine
+    400128: Spine1
+    400130: Spine2
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 126
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bip
+        weight: 1
+      - path: Bip/Pelvis
+        weight: 1
+      - path: Bip/Pelvis/Spine
+        weight: 1
+      - path: Bip/Pelvis/Spine/L Thigh
+        weight: 1
+      - path: Bip/Pelvis/Spine/LThighTwist
+        weight: 1
+      - path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1
+        weight: 1
+      - path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1/L Calf
+        weight: 1
+      - path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1/L Calf/L Foot
+        weight: 1
+      - path: Bip/Pelvis/Spine/LThighTwist/LThighTwist1/L Calf/L Foot/L Toe0
+        weight: 1
+      - path: Bip/Pelvis/Spine/R Thigh
+        weight: 1
+      - path: Bip/Pelvis/Spine/RThighTwist
+        weight: 1
+      - path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1
+        weight: 1
+      - path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1/R Calf
+        weight: 1
+      - path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1/R Calf/R Foot
+        weight: 1
+      - path: Bip/Pelvis/Spine/RThighTwist/RThighTwist1/R Calf/R Foot/R Toe0
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/Head
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/L UpperArm
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/L UpperArm/L Forearm
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger0
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger0/L Finger01
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger0/L Finger01/L Finger02
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger1
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger1/L Finger11
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger1/L Finger11/L Finger12
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger2
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger2/L Finger21
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger2/L Finger21/L Finger22
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger3
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger3/L Finger31
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger3/L Finger31/L Finger32
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger4
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger4/L Finger41
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/L Clavicle/LUpArmTwist/LUpArmTwist1/L
+          ForeTwist/L ForeTwist1/L Hand/L Finger4/L Finger41/L Finger42
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/R UpperArm
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/R UpperArm/R Forearm
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger0
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger0/R Finger01
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger0/R Finger01/R Finger02
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger1
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger1/R Finger11
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger1/R Finger11/R Finger12
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger2
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger2/R Finger21
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger2/R Finger21/R Finger22
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger3
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger3/R Finger31
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger3/R Finger31/R Finger32
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger4
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger4/R Finger41
+        weight: 1
+      - path: Bip/Pelvis/Spine/Spine1/Spine2/Neck/R Clavicle/RUpArmTwist/RUpArmTwist1/R
+          ForeTwist/R ForeTwist1/R Hand/R Finger4/R Finger41/R Finger42
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
