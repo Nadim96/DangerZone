@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 9fe7e8bc1e074814681fd37ab528dc07
+timeCreated: 1513199150
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - sparkFX: {fileID: 1173774409914826, guid: 65a7f173ae6afa54fabac654038e15e5, type: 2}
+  - L_armLimb: {fileID: 1071632638382588, guid: 8077f98c71e54bd41b8d718c87ba7854,
+      type: 2}
+  - R_armLimb: {fileID: 1121290664713888, guid: e556729f9c506004ea38d1b72937cdb0,
+      type: 2}
+  - L_legLimb: {fileID: 1307014014823184, guid: 76b66be8e49752d4c95028083c6ea44f,
+      type: 2}
+  - R_legLimb: {fileID: 1315791192146052, guid: b26c3a3a3cc007c42ab6764a362d9751,
+      type: 2}
+  - _headLimb: {fileID: 1167678978857382, guid: d786322ccc7cdde489cc9f2603356e3e,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
