@@ -21,7 +21,7 @@ namespace Assets.Scripts.Audio
         public static bool IsLoaded;
         private static Dictionary<AudioCategory, List<AudioClip>> AudioDictionary;
 
-        private void Awake()
+        void Awake()
         {
             if (!IsLoaded) LoadAudio();
         }
@@ -105,7 +105,6 @@ namespace Assets.Scripts.Audio
         public static void PlayAudio(GameObject obj, AudioCategory type, float volume = 1.0f, bool loop = false)
         {
             AudioSource source = obj.GetComponent<AudioSource>();
-
             if (source == null)
             {
                 // Create AudioSource if necessary and set default values.

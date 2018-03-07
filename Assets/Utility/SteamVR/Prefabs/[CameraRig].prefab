@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.047, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 413432}
@@ -192,12 +192,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.35, y: -7.19955e-18, z: -11.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 458974}
   - {fileID: 402434}
   - {fileID: 408470}
+  - {fileID: 4296022595491382}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -536,6 +537,22 @@ GameObject:
   - component: {fileID: 199050981177037154}
   m_Layer: 0
   m_Name: Glow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1124744255158804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4296022595491382}
+  - component: {fileID: 114115942509318622}
+  m_Layer: 0
+  m_Name: BulletCasePool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1375,6 +1392,19 @@ Transform:
   m_Father: {fileID: 4089653691900056}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4296022595491382
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1124744255158804}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 420908}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4323497695203020
 Transform:
   m_ObjectHideFlags: 1
@@ -2024,6 +2054,20 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114115942509318622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1124744255158804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9def87c6577eab444b2b39016cfa16d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Object: {fileID: 1942551344619302, guid: 5ecea9de972e8e34380ca1d62dc379b3, type: 2}
+  CanGrow: 1
+  PoolSize: 10
 --- !u!114 &114140014071516150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2091,13 +2135,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40f4b5360cfebf48832a636ffacdba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 50
+  _minDamage: 25
+  _maxDamage: 25
   ImpactForce: 2000
   RaycastObject: {fileID: 1542730451889522}
   MuzzleFlash: {fileID: 198454173901347008}
   MuzzleFlashLight: {fileID: 108292405440111366}
-  BulletCasing: {fileID: 1942551344619302, guid: 5ecea9de972e8e34380ca1d62dc379b3,
-    type: 2}
   BulletCasingSpawnLocation: {fileID: 1361337864727212}
   SmokePuff: {fileID: 198344623764706080}
   BloodOnHit: {fileID: 198146296074399244, guid: daee700df95e38d41a1302c7f1da1354,
@@ -2108,6 +2151,7 @@ MonoBehaviour:
     type: 2}
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
+  casingPool: {fileID: 114115942509318622}
   _maxRoundsMag: 1500
   _lineOfFireWarning: {fileID: 0}
   _explosion: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b,
@@ -2134,7 +2178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38c7b40dd3ef4640a0492ac3ebc9276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserThickness: 0.004
 --- !u!114 &114587764671059616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2165,13 +2208,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40f4b5360cfebf48832a636ffacdba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 50
+  _minDamage: 25
+  _maxDamage: 25
   ImpactForce: 2000
   RaycastObject: {fileID: 1209403635463882}
   MuzzleFlash: {fileID: 198637732924519612}
   MuzzleFlashLight: {fileID: 108247367288355404}
-  BulletCasing: {fileID: 1942551344619302, guid: 5ecea9de972e8e34380ca1d62dc379b3,
-    type: 2}
   BulletCasingSpawnLocation: {fileID: 1418399178223696}
   SmokePuff: {fileID: 198702009071103432}
   BloodOnHit: {fileID: 198146296074399244, guid: daee700df95e38d41a1302c7f1da1354,
@@ -2182,6 +2224,7 @@ MonoBehaviour:
     type: 2}
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
+  casingPool: {fileID: 114115942509318622}
   _maxRoundsMag: 1500
   _lineOfFireWarning: {fileID: 0}
   _explosion: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b,
@@ -2247,7 +2290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e38c7b40dd3ef4640a0492ac3ebc9276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserThickness: 0.004
 --- !u!114 &114974171684372414
 MonoBehaviour:
   m_ObjectHideFlags: 1

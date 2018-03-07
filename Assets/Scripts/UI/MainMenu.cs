@@ -13,7 +13,7 @@ namespace Assets.Scripts.UI
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const string PLEIN_SCENE_NAME = "Plein";
+        private const string PLEIN_SCENE_NAME = "Street";
         private const string SCENARIO_SCENE_NAME = "Bunker";
         private const string DOOR_SCENE_NAME = "GenerateRoomTest";
 
@@ -76,7 +76,6 @@ namespace Assets.Scripts.UI
             ScenarioSettings.IsRandomScenario = true;
             StartCoroutine(LoadSceneCoroutine(SceneToLoad.Door, delay));
         }
-
 
         private static IEnumerator LoadSceneCoroutine(SceneToLoad scene, float delay)
         {
