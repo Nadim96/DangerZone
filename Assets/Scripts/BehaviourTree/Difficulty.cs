@@ -10,6 +10,7 @@
         Door,
         Easy,
         Medium,
-        Hard
+        Hard,
+         
     }
 }

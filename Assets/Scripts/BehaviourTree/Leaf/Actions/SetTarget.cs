@@ -75,6 +75,8 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
             }
 
             GameObject target = _selectPointAlgorithm(_pointType, DataModel.Npc.transform.position);
+
+          
             if (target != null)
             {
                 DataModel.Target = target;

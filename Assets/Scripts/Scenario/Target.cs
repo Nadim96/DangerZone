@@ -21,6 +21,14 @@ namespace Assets.Scripts.Scenario
                     Waypoints[0].Position = value;
             }
         }
+
+        public Quaternion Rotation
+        {
+            get { return Waypoints[0].transform.rotation; }
+            set {
+                Waypoints[0].transform.rotation = value;
+            }
+        }
         public abstract bool IsAlive { get; }
         public bool IsHostile { get; set; }
         public ItemType ItemType { get; set; }
@@ -32,7 +40,7 @@ namespace Assets.Scripts.Scenario
             Waypoints = new List<Waypoint>();
         }
 
-        public abstract void Spawn(Transform prefab);
+        public abstract Transform Spawn(Transform prefab);
 
         public abstract void Destroy();
     }

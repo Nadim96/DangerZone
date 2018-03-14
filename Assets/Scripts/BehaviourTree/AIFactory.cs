@@ -54,7 +54,21 @@ namespace Assets.Scripts.BehaviourTree
 
         private static BT CreateNoneBT(DataModel d)
         {
-            return new BT(new Sequence { });
+            return new BT(
+                new Sequence
+                {
+                    new While(
+                        new Sequence
+                        {
+                            new IsHostile(d),
+                        },
+                        new Sequence
+                        {
+                            new EquipRandomWeapon(d),
+                            new Wait(3f)
+                        })
+                });
+
         }
 
         private static BT CreatePleinBT(DataModel d)
@@ -140,7 +154,7 @@ namespace Assets.Scripts.BehaviourTree
                             new IsHostile(d),
                             new CanAttack(d)
                         })
-                                              
+
                     },
                     new RandomSelector
                     {

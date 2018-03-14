@@ -32,6 +32,8 @@ namespace Assets.Scripts.Scenario
 
             LoadScenario(ScenarioToLoad);
         }
+        public void Create()
+        { }
 
         private void LoadScenario(string path)
         {

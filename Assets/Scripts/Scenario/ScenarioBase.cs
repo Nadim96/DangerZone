@@ -16,7 +16,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// List of prefabs of NPC's that can be spawned.
         /// </summary>
-        [SerializeField] private List<Transform> PersonTargetPrefabs;
+        [SerializeField] protected List<Transform> PersonTargetPrefabs;
 
         /// <summary>
         /// The prefab of the paper target. 
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// The prefab of the dummy target. 
         /// </summary>
-        [SerializeField] private Transform DummyTargetPrefab;
+        [SerializeField] protected Transform DummyTargetPrefab;
 
         /// <summary>
         /// The prefab of a waypoint. Load script uses this prefab 
@@ -111,6 +111,11 @@ namespace Assets.Scripts.Scenario
             LoadStyle.Load();
         }
 
+        protected virtual void Create()
+        {
+            LoadStyle.Create();
+        }
+
         protected virtual void Start()
         {
 #if UNITY_EDITOR
@@ -171,8 +176,8 @@ namespace Assets.Scripts.Scenario
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
                 Stop();
-
             Load();
+            Create();
             Spawn();
             ScenarioStartedTime = Time.time;
             Started = true;
@@ -246,7 +251,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// Instantiate all targets in the game world using their respective prefabs.
         /// </summary>
-        private void Spawn()
+        protected void Spawn()
         {
             foreach (var target in Targets)
             {
@@ -310,7 +315,7 @@ namespace Assets.Scripts.Scenario
         /// Returns a random NPC from the spawnable NPC list.
         /// </summary>
         /// <returns></returns>
-        private Transform GetRandomNpc()
+        protected Transform GetRandomNpc()
         {
             if (PersonTargetPrefabs.Count == 0)
                 throw new Exception("Unable to return random NPC. Please ensure the NPC list field is filled.");

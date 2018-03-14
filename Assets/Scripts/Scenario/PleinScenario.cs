@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.BehaviourTree;
-
+using UnityEngine;
 namespace Assets.Scripts.Scenario
 {
     public class PleinScenario : ScenarioBase
@@ -7,8 +7,8 @@ namespace Assets.Scripts.Scenario
         protected override void Load()
         {
             base.Load();
-            LoadStyle.SetDifficulty(Difficulty.Plein);
-
+            LoadStyle.SetDifficulty(Difficulty.Easy);
+         
             LoadRandom random = (LoadRandom) LoadStyle;
             random.Plein = true;
         }

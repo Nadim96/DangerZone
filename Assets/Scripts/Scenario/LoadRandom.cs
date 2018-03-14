@@ -44,9 +44,15 @@ namespace Assets.Scripts.Scenario
             scenario.GoalType = ScenarioSettings.GoalType;
             scenario.name = GetName();
 
+           
+
+           
+        }
+
+        public void Create()
+        {
             int enemies = RNG.Next(ScenarioSettings.MinEnemies, ScenarioSettings.MaxEnemies + 1);
             int friendlies = RNG.Next(ScenarioSettings.MinFriendlies, ScenarioSettings.MaxFriendlies + 1);
-
             for (int i = 0; i < enemies; i++)
                 CreateRandomTarget(true);
 
@@ -74,6 +80,8 @@ namespace Assets.Scripts.Scenario
             target.ItemType = isHostile ? GetItem() : ItemType.None;
             target.Difficulty = difficulty;
             target.IsHostile = isHostile;
+
+       
 
             List<Vector3> waypoints = GetWaypoints();
 
@@ -233,6 +241,7 @@ namespace Assets.Scripts.Scenario
         /// <param name="difficulty"></param>
         public void SetDifficulty(Difficulty difficulty)
         {
+         
             this.difficulty = difficulty;
         }
     }

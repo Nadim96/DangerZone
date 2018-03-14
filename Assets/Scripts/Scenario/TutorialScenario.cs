@@ -1,14 +1,25 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Assets.Scripts.BehaviourTree;
+using Assets.Scripts.NPCs;
+using Assets.Scripts.Utility;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using Assets.Scripts.BehaviourTree;
+using System;
+using UnityEngine;
+using System.Collections.Generic;
+using Assets.Scripts.BehaviourTree;
+using Assets.Scripts.Items;
+using Assets.Scripts.Settings;
+using Assets.Scripts.Utility;
+using UnityEngine.AI;
 namespace Assets.Scripts.Scenario
 {
     public class TutorialScenario : ScenarioBase
     {
+        private Difficulty difficulty = Difficulty.None;
         public Transform[] NPCSpawnPoints;
 
         private enum Stage
@@ -26,7 +37,8 @@ namespace Assets.Scripts.Scenario
         protected override void Load()
         {
             base.Load();
-            LoadStyle.SetDifficulty(Difficulty.Plein);
+            LoadStyle.SetDifficulty(difficulty);
+           
 
             LoadRandom random = (LoadRandom)LoadStyle;
             random.Plein = true;
@@ -39,11 +51,15 @@ namespace Assets.Scripts.Scenario
 
         protected override void Update()
         {
-            Debug.Log(CurrentStage);
 
+            Debug.Log(CurrentStage);
             if (!Started)
             {
-                CurrentStage++;
+                
+                if (CurrentStage != Stage.Practise)
+                {
+                    CurrentStage++;
+                }
                 StartStage(CurrentStage);
             } else
             {
@@ -52,7 +68,7 @@ namespace Assets.Scripts.Scenario
 
             if (StageEnded())
             {
-
+                Started = false;
             }
 
 
@@ -70,6 +86,8 @@ namespace Assets.Scripts.Scenario
             switch (stage)
             {
                 case Stage.ShowSuspect:
+                    SpawnNPC(true, DummyTargetPrefab, NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
+              
                     break;
                 case Stage.ShowCivilian:
                     break;
@@ -81,17 +99,30 @@ namespace Assets.Scripts.Scenario
                     break;
 
             }
+            Started = true;
         }
 
         private void UpdateStage(Stage stage)
         {
+            
+        }
 
+        private void SpawnNPC(bool hostile, Transform type, Vector3 location, Quaternion rotation)
+        {
+            TargetNpc t = new TargetNpc();
+            t.Difficulty = difficulty;
+            t.IsHostile = hostile;
+         
+            t.Position = location;
+            
+            Targets.Add(t);
+            Transform trans = t.Spawn(type);
+            trans.rotation = rotation;
         }
 
         private bool StageEnded()
         {
-
-            return false;
+            return Started && NPC.HostileNpcs.Count == 0;
         }
     }
 }

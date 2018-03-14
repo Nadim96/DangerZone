@@ -17,7 +17,7 @@ namespace Assets.Scripts.Scenario
             get { return _npc == null || _npc.IsAlive; }
         }
 
-        public override void Spawn(Transform prefab)
+        public override Transform Spawn(Transform prefab)
         {
             Transform npcTransform = Object.Instantiate(prefab, Position, Quaternion.identity);
             _npc = npcTransform.GetComponent<NPC>();
@@ -35,6 +35,8 @@ namespace Assets.Scripts.Scenario
             _npc.Difficulty = Difficulty;
 
             _npc.IsHostile = IsHostile;
+
+            return npcTransform;
         }
 
         public override void Destroy()
