@@ -5,6 +5,7 @@
     /// </summary>
     public enum Difficulty
     {
+        None,
         Plein,
         Door,
         Easy,

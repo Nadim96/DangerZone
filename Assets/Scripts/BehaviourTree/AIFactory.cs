@@ -34,6 +34,8 @@ namespace Assets.Scripts.BehaviourTree
         {
             switch (difficulty)
             {
+                case Difficulty.None:
+                    return CreateNoneBT(dataModel);
                 case Difficulty.Plein:
                     return CreatePleinBT(dataModel);
                 case Difficulty.Easy:
@@ -48,6 +50,11 @@ namespace Assets.Scripts.BehaviourTree
                     throw new ArgumentOutOfRangeException(
                         "difficulty", difficulty, "Unsupported difficulty level. Cannot create BT.");
             }
+        }
+
+        private static BT CreateNoneBT(DataModel d)
+        {
+            return new BT(new Sequence { });
         }
 
         private static BT CreatePleinBT(DataModel d)
