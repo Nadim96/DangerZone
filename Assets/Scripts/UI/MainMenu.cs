@@ -54,7 +54,11 @@ namespace Assets.Scripts.UI
             #endregion
 
         }
-
+        /// <summary>
+        /// Funciton to translate the string to a scene
+        /// </summary>
+        /// <param name="myString"></param>
+        /// <returns></returns>
         private SceneToLoad stringToScene(string myString)
         { 
             SceneToLoad returnScene = SceneToLoad.None;
@@ -81,52 +85,19 @@ namespace Assets.Scripts.UI
             return returnScene;
         }
 
+        /// <summary>
+        /// Loads a level
+        /// </summary>
+        /// <param name="level"></param>
         public void LoadLevel(string level)
         {
             ScenarioSettings.IsRandomScenario = (level == SceneToLoad.Door.ToString());
             StartCoroutine(LoadSceneCoroutine(stringToScene(level)));
         }
-        /* public void LoadPlein(float delay)
-        {
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Plein, delay));
-        }
-
-        public void LoadScenario(float delay)
-        {
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Bunker, delay));
-        }
-
-       public void LoadRandom(float delay)
-        {
-            ScenarioSettings.IsRandomScenario = true;
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Scenario, delay));
-         }
-       
-        public void LoadDoor(float delay)
-        {
-            ScenarioSettings.IsRandomScenario = true;
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Door, delay));
-        }
-        */
+    
         private static IEnumerator LoadSceneCoroutine(SceneToLoad scene)
         {
-            /*string sceneName;
-            switch (scene)
-            {
-                case SceneToLoad.Plein:
-                    sceneName = PLEIN_SCENE_NAME;
-                    break;
-                case SceneToLoad.Bunker:
-                    sceneName = SCENARIO_SCENE_NAME;
-                    break;
-                case SceneToLoad.Door:
-                    sceneName = DOOR_SCENE_NAME;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("scene", scene, null);
-            }
-            */
-            yield return new WaitForSeconds(1);
+          yield return new WaitForSeconds(1);
 
             var task = SceneManager.LoadSceneAsync(scene.ToString());
 
