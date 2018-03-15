@@ -13,10 +13,6 @@ namespace Assets.Scripts.UI
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const string PLEIN_SCENE_NAME = "Street";
-        private const string SCENARIO_SCENE_NAME = "Bunker";
-        private const string DOOR_SCENE_NAME = "GenerateRoomTest";
-
         void Awake()
         {
             AudioController.LoadAudio();
@@ -25,8 +21,11 @@ namespace Assets.Scripts.UI
         public enum SceneToLoad
         {
             Plein,
-            Scenario,
-            Door
+            Bunker,
+            Door,
+            Street,
+            StreetTutorial,
+            None
         }
 
         private readonly KeyCode[] _konamiCode = {
@@ -55,37 +54,69 @@ namespace Assets.Scripts.UI
             #endregion
 
         }
-        public void LoadPlein(float delay)
+
+        private SceneToLoad stringToScene(string myString)
+        { 
+            SceneToLoad returnScene = SceneToLoad.None;
+
+            switch (myString)
+            {
+                case "Plein":
+                    returnScene = SceneToLoad.Plein;
+                    break;
+                case "Bunker":
+                    returnScene = SceneToLoad.Bunker;
+                    break;
+                case "Door":
+                    returnScene = SceneToLoad.Door;
+                    break;
+                case "Street":
+                    returnScene = SceneToLoad.Street;
+                    break;
+                case "StreetTutorial":
+                    returnScene = SceneToLoad.StreetTutorial;
+                    break;
+             }
+
+            return returnScene;
+        }
+
+        public void LoadLevel(string level)
+        {
+            ScenarioSettings.IsRandomScenario = (level == SceneToLoad.Door.ToString());
+            StartCoroutine(LoadSceneCoroutine(stringToScene(level)));
+        }
+        /* public void LoadPlein(float delay)
         {
             StartCoroutine(LoadSceneCoroutine(SceneToLoad.Plein, delay));
         }
 
         public void LoadScenario(float delay)
         {
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Scenario, delay));
+            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Bunker, delay));
         }
 
-        public void LoadRandom(float delay)
+       public void LoadRandom(float delay)
         {
             ScenarioSettings.IsRandomScenario = true;
             StartCoroutine(LoadSceneCoroutine(SceneToLoad.Scenario, delay));
-        }
-
+         }
+       
         public void LoadDoor(float delay)
         {
             ScenarioSettings.IsRandomScenario = true;
             StartCoroutine(LoadSceneCoroutine(SceneToLoad.Door, delay));
         }
-
-        private static IEnumerator LoadSceneCoroutine(SceneToLoad scene, float delay)
+        */
+        private static IEnumerator LoadSceneCoroutine(SceneToLoad scene)
         {
-            string sceneName;
+            /*string sceneName;
             switch (scene)
             {
                 case SceneToLoad.Plein:
                     sceneName = PLEIN_SCENE_NAME;
                     break;
-                case SceneToLoad.Scenario:
+                case SceneToLoad.Bunker:
                     sceneName = SCENARIO_SCENE_NAME;
                     break;
                 case SceneToLoad.Door:
@@ -94,10 +125,10 @@ namespace Assets.Scripts.UI
                 default:
                     throw new ArgumentOutOfRangeException("scene", scene, null);
             }
+            */
+            yield return new WaitForSeconds(1);
 
-            yield return new WaitForSeconds(delay);
-
-            var task = SceneManager.LoadSceneAsync(sceneName);
+            var task = SceneManager.LoadSceneAsync(scene.ToString());
 
             while (!task.isDone)
             {

@@ -115,7 +115,7 @@ namespace Assets.Scripts.UI
                 throw new NullReferenceException(
                     "ScenarioListView has no reference to the MainMenu script.");
             }
-            _mainMenu.LoadScenario(PLAY_CLICK_LOAD_DELAY);
+            _mainMenu.LoadLevel("Bunker");
         }
 
         /// <summary>
