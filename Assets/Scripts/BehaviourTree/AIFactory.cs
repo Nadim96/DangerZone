@@ -62,11 +62,15 @@ namespace Assets.Scripts.BehaviourTree
                         {
                             new IsHostile(d),
                         },
-                        new Sequence
-                        {
-                            new EquipRandomWeapon(d),
-                            new Wait(3f)
-                        })
+                        new Selector{
+                             new IsWeaponEquipped(d),
+                                new Sequence
+                                {
+                                    new EquipRandomWeapon(d),
+                                    new Wait(3f)
+                                }
+                        }
+                      )
                 });
 
         }

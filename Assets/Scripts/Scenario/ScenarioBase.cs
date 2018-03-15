@@ -175,7 +175,9 @@ namespace Assets.Scripts.Scenario
         {
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
+            {
                 Stop();
+            }
             Load();
             Create();
             Spawn();

@@ -2,26 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.NPCs;
-using Assets.Scripts.Utility;
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Assets.Scripts.BehaviourTree;
-using System;
-using UnityEngine;
-using System.Collections.Generic;
-using Assets.Scripts.BehaviourTree;
-using Assets.Scripts.Items;
-using Assets.Scripts.Settings;
-using Assets.Scripts.Utility;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
+
+using Assets.Scripts.NPCs;
+using Assets.Scripts.Items;
+using Assets.Scripts.Utility;
+using Assets.Scripts.Settings;
+using Assets.Scripts.BehaviourTree;
+
 namespace Assets.Scripts.Scenario
 {
     public class TutorialScenario : ScenarioBase
     {
-        private Difficulty difficulty = Difficulty.None;
-        public Transform[] NPCSpawnPoints;
-
         private enum Stage
         {
             None,
@@ -33,11 +28,19 @@ namespace Assets.Scripts.Scenario
         }
 
         private Stage CurrentStage = Stage.None;
+        private Difficulty difficulty = Difficulty.None;
+
+        private const float COOLDOWN = 1;
+        private float AfterStageCoolDown;
+
+        public Transform[] NPCSpawnPoints;
+        public Transform CoverPosition;
+        public Transform CameraRig;
 
         protected override void Load()
         {
             base.Load();
-            LoadStyle.SetDifficulty(difficulty);
+            SetDifficulty(Difficulty.None);
            
 
             LoadRandom random = (LoadRandom)LoadStyle;
@@ -51,11 +54,10 @@ namespace Assets.Scripts.Scenario
 
         protected override void Update()
         {
-
+            AfterStageCoolDown -= Time.deltaTime;
             Debug.Log(CurrentStage);
-            if (!Started)
+            if (CanStartStage())
             {
-                
                 if (CurrentStage != Stage.Practise)
                 {
                     CurrentStage++;
@@ -68,10 +70,8 @@ namespace Assets.Scripts.Scenario
 
             if (StageEnded())
             {
-                Started = false;
+                EndStage(CurrentStage);
             }
-
-
         }
 
         public override void Stop()
@@ -82,18 +82,34 @@ namespace Assets.Scripts.Scenario
 
         private void StartStage(Stage stage)
         {
-
+            Scenario.GameOver.instance.HideEndScreen();
             switch (stage)
             {
                 case Stage.ShowSuspect:
                     SpawnNPC(true, DummyTargetPrefab, NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-              
                     break;
                 case Stage.ShowCivilian:
+                    SpawnNPC(true, DummyTargetPrefab, NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[1].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[2].rotation);
                     break;
                 case Stage.MultipleSuspects:
+                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[1].rotation);
+                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[1].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[2].rotation);
                     break;
                 case Stage.Cover:
+                    CameraRig.position = CoverPosition.position;
+                    SetDifficulty(Difficulty.Plein);
+                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
                     break;
                 case Stage.Practise:
                     break;
@@ -107,12 +123,49 @@ namespace Assets.Scripts.Scenario
             
         }
 
+        private void EndStage(Stage stage)
+        {
+            Started = false;
+            foreach (Target t in Targets)
+            {
+                t.Destroy();
+            }
+            Targets.Clear();
+
+            switch (stage)
+            {
+                case Stage.ShowSuspect:
+                    Scenario.GameOver.instance.SetEndscreen(true);
+                    break;
+                case Stage.ShowCivilian:
+                    Scenario.GameOver.instance.SetEndscreen(true);
+                    break;
+                case Stage.MultipleSuspects:
+                    Scenario.GameOver.instance.SetEndscreen(true);
+                    break;
+                case Stage.Cover:
+                    Scenario.GameOver.instance.SetEndscreen(true);
+                    break;
+                case Stage.Practise:
+                    Scenario.GameOver.instance.SetEndscreen(true);
+                    break;
+
+            }
+            StartAfterRoundCooldown();
+
+
+        }
+
+        private void StartAfterRoundCooldown()
+        {
+            this.AfterStageCoolDown = COOLDOWN;
+        }
+
         private void SpawnNPC(bool hostile, Transform type, Vector3 location, Quaternion rotation)
         {
             TargetNpc t = new TargetNpc();
             t.Difficulty = difficulty;
             t.IsHostile = hostile;
-         
             t.Position = location;
             
             Targets.Add(t);
@@ -120,9 +173,20 @@ namespace Assets.Scripts.Scenario
             trans.rotation = rotation;
         }
 
+        private void SetDifficulty(Difficulty difficulty)
+        {
+            this.difficulty = difficulty;
+            LoadStyle.SetDifficulty(difficulty);
+        }
+
         private bool StageEnded()
         {
             return Started && NPC.HostileNpcs.Count == 0;
+        }
+
+        private bool CanStartStage()
+        {
+            return !Started && AfterStageCoolDown < 0;
         }
     }
 }
