@@ -303,13 +303,12 @@ namespace Assets.Scripts.Scenario
         /// <param name="position"></param>
         /// <returns></returns>
         public Waypoint CreateWaypoint(Target target, Vector3 position)
-        {
+        {        
             Transform t = Instantiate(WaypointPrefab, position, Quaternion.identity);
             Waypoint waypoint = t.GetComponent<Waypoint>();
             if (waypoint == null)
                 throw new NullReferenceException("There is no Waypoint script in the waypoint prefab!");
             waypoint.Owner = target;
-
             return waypoint;
         }
 

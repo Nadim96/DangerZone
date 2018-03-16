@@ -231,7 +231,7 @@ namespace Assets.Scripts.Scenario
                     GetRandomNavMeshPosition(ScenarioBase.Instance.PlayerCameraEye.transform.position, 5f, 20f)
                 };
             }
-         
+
             return waypoints;
         }
 

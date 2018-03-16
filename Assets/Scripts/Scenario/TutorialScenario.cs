@@ -55,7 +55,6 @@ namespace Assets.Scripts.Scenario
         protected override void Update()
         {
             AfterStageCoolDown -= Time.deltaTime;
-            Debug.Log(CurrentStage);
             if (CanStartStage())
             {
                 if (CurrentStage != Stage.Practise)
