@@ -191,12 +191,13 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// trigger gameover settings
         /// </summary>
-        public void GameOver()
+        public virtual void GameOver()
         {
             Started = false;
 
             bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
+            Debug.Log(dead);
             StartCoroutine("gameoverWait", dead);
         }
 
