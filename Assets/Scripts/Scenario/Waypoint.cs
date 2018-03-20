@@ -12,7 +12,7 @@ namespace Assets.Scripts.Scenario
         public Vector3 Position
         {
             get { return transform.position; }
-            set { transform.position = value; }
+            set{transform.position = value;}         
         }
         
     }
