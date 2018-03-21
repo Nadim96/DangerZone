@@ -5,6 +5,7 @@ using System.Linq;
 
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 using Assets.Scripts.NPCs;
@@ -36,6 +37,8 @@ namespace Assets.Scripts.Scenario
         public Transform[] NPCSpawnPoints;
         public Transform CoverPosition;
         public Transform CameraRig;
+        public GameObject UIRoot;
+        public Button StartButton;
 
         protected override void Load()
         {
@@ -53,8 +56,9 @@ namespace Assets.Scripts.Scenario
         }
 
         protected override void Update()
-        {
+        { 
             AfterStageCoolDown -= Time.deltaTime;
+          //  Debug.Log(CurrentStage);
             if (CanStartStage())
             {
                 if (CurrentStage != Stage.Practise)
@@ -78,6 +82,13 @@ namespace Assets.Scripts.Scenario
             BehaviourTree.Leaf.Actions.CausePanic._isTriggered = false;
             base.Stop();
         }
+
+        //public override void GameOver()
+        //{
+        //    Scenario.GameOver.instance.SetEndscreen(false);
+        //    Time.timeScale = 0.0f;
+        //    UIRoot.SetActive(true);
+        //}
 
         private void StartStage(Stage stage)
         {
