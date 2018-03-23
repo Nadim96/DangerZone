@@ -21,60 +21,105 @@ namespace Assets.Scripts.Scenario
         private enum Stage
         {
             None,
-            ShowSuspect,
-            ShowCivilian,
-            MultipleSuspects,
+            ShowPeople,
             Cover,
             Practise
         }
 
         private Stage CurrentStage = Stage.None;
-        private Difficulty difficulty = Difficulty.None;
+        private Difficulty difficulty = Difficulty.Plein;
 
         private const float COOLDOWN = 1;
         private float AfterStageCoolDown;
 
         public Transform[] NPCSpawnPoints;
-        public Transform CoverPosition;
-        public Transform CameraRig;
         public GameObject UIRoot;
-        public Button StartButton;
+
+        public Text IngameMenuText;
+        public String GameOverMessage;
+        public String[] MenuMessages;
+        private int MenuMessageIndex = 0;
 
         protected override void Load()
         {
+            SetDifficulty(Difficulty.Plein);
             base.Load();
-            SetDifficulty(Difficulty.None);
-           
 
-            LoadRandom random = (LoadRandom)LoadStyle;
-            random.Plein = true;
         }
 
         protected override void Start()
         {
             base.Start();
+            IngameMenuText.text = MenuMessages[MenuMessageIndex++];
         }
 
         protected override void Update()
-        { 
+        {
             AfterStageCoolDown -= Time.deltaTime;
-          //  Debug.Log(CurrentStage);
-            if (CanStartStage())
-            {
-                if (CurrentStage != Stage.Practise)
-                {
-                    CurrentStage++;
-                }
-                StartStage(CurrentStage);
-            } else
+
+            if (!CanStartStage())
             {
                 UpdateStage(CurrentStage);
+            }
+            else
+            {
+                SetMenuEnabled(true);
             }
 
             if (StageEnded())
             {
                 EndStage(CurrentStage);
             }
+
+            if (Started && !AttackTriggered)
+            {
+                if (Time.time > ScenarioStartedTime + timeBeforeAttack)
+                {
+                    AttackTriggered = true;
+                }
+            }
+
+            if (EnableIngameMenu && Time.time > ScenarioStartedTime + 2) //always enable after 2 second
+            {
+                IngameUI.SetActive(true);
+                EnableIngameMenu = false;
+            }
+        }
+
+        public override void Play()
+        {
+            foreach (Target t in Targets)
+            {
+                t.Destroy();
+            }
+            Targets.Clear();
+
+            if (CurrentStage != Stage.Practise)
+            {
+                CurrentStage++;
+            }
+
+            StartStage(CurrentStage);
+            Started = true;
+            SetMenuEnabled(false);
+            AttackTriggered = false;
+            PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
+
+            if (MenuMessageIndex < MenuMessages.Count())
+            {
+                IngameMenuText.text = MenuMessages[MenuMessageIndex++];
+            }
+
+            Time.timeScale = 1f;
+            ScenarioStartedTime = Time.time;
+            timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+        }
+
+
+        public void SetMenuEnabled(bool enabled)
+        {
+            EnableIngameMenu = enabled;
+            IngameUI.SetActive(enabled);
         }
 
         public override void Stop()
@@ -83,78 +128,70 @@ namespace Assets.Scripts.Scenario
             base.Stop();
         }
 
-        //public override void GameOver()
-        //{
-        //    Scenario.GameOver.instance.SetEndscreen(false);
-        //    Time.timeScale = 0.0f;
-        //    UIRoot.SetActive(true);
-        //}
+        public override void GameOver()
+        {
+            Scenario.GameOver.instance.SetEndscreen(false);
+            Time.timeScale = 0.0f;
+            UIRoot.SetActive(true);
+
+            EndStage(CurrentStage);
+            if (CurrentStage > 0)
+            {
+                CurrentStage--;
+                MenuMessageIndex--;
+            }
+            IngameMenuText.text = GameOverMessage;
+            SetMenuEnabled(true);
+        }
 
         private void StartStage(Stage stage)
         {
             Scenario.GameOver.instance.HideEndScreen();
             switch (stage)
             {
-                case Stage.ShowSuspect:
-                    SpawnNPC(true, DummyTargetPrefab, NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    break;
-                case Stage.ShowCivilian:
-                    SpawnNPC(true, DummyTargetPrefab, NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[2].rotation);
-                    break;
-                case Stage.MultipleSuspects:
+                case Stage.ShowPeople:
                     SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
-                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[2].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
                     break;
                 case Stage.Cover:
-                    CameraRig.position = CoverPosition.position;
-                    SetDifficulty(Difficulty.Plein);
                     SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[5].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[6].rotation);
                     break;
                 case Stage.Practise:
                     break;
 
             }
-            Started = true;
+
         }
 
         private void UpdateStage(Stage stage)
         {
-            
+
         }
 
         private void EndStage(Stage stage)
         {
             Started = false;
-            foreach (Target t in Targets)
-            {
-                t.Destroy();
-            }
-            Targets.Clear();
+            Time.timeScale = 0f;
 
             switch (stage)
             {
-                case Stage.ShowSuspect:
-                    Scenario.GameOver.instance.SetEndscreen(true);
-                    break;
-                case Stage.ShowCivilian:
-                    Scenario.GameOver.instance.SetEndscreen(true);
-                    break;
-                case Stage.MultipleSuspects:
+                case Stage.ShowPeople:
                     Scenario.GameOver.instance.SetEndscreen(true);
                     break;
                 case Stage.Cover:
-                    Scenario.GameOver.instance.SetEndscreen(true);
+                    if (PlayerCameraEye.GetComponent<Player.Player>().Health == 0)
+                    {
+                        Scenario.GameOver.instance.SetEndscreen(true);
+                    }
                     break;
                 case Stage.Practise:
                     Scenario.GameOver.instance.SetEndscreen(true);
@@ -162,8 +199,6 @@ namespace Assets.Scripts.Scenario
 
             }
             StartAfterRoundCooldown();
-
-
         }
 
         private void StartAfterRoundCooldown()
@@ -177,16 +212,17 @@ namespace Assets.Scripts.Scenario
             t.Difficulty = difficulty;
             t.IsHostile = hostile;
             t.Position = location;
-            
+            t.ItemType = ItemType.P99;
+
             Targets.Add(t);
             Transform trans = t.Spawn(type);
             trans.rotation = rotation;
         }
 
-        private void SetDifficulty(Difficulty difficulty)
+        private void SetDifficulty(Difficulty d)
         {
-            this.difficulty = difficulty;
-            LoadStyle.SetDifficulty(difficulty);
+            this.difficulty = d;
+            LoadStyle.SetDifficulty(d);
         }
 
         private bool StageEnded()
