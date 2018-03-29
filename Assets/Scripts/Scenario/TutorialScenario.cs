@@ -18,6 +18,9 @@ namespace Assets.Scripts.Scenario
 {
     public class TutorialScenario : ScenarioBase
     {
+        /// <summary>
+        /// The stages that are in the tutorial
+        /// </summary>
         private enum Stage
         {
             None,
@@ -26,6 +29,9 @@ namespace Assets.Scripts.Scenario
             Practise
         }
 
+        /// <summary>
+        /// Reasons why a stage has ended
+        /// </summary>
         private enum StageEndReason
         {
             AgentDied,
@@ -33,12 +39,16 @@ namespace Assets.Scripts.Scenario
             Succes
         }
 
+        // Current stage
         private Stage CurrentStage = Stage.None;
         private Difficulty difficulty = Difficulty.Plein;
 
+        // Points for spawning of npcs
         public Transform[] NPCSpawnPoints;
+
         public GameObject UIRoot;
 
+        // Ingame menu and dialog screen
         public GameObject IngameMenu;
         public Text IngameMenuText;
         public Text IngameMenuTextDetail;
@@ -49,7 +59,6 @@ namespace Assets.Scripts.Scenario
         {
             SetDifficulty(Difficulty.Plein);
             base.Load();
-
         }
 
         protected override void Start()
@@ -62,12 +71,6 @@ namespace Assets.Scripts.Scenario
 
         protected override void Update()
         {
-          
-            if (!CanStartStage())
-            {
-                UpdateStage(CurrentStage);
-            }
-
             if (StageEnded())
             {
                 EndStage(CurrentStage, StageEndReason.Succes);
@@ -82,14 +85,19 @@ namespace Assets.Scripts.Scenario
             }
         }
 
+        /// <summary>
+        /// Gets triggered when the ingame menu's "Play" button is activated
+        /// </summary>
         public void OnMenuPlayButton()
         {
+            // If not practise stage then just play the next stage
             if (CurrentStage != Stage.Practise - 1 && CurrentStage != Stage.Practise)
             {
                 Play();
             }
             else
             {
+                //reset for the practise stage
                 Started = false;
                 ClearNPCS();
                 SetMenuEnabled(false);
@@ -98,36 +106,50 @@ namespace Assets.Scripts.Scenario
             }
         }
 
+        /// <summary>
+        /// Gets triggered when the restart button on the ground is activated and restarts the stage
+        /// </summary>
         public void OnRestartButton()
         {
             Play();
             SetMenuEnabled(false);
         }
 
+        /// <summary>
+        /// Toggles the UI on the ground
+        /// </summary>
         public override void SetIngameUIVisible()
         {
             EnableIngameMenu = true;
             IngameUI.SetActive(true);
         }
 
+        /// <summary>
+        /// Starts the next stage
+        /// </summary>
         public override void Play()
         {
+            // Increments to the next stage if not practise
             if (CurrentStage != Stage.Practise)
             {
                 CurrentStage++;
             }
 
+            // Sets the stage
             ClearNPCS();
-            StartStage(CurrentStage);
             Started = true;
+            Time.timeScale = 1f;
             SetMenuEnabled(false);
             AttackTriggered = false;
-            PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
-            Time.timeScale = 1f;
+            StartStage(CurrentStage);
             ScenarioStartedTime = Time.time;
+            PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
         }
 
+        /// <summary>
+        /// Clears all npcs of the map
+        /// </summary>
         private void ClearNPCS()
         {
             foreach (Target t in Targets)
@@ -139,19 +161,28 @@ namespace Assets.Scripts.Scenario
             NPC.HostileNpcs.Clear();
         }
 
-
+        /// <summary>
+        /// Enables or disables the ingame menu
+        /// </summary>
+        /// <param name="enabled"></param>
         public void SetMenuEnabled(bool enabled)
         {
             IngameMenu.SetActive(enabled);
             EnableIngameMenu = enabled;
         }
 
+        /// <summary>
+        /// Stops the scenario 
+        /// </summary>
         public override void Stop()
         {
             BehaviourTree.Leaf.Actions.CausePanic._isTriggered = false;
             base.Stop();
         }
 
+        /// <summary>
+        /// Triggers game over state
+        /// </summary>
         public override void GameOver()
         {
             EndStage(CurrentStage, StageEndReason.AgentDied);
@@ -161,9 +192,14 @@ namespace Assets.Scripts.Scenario
             SetMenuEnabled(true);
         }
 
+        /// <summary>
+        /// Starts a stage
+        /// </summary>
+        /// <param name="stage">the stage to be started</param>
         private void StartStage(Stage stage)
         {
             Scenario.GameOver.instance.HideEndScreen();
+            //Handles every stage
             switch (stage)
             {
                 case Stage.ShowPeople:
@@ -192,16 +228,17 @@ namespace Assets.Scripts.Scenario
            
         }
 
-        private void UpdateStage(Stage stage)
-        {
-
-        }
-
+        /// <summary>
+        /// Handles the ending of a stage
+        /// </summary>
+        /// <param name="stage">stage to be ended</param>
+        /// <param name="reason">reason why the stage ended</param>
         private void EndStage(Stage stage, StageEndReason reason)
         {
             Time.timeScale = 0f;
             Started = false;
 
+            // If the reason is that tehe agent failed reset the stage back
             if (reason == StageEndReason.AgentDied || reason == StageEndReason.CivilianDied)
             {
                 if (CurrentStage > 0)
@@ -210,6 +247,7 @@ namespace Assets.Scripts.Scenario
                 }
             }
 
+            // Handle every case
             switch (stage)
             {
                 case Stage.ShowPeople:
@@ -273,8 +311,16 @@ namespace Assets.Scripts.Scenario
             }
         }
 
+        /// <summary>
+        /// Spawn an npc
+        /// </summary>
+        /// <param name="hostile">wether the npc is hostile</param>
+        /// <param name="type">what kind of npc is to be spawned</param>
+        /// <param name="location">location of the npc</param>
+        /// <param name="rotation">rotation of the npc</param>
         private void SpawnNPC(bool hostile, Transform type, Vector3 location, Quaternion rotation)
         {
+            // Create npc
             TargetNpc t = new TargetNpc();
             t.Difficulty = difficulty;
             t.ItemType = ItemType.P99;
@@ -282,33 +328,48 @@ namespace Assets.Scripts.Scenario
             t.IsHostile = hostile;
 
             Targets.Add(t);
+
+            // Spawn npc
             Transform trans = t.Spawn(type);
+
+            // Set events
             t.NPC.OnDeath += OnNPCDeath;
             trans.rotation = rotation;
         }
 
+        /// <summary>
+        /// Event triggered when a npc dies
+        /// </summary>
+        /// <param name="npc">the npc that died</param>
+        /// <param name="hitmessage">the info about the hit</param>
         private void OnNPCDeath(NPC npc, HitMessage hitmessage)
         {
+            // Check if the npc was killed by a player and was a neutral npc
             if (!npc.IsHostile && hitmessage.IsPlayer)
             {
+                // End the current stage
                 EndStage(CurrentStage, StageEndReason.CivilianDied);
             }
         }
 
-        private void SetDifficulty(Difficulty d)
+        /// <summary>
+        /// Sets the current diffeculty
+        /// </summary>
+        /// <param name="difficulty">the difficulty</param>
+        private void SetDifficulty(Difficulty difficulty)
         {
-            this.difficulty = d;
-            LoadStyle.SetDifficulty(d);
+            this.difficulty = difficulty;
+            LoadStyle.SetDifficulty(difficulty);
         }
 
+        /// <summary>
+        /// Check to see if a stage ended
+        /// </summary>
+        /// <returns>whether the stage has ended</returns>
         private bool StageEnded()
         {
             return Started && NPC.HostileNpcs.Count == 0;
         }
 
-        private bool CanStartStage()
-        {
-            return !Started;
-        }
     }
 }
