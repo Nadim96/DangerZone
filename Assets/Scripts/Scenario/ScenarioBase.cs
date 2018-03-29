@@ -131,7 +131,7 @@ namespace Assets.Scripts.Scenario
                 Play();
         }
 
-        public void SetIngameUIVisible()
+        public virtual void SetIngameUIVisible()
         {
             EnableIngameMenu = true;
         }

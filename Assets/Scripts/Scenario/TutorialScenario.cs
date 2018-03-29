@@ -26,19 +26,24 @@ namespace Assets.Scripts.Scenario
             Practise
         }
 
+        private enum StageEndReason
+        {
+            AgentDied,
+            CivilianDied,
+            Succes
+        }
+
         private Stage CurrentStage = Stage.None;
         private Difficulty difficulty = Difficulty.Plein;
-
-        private const float COOLDOWN = 1;
-        private float AfterStageCoolDown;
 
         public Transform[] NPCSpawnPoints;
         public GameObject UIRoot;
 
+        public GameObject IngameMenu;
         public Text IngameMenuText;
-        public String GameOverMessage;
+        public Text IngameMenuTextDetail;
         public String[] MenuMessages;
-        private int MenuMessageIndex = 0;
+        public GameObject StartButton;
 
         protected override void Load()
         {
@@ -50,25 +55,22 @@ namespace Assets.Scripts.Scenario
         protected override void Start()
         {
             base.Start();
-            IngameMenuText.text = MenuMessages[MenuMessageIndex++];
+            IngameMenuText.text = MenuMessages[0];
+            IngameMenuTextDetail.text = MenuMessages[5] + '\n' + MenuMessages[6];
+            SetMenuEnabled(true);
         }
 
         protected override void Update()
         {
-            AfterStageCoolDown -= Time.deltaTime;
-
+          
             if (!CanStartStage())
             {
                 UpdateStage(CurrentStage);
             }
-            else
-            {
-                SetMenuEnabled(true);
-            }
 
             if (StageEnded())
             {
-                EndStage(CurrentStage);
+                EndStage(CurrentStage, StageEndReason.Succes);
             }
 
             if (Started && !AttackTriggered)
@@ -78,48 +80,70 @@ namespace Assets.Scripts.Scenario
                     AttackTriggered = true;
                 }
             }
+        }
 
-            if (EnableIngameMenu && Time.time > ScenarioStartedTime + 2) //always enable after 2 second
+        public void OnMenuPlayButton()
+        {
+            if (CurrentStage != Stage.Practise - 1 && CurrentStage != Stage.Practise)
             {
-                IngameUI.SetActive(true);
-                EnableIngameMenu = false;
+                Play();
+            }
+            else
+            {
+                Started = false;
+                ClearNPCS();
+                SetMenuEnabled(false);
+                Time.timeScale = 1f;
+                Scenario.GameOver.instance.HideEndScreen();
             }
         }
 
+        public void OnRestartButton()
+        {
+            Play();
+            SetMenuEnabled(false);
+        }
+
+        public override void SetIngameUIVisible()
+        {
+            EnableIngameMenu = true;
+            IngameUI.SetActive(true);
+        }
+
         public override void Play()
+        {
+            if (CurrentStage != Stage.Practise)
+            {
+                CurrentStage++;
+            }
+
+            ClearNPCS();
+            StartStage(CurrentStage);
+            Started = true;
+            SetMenuEnabled(false);
+            AttackTriggered = false;
+            PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
+            Time.timeScale = 1f;
+            ScenarioStartedTime = Time.time;
+            timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+        }
+
+        private void ClearNPCS()
         {
             foreach (Target t in Targets)
             {
                 t.Destroy();
             }
             Targets.Clear();
-
-            if (CurrentStage != Stage.Practise)
-            {
-                CurrentStage++;
-            }
-
-            StartStage(CurrentStage);
-            Started = true;
-            SetMenuEnabled(false);
-            AttackTriggered = false;
-            PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
-
-            if (MenuMessageIndex < MenuMessages.Count())
-            {
-                IngameMenuText.text = MenuMessages[MenuMessageIndex++];
-            }
-
-            Time.timeScale = 1f;
-            ScenarioStartedTime = Time.time;
-            timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+            NPC.Npcs.Clear();
+            NPC.HostileNpcs.Clear();
         }
 
 
         public void SetMenuEnabled(bool enabled)
         {
+            IngameMenu.SetActive(enabled);
             EnableIngameMenu = enabled;
-            IngameUI.SetActive(enabled);
         }
 
         public override void Stop()
@@ -130,17 +154,10 @@ namespace Assets.Scripts.Scenario
 
         public override void GameOver()
         {
+            EndStage(CurrentStage, StageEndReason.AgentDied);
             Scenario.GameOver.instance.SetEndscreen(false);
-            Time.timeScale = 0.0f;
             UIRoot.SetActive(true);
-
-            EndStage(CurrentStage);
-            if (CurrentStage > 0)
-            {
-                CurrentStage--;
-                MenuMessageIndex--;
-            }
-            IngameMenuText.text = GameOverMessage;
+            Time.timeScale = 0.0f;
             SetMenuEnabled(true);
         }
 
@@ -150,26 +167,29 @@ namespace Assets.Scripts.Scenario
             switch (stage)
             {
                 case Stage.ShowPeople:
-                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
+                    SpawnNPC(true, PersonTargetPrefabs[7], NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(false, PersonTargetPrefabs[7], NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
                     break;
                 case Stage.Cover:
                     SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
                     SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
+                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[5].rotation);
                     SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[6].rotation);
                     break;
                 case Stage.Practise:
+                    base.Load();
+                    base.Create();
+                    base.Spawn();
                     break;
 
             }
-
+           
         }
 
         private void UpdateStage(Stage stage)
@@ -177,46 +197,102 @@ namespace Assets.Scripts.Scenario
 
         }
 
-        private void EndStage(Stage stage)
+        private void EndStage(Stage stage, StageEndReason reason)
         {
-            Started = false;
             Time.timeScale = 0f;
+            Started = false;
+
+            if (reason == StageEndReason.AgentDied || reason == StageEndReason.CivilianDied)
+            {
+                if (CurrentStage > 0)
+                {
+                    CurrentStage--;
+                }
+            }
 
             switch (stage)
             {
                 case Stage.ShowPeople:
-                    Scenario.GameOver.instance.SetEndscreen(true);
+                    switch (reason)
+                    {
+                        case StageEndReason.Succes:
+                            Scenario.GameOver.instance.SetEndscreen(true);
+                            IngameMenuText.text = MenuMessages[2];
+                            IngameMenuTextDetail.text = MenuMessages[7] + '\n' + MenuMessages[8];
+                            break;
+                        case StageEndReason.AgentDied:
+                            IngameMenuText.text = MenuMessages[3];
+                            IngameMenuTextDetail.text = "";
+                            Scenario.GameOver.instance.SetEndscreen(false);
+                            break;
+                        case StageEndReason.CivilianDied:
+                            Scenario.GameOver.instance.SetEndscreen(false);
+                            IngameMenuText.text = MenuMessages[1];
+                            IngameMenuTextDetail.text = "";
+                            break;
+                    }
+                    SetMenuEnabled(true);
                     break;
                 case Stage.Cover:
-                    if (PlayerCameraEye.GetComponent<Player.Player>().Health == 0)
+                    switch (reason)
                     {
-                        Scenario.GameOver.instance.SetEndscreen(true);
+                        case StageEndReason.Succes:
+                            Scenario.GameOver.instance.SetEndscreen(true);
+                            IngameMenuText.text = MenuMessages[4];
+                            IngameMenuTextDetail.text = "";
+                            StartButton.SetActive(true);
+                            break;
+                        case StageEndReason.AgentDied:
+                            Scenario.GameOver.instance.SetEndscreen(false);
+                            IngameMenuText.text = MenuMessages[3];
+                            IngameMenuTextDetail.text = "";
+                            break;
+                        case StageEndReason.CivilianDied:
+                            Scenario.GameOver.instance.SetEndscreen(false);
+                            IngameMenuText.text = MenuMessages[1];
+                            IngameMenuTextDetail.text = "";
+
+                            break;
                     }
+                    SetMenuEnabled(true);
                     break;
                 case Stage.Practise:
-                    Scenario.GameOver.instance.SetEndscreen(true);
+                    switch (reason)
+                    {
+                        case StageEndReason.Succes:
+                            Scenario.GameOver.instance.SetEndscreen(true);
+                            break;
+                        case StageEndReason.AgentDied:
+                            Scenario.GameOver.instance.SetEndscreen(false);
+                            break;
+                        case StageEndReason.CivilianDied:
+                            Scenario.GameOver.instance.SetEndscreen(false);
+                            break;
+                    }
                     break;
-
             }
-            StartAfterRoundCooldown();
-        }
-
-        private void StartAfterRoundCooldown()
-        {
-            this.AfterStageCoolDown = COOLDOWN;
         }
 
         private void SpawnNPC(bool hostile, Transform type, Vector3 location, Quaternion rotation)
         {
             TargetNpc t = new TargetNpc();
             t.Difficulty = difficulty;
-            t.IsHostile = hostile;
-            t.Position = location;
             t.ItemType = ItemType.P99;
+            t.Position = location;
+            t.IsHostile = hostile;
 
             Targets.Add(t);
             Transform trans = t.Spawn(type);
+            t.NPC.OnDeath += OnNPCDeath;
             trans.rotation = rotation;
+        }
+
+        private void OnNPCDeath(NPC npc, HitMessage hitmessage)
+        {
+            if (!npc.IsHostile && hitmessage.IsPlayer)
+            {
+                EndStage(CurrentStage, StageEndReason.CivilianDied);
+            }
         }
 
         private void SetDifficulty(Difficulty d)
@@ -232,7 +308,7 @@ namespace Assets.Scripts.Scenario
 
         private bool CanStartStage()
         {
-            return !Started && AfterStageCoolDown < 0;
+            return !Started;
         }
     }
 }

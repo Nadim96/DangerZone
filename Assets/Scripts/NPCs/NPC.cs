@@ -11,6 +11,8 @@ using System.Linq;
 
 namespace Assets.Scripts.NPCs
 {
+    public delegate void OnDeath(NPC npc, HitMessage hitmessage);
+
     /// <inheritdoc />
     /// <summary>
     /// Every NPC in the game should have this component.
@@ -137,12 +139,17 @@ namespace Assets.Scripts.NPCs
         /// </summary>
         private float _timeBeforeNervous;
 
+        // Events 
+
+        public OnDeath OnDeath;
+
         static NPC()
         {
             // Initialize lists
             Npcs = new List<NPC>();
             HostileNpcs = new List<NPC>();
         }
+
 
         private void Awake()
         {
@@ -158,6 +165,8 @@ namespace Assets.Scripts.NPCs
             Ragdoll = GetComponent<Ragdoll02>();
             IsAlive = true;
 
+            OnDeath += OnDeathEvent;
+
             _hp = DEFAULT_STARTING_HP;
 
             NavMeshAgent.enabled = true;
@@ -165,7 +174,10 @@ namespace Assets.Scripts.NPCs
             _timeBeforeNervous = RNG.NextFloat(MIN_TIME_BEFORE_NERVOUS, MAX_TIME_BEFORE_NERVOUS);
 
             InitializeBehaviourTree();
+
+
         }
+      
 
         private void Update()
         {
@@ -371,12 +383,25 @@ namespace Assets.Scripts.NPCs
             NavMeshObstacle.enabled = true;
 
             if (IsHostile)
+            {
+                Statistics.DeadHostilesByPlayer++;
                 HostileNpcs.Remove(this);
-
-            if (!IsHostile)
-                Statistics.DeadFriendliesByPlayer++;
+            }
             else
+            {
                 Statistics.DeadFriendliesByPlayer++;
+            }
+
+
+            OnDeath(this, hitMessage);
+        }
+
+        /// <summary>
+        /// Even that is triggered when a NPC dies
+        /// </summary>
+        /// <param name="npc"></param>
+        public void OnDeathEvent(NPC npc, HitMessage hitmessage)
+        {
         }
 
         /// <summary>
