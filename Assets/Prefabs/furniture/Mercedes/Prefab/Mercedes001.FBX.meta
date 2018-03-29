@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: f63b31c4225a6ad4385b8145174b35be
+timeCreated: 1516215525
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: Bottom
+    100004: Bovenste_Scherm001
+    100006: Dashboard
+    100008: Glass+Panel
+    100010: Inside plane
+    100012: KentekenFront
+    100014: Lights+Siren
+    100016: Mercedes
+    100018: Mercedes interior_001
+    100020: //RootNode
+    100022: Middenstuk
+    100024: rem_pedaal001
+    100026: Snelheidsmeter_Wijzer001
+    100028: Toerenteller_Wijzer001
+    100030: versnellingspook
+    100032: Wheel_001
+    100034: Wheel_002
+    100036: Wheel_003
+    100038: Wheel_004
+    400000: Body
+    400002: Bottom
+    400004: Bovenste_Scherm001
+    400006: Dashboard
+    400008: Glass+Panel
+    400010: Inside plane
+    400012: KentekenFront
+    400014: Lights+Siren
+    400016: Mercedes
+    400018: Mercedes interior_001
+    400020: //RootNode
+    400022: Middenstuk
+    400024: rem_pedaal001
+    400026: Snelheidsmeter_Wijzer001
+    400028: Toerenteller_Wijzer001
+    400030: versnellingspook
+    400032: Wheel_001
+    400034: Wheel_002
+    400036: Wheel_003
+    400038: Wheel_004
+    2300000: Body
+    2300002: Bottom
+    2300004: Bovenste_Scherm001
+    2300006: Dashboard
+    2300008: Glass+Panel
+    2300010: Inside plane
+    2300012: KentekenFront
+    2300014: Lights+Siren
+    2300016: Middenstuk
+    2300018: rem_pedaal001
+    2300020: Snelheidsmeter_Wijzer001
+    2300022: Toerenteller_Wijzer001
+    2300024: versnellingspook
+    2300026: Wheel_001
+    2300028: Wheel_002
+    2300030: Wheel_003
+    2300032: Wheel_004
+    3300000: Body
+    3300002: Bottom
+    3300004: Bovenste_Scherm001
+    3300006: Dashboard
+    3300008: Glass+Panel
+    3300010: Inside plane
+    3300012: KentekenFront
+    3300014: Lights+Siren
+    3300016: Middenstuk
+    3300018: rem_pedaal001
+    3300020: Snelheidsmeter_Wijzer001
+    3300022: Toerenteller_Wijzer001
+    3300024: versnellingspook
+    3300026: Wheel_001
+    3300028: Wheel_002
+    3300030: Wheel_003
+    3300032: Wheel_004
+    4300000: Body
+    4300002: Wheel_001
+    4300004: Lights+Siren
+    4300006: Bottom
+    4300008: Glass+Panel
+    4300010: Wheel_002
+    4300012: Wheel_003
+    4300014: Wheel_004
+    4300016: KentekenFront
+    4300018: Bovenste_Scherm001
+    4300020: versnellingspook
+    4300022: rem_pedaal001
+    4300024: Snelheidsmeter_Wijzer001
+    4300026: Toerenteller_Wijzer001
+    4300028: Inside plane
+    4300030: Dashboard
+    4300032: Middenstuk
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

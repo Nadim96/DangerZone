@@ -8,6 +8,7 @@
         None,
         Plein,
         Door,
+        Street,
         Easy,
         Medium,
         Hard,

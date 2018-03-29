@@ -197,7 +197,6 @@ namespace Assets.Scripts.Scenario
 
             bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
-            Debug.Log(dead);
             StartCoroutine("gameoverWait", dead);
         }
 
@@ -272,7 +271,6 @@ namespace Assets.Scripts.Scenario
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
                 target.Spawn(prefab);
             }
         }

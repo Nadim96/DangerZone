@@ -38,6 +38,8 @@ namespace Assets.Scripts.BehaviourTree
                     return CreateNoneBT(dataModel);
                 case Difficulty.Plein:
                     return CreatePleinBT(dataModel);
+                case Difficulty.Street:
+                    return CreateStreetBT(dataModel);
                 case Difficulty.Easy:
                     return CreateEasyBT(dataModel);
                 case Difficulty.Medium:
@@ -73,6 +75,101 @@ namespace Assets.Scripts.BehaviourTree
                       )
                 });
 
+        }
+
+        private static BT CreateStreetBT(DataModel d)
+        {
+            Sequence rootSelector = new Sequence
+            {
+                new While(new IsPanicking(d), //panic
+                    
+                    new Sequence //run away
+                    {
+                        new SetMovementSpeed(d, true),
+                        new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
+                        new Succeeder(new Seek(d, x => x.Target, 3f)),
+                        new Despawn(d)
+                    }
+                ),
+                new Sequence
+                {
+                    //Attack
+                    new While( //Continues as long as everthing returns true
+                        new Sequence //Step 1. If NPC is hostile continue
+                        {
+                            new IsHostile(d),
+                            new CanAttack(d)
+                        },
+                        new Sequence //Step 2, starting attack
+                        {
+                            new SetMovementSpeed(d, true), //Allows npc to run
+                            new RandomSelector { //Selects NPC or Player at random.
+                                new SetTarget(d),
+                                new SetTarget(d,true)
+                            },
+                            new Selector //Equiping a weapon
+                            {
+                                new IsWeaponEquipped(d), //If NPC has a weapon, do nothing else equip
+                                new Sequence
+                                {
+                                    new EquipRandomWeapon(d),
+                                    new Wait(3f)
+                                }
+                            },
+                            new While( //movetotarget
+                                new Sequence
+                                {
+                                    new IsWithinWeaponsRange(d, true),
+                                    new CanSeeTarget(d, true)
+                                },
+                            new Seek(d, x => x.Target) //If the target is not visable, seek the target.
+                            ),
+                            new While(
+                                new Sequence //use conditions
+                                {
+                                    new IsWithinWeaponsRange(d),
+                                    new IsTargetAlive(d),
+                                    new TurnToFaceTarget(d)
+                                }, 
+                                new Repeater( //use weapon
+                                    new Sequence
+                                    {
+                                        new ReloadWeapon(d),
+                                        new CausePanic(d),
+                                        new UseItem(d),
+                                        new Wait(1f)
+                                    }, true)
+                            )
+                        }
+
+                    )
+                },
+               new Sequence
+                {
+                    //Wander
+                    new While(
+                        new Sequence{
+                            new RandomSelector
+                            {
+                                new Sequence //wandersteer
+                                {
+                                    new SetMovementSpeed(d, false),
+                                    new Wander(d),
+                                    new RandomWait(0.5f, 1.0f)
+                                },
+                                new Sequence //move to poi
+                                {
+                                    new SetMovementSpeed(d, false),
+                                    new SetTarget(d, PointType.Interest, PointList.GetRandomPoint),
+                                    new Seek(d, x => x.Target),
+                                    new RandomWait(0.5f, 1.0f)
+                                }
+                            }
+                            },
+                        new Sequence{})
+                        }          
+            };
+            return new BT(rootSelector);
         }
 
         private static BT CreatePleinBT(DataModel d)
