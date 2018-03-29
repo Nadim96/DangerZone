@@ -274,6 +274,39 @@ namespace Assets.Scripts.Scenario
                 }
 
                 target.Spawn(prefab);
+
+                if (target is TargetNpc)
+                {
+                    TargetNpc tnpc = ((TargetNpc)target);
+                    tnpc.NPC.OnNPCDeathEvent += OnNpcDeath;
+                    tnpc.NPC.OnNPCHitEvent += OnNpcHit;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Event triggered on the death of an NPC
+        /// </summary>
+        /// <param name="npc">NPC that died</param>
+        /// <param name="hitmessage">info about the hit that killed the NPC</param>
+        private void OnNpcDeath(NPC npc, HitMessage hitmessage)
+        {
+            if (hitmessage.IsPlayer)
+            {
+                StartCoroutine("gameoverWait", false);
+            }
+        }
+
+        /// <summary>
+        /// Even triggerd when an npc gets hit
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="hitmessage"></param>
+        private void OnNpcHit(NPC npc, HitMessage hitmessage)
+        {
+            if (hitmessage.IsPlayer)
+            {
+                StartCoroutine("gameoverWait", false);
             }
         }
 
@@ -296,6 +329,7 @@ namespace Assets.Scripts.Scenario
                 target.Waypoints.Add(waypoint);
             }
         }
+
 
         /// <summary>
         /// create waypoint at stated position
@@ -324,5 +358,7 @@ namespace Assets.Scripts.Scenario
 
             return PersonTargetPrefabs[RNG.Next(0, PersonTargetPrefabs.Count)];
         }
+
+
     }
 }

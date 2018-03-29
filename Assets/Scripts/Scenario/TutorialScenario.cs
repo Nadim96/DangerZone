@@ -283,7 +283,7 @@ namespace Assets.Scripts.Scenario
 
             Targets.Add(t);
             Transform trans = t.Spawn(type);
-            t.NPC.OnDeath += OnNPCDeath;
+            t.NPC.OnNPCDeathEvent += OnNPCDeath;
             trans.rotation = rotation;
         }
 
