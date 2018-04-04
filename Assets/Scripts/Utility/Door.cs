@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 namespace Assets.Scripts.Utility
 {
@@ -9,6 +11,7 @@ namespace Assets.Scripts.Utility
     /// </summary>
     public class Door : MonoBehaviour
     {
+        float timeLeft = 2.00f;
         public bool IsOpen;
         public bool CanOpen;
 
@@ -16,6 +19,8 @@ namespace Assets.Scripts.Utility
         private bool _previousIsOpen;
 
         private Animator _animator;
+
+
 
         private void Awake()
         {
@@ -32,8 +37,20 @@ namespace Assets.Scripts.Utility
             // Used to open the door using the inspector
             if (CanOpen && IsOpen != _previousIsOpen)
             {
-                _previousIsOpen = IsOpen;
-                SetOpen(IsOpen);
+
+                if (timeLeft <= 0.00f)
+                {
+                    timeLeft = 0;
+                    _animator.SetBool("IsOpen", true);
+                    SetOpen(IsOpen);
+                }
+                else
+                {
+                    timeLeft -= Time.deltaTime;
+                    Debug.Log(Math.Round(timeLeft));
+                }
+
+
             }
         }
 
@@ -41,13 +58,14 @@ namespace Assets.Scripts.Utility
         /// Gets triggered to open when hit by a gun.
         /// </summary>
         /// <param name="hitMessage"></param>
-        public void OnHit(HitMessage hitMessage)
+      /*  public void OnHit(HitMessage hitMessage)
         {
             if (CanOpen)
             {
                 SetOpen(true);
             }
         }
+        */
 
         /// <summary>
         /// Plays the correct open/close animation.
@@ -55,8 +73,6 @@ namespace Assets.Scripts.Utility
         /// <param name="isOpen"></param>
         public void SetOpen(bool isOpen)
         {
-            _animator.SetBool("IsOpen", isOpen);
-
             IsOpen = isOpen;
         }
     }
