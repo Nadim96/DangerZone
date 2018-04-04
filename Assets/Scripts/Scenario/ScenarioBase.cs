@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
 using Assets.Scripts.Utility;
 using UnityEngine;
@@ -127,8 +128,22 @@ namespace Assets.Scripts.Scenario
                                     "Please ensure the Spawnable NPC list is filled.");
             SetLoadType();
 
+            foreach (PlayerGunInterface gun in PlayerGunInterface.AllPlayerGuns)
+            {
+                gun.OnShoot += OnPlayerShoot;
+            }
+
             if (StartOnLoad)
                 Play();
+        }
+
+        public void OnPlayerShoot(bool gunempty)
+        {
+            Debug.Log("shooting " + gunempty);
+            if (gunempty)
+            {
+                GameOver();
+            }
         }
 
         public virtual void SetIngameUIVisible()

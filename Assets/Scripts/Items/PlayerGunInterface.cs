@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Assets.Scripts.Audio;
 using Assets.Scripts.NPCs;
 using Assets.Scripts.Utility;
@@ -8,12 +9,16 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Items
 {
+    public delegate void OnShootEvent(bool magEmpty);
+
     ///<inheritdoc />
     ///<summary>
     /// expansion on guninterface for player firing gun 
     ///</summary>
     public class PlayerGunInterface : GunInterface
     {
+        public static List<PlayerGunInterface> AllPlayerGuns = new List<PlayerGunInterface>();
+
         [SerializeField] private int _maxRoundsMag = DEFAULT_MAX_ROUNDS_MAG;
         [SerializeField] private TextMeshProUGUI _lineOfFireWarning;
         [SerializeField] private ParticleSystem _explosion;
@@ -22,9 +27,17 @@ namespace Assets.Scripts.Items
 
         private int _currentRoundsInMag;
 
+        public OnShootEvent OnShoot;
+
+        public PlayerGunInterface()
+        {
+            AllPlayerGuns.Add(this);
+        }
+
         protected override void Start()
         {
             base.Start();
+            OnShoot += OnShootEvent;
             _currentRoundsInMag = _maxRoundsMag;
         }
 
@@ -49,6 +62,7 @@ namespace Assets.Scripts.Items
 
         public override void Shoot()
         {
+          
             if (_currentRoundsInMag > 0)
             {
                 base.Shoot();
@@ -62,7 +76,11 @@ namespace Assets.Scripts.Items
                 // Gun empty
                 AudioController.PlayAudio(gameObject, AudioCategory.GunTrigger);
             }
+            OnShoot(_currentRoundsInMag <= 0);
         }
+
+        public void OnShootEvent(bool empty) { }
+
 
         public void ReloadGun()
         {

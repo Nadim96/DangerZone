@@ -22,7 +22,7 @@ namespace Assets.Scripts.Player
             {
                 if (Controller.GetPressDown(GripButton))
                 {
-                    PlayerGunInterface.ReloadGun();
+                  //  PlayerGunInterface.ReloadGun();
                 }
 
                 if (Controller.GetPressDown(TriggerButton))
