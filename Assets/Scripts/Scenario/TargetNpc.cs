@@ -10,38 +10,40 @@ namespace Assets.Scripts.Scenario
     /// </summary>
     public class TargetNpc : Target
     {
-        private NPC _npc;
+        public NPC NPC { get; private set; }
 
         public override bool IsAlive
         {
-            get { return _npc == null || _npc.IsAlive; }
+            get { return NPC == null || NPC.IsAlive; }
         }
 
-        public override void Spawn(Transform prefab)
+        public override Transform Spawn(Transform prefab)
         {
             Transform npcTransform = Object.Instantiate(prefab, Position, Quaternion.identity);
-            _npc = npcTransform.GetComponent<NPC>();
+            NPC = npcTransform.GetComponent<NPC>();
             if (ItemType != ItemType.None)
             {
-                _npc.Item = ItemFactory.Instance.CreateItem(ItemType, _npc);
+                NPC.Item = ItemFactory.Instance.CreateItem(ItemType, NPC);
             }
 
             if (Waypoints != null)
             {
-                _npc.CurrentWaypoint = 0;
-                _npc.Waypoints = Waypoints;
+                NPC.CurrentWaypoint = 0;
+                NPC.Waypoints = Waypoints;
             }
 
-            _npc.Difficulty = Difficulty;
+            NPC.Difficulty = Difficulty;
 
-            _npc.IsHostile = IsHostile;
+            NPC.IsHostile = IsHostile;
+
+            return npcTransform;
         }
 
         public override void Destroy()
         {
-            if (_npc != null)
+            if (NPC != null)
             {
-                Object.Destroy(_npc.gameObject);
+                Object.Destroy(NPC.gameObject);
             }
             foreach (Waypoint waypoint in Waypoints)
             {

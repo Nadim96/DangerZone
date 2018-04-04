@@ -6,5 +6,6 @@ namespace Assets.Scripts.Scenario
     {
         void SetDifficulty(Difficulty difficulty);
         void Load();
+        void Create();
     }
 }

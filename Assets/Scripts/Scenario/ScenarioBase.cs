@@ -16,7 +16,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// List of prefabs of NPC's that can be spawned.
         /// </summary>
-        [SerializeField] private List<Transform> PersonTargetPrefabs;
+        [SerializeField] protected List<Transform> PersonTargetPrefabs;
 
         /// <summary>
         /// The prefab of the paper target. 
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// The prefab of the dummy target. 
         /// </summary>
-        [SerializeField] private Transform DummyTargetPrefab;
+        [SerializeField] protected Transform DummyTargetPrefab;
 
         /// <summary>
         /// The prefab of a waypoint. Load script uses this prefab 
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// Timestamp of when Scenario is started
         /// </summary>
-        public float ScenarioStartedTime { get; private set; }
+        public float ScenarioStartedTime { get; protected set; }
 
         /// <summary>
         /// seconds to wait before Attack can start
@@ -111,6 +111,11 @@ namespace Assets.Scripts.Scenario
             LoadStyle.Load();
         }
 
+        protected virtual void Create()
+        {
+            LoadStyle.Create();
+        }
+
         protected virtual void Start()
         {
 #if UNITY_EDITOR
@@ -126,7 +131,7 @@ namespace Assets.Scripts.Scenario
                 Play();
         }
 
-        public void SetIngameUIVisible()
+        public virtual void SetIngameUIVisible()
         {
             EnableIngameMenu = true;
         }
@@ -170,9 +175,11 @@ namespace Assets.Scripts.Scenario
         {
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
+            {
                 Stop();
-
+            }
             Load();
+            Create();
             Spawn();
             ScenarioStartedTime = Time.time;
             Started = true;
@@ -184,12 +191,13 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// trigger gameover settings
         /// </summary>
-        public void GameOver()
+        public virtual void GameOver()
         {
             Started = false;
 
             bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
+            Debug.Log(dead);
             StartCoroutine("gameoverWait", dead);
         }
 
@@ -246,7 +254,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// Instantiate all targets in the game world using their respective prefabs.
         /// </summary>
-        private void Spawn()
+        protected void Spawn()
         {
             foreach (var target in Targets)
             {
@@ -296,13 +304,12 @@ namespace Assets.Scripts.Scenario
         /// <param name="position"></param>
         /// <returns></returns>
         public Waypoint CreateWaypoint(Target target, Vector3 position)
-        {
+        {        
             Transform t = Instantiate(WaypointPrefab, position, Quaternion.identity);
             Waypoint waypoint = t.GetComponent<Waypoint>();
             if (waypoint == null)
                 throw new NullReferenceException("There is no Waypoint script in the waypoint prefab!");
             waypoint.Owner = target;
-
             return waypoint;
         }
 
@@ -310,7 +317,7 @@ namespace Assets.Scripts.Scenario
         /// Returns a random NPC from the spawnable NPC list.
         /// </summary>
         /// <returns></returns>
-        private Transform GetRandomNpc()
+        protected Transform GetRandomNpc()
         {
             if (PersonTargetPrefabs.Count == 0)
                 throw new Exception("Unable to return random NPC. Please ensure the NPC list field is filled.");

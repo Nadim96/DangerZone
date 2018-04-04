@@ -13,10 +13,6 @@ namespace Assets.Scripts.UI
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        private const string PLEIN_SCENE_NAME = "Street";
-        private const string SCENARIO_SCENE_NAME = "Bunker";
-        private const string DOOR_SCENE_NAME = "GenerateRoomTest";
-
         void Awake()
         {
             AudioController.LoadAudio();
@@ -25,8 +21,11 @@ namespace Assets.Scripts.UI
         public enum SceneToLoad
         {
             Plein,
-            Scenario,
-            Door
+            Bunker,
+            Door,
+            Street,
+            StreetTutorial,
+            None
         }
 
         private readonly KeyCode[] _konamiCode = {
@@ -55,49 +54,52 @@ namespace Assets.Scripts.UI
             #endregion
 
         }
-        public void LoadPlein(float delay)
-        {
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Plein, delay));
-        }
+        /// <summary>
+        /// Funciton to translate the string to a scene
+        /// </summary>
+        /// <param name="myString"></param>
+        /// <returns></returns>
+        private SceneToLoad stringToScene(string myString)
+        { 
+            SceneToLoad returnScene = SceneToLoad.None;
 
-        public void LoadScenario(float delay)
-        {
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Scenario, delay));
-        }
-
-        public void LoadRandom(float delay)
-        {
-            ScenarioSettings.IsRandomScenario = true;
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Scenario, delay));
-        }
-
-        public void LoadDoor(float delay)
-        {
-            ScenarioSettings.IsRandomScenario = true;
-            StartCoroutine(LoadSceneCoroutine(SceneToLoad.Door, delay));
-        }
-
-        private static IEnumerator LoadSceneCoroutine(SceneToLoad scene, float delay)
-        {
-            string sceneName;
-            switch (scene)
+            switch (myString)
             {
-                case SceneToLoad.Plein:
-                    sceneName = PLEIN_SCENE_NAME;
+                case "Plein":
+                    returnScene = SceneToLoad.Plein;
                     break;
-                case SceneToLoad.Scenario:
-                    sceneName = SCENARIO_SCENE_NAME;
+                case "Bunker":
+                    returnScene = SceneToLoad.Bunker;
                     break;
-                case SceneToLoad.Door:
-                    sceneName = DOOR_SCENE_NAME;
+                case "Door":
+                    returnScene = SceneToLoad.Door;
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException("scene", scene, null);
-            }
+                case "Street":
+                    returnScene = SceneToLoad.Street;
+                    break;
+                case "StreetTutorial":
+                    returnScene = SceneToLoad.StreetTutorial;
+                    break;
+             }
 
-            yield return new WaitForSeconds(delay);
+            return returnScene;
+        }
 
-            var task = SceneManager.LoadSceneAsync(sceneName);
+        /// <summary>
+        /// Loads a level
+        /// </summary>
+        /// <param name="level"></param>
+        public void LoadLevel(string level)
+        {
+            ScenarioSettings.IsRandomScenario = (level == SceneToLoad.Door.ToString());
+            StartCoroutine(LoadSceneCoroutine(stringToScene(level)));
+        }
+    
+        private static IEnumerator LoadSceneCoroutine(SceneToLoad scene)
+        {
+          yield return new WaitForSeconds(1);
+
+            var task = SceneManager.LoadSceneAsync(scene.ToString());
 
             while (!task.isDone)
             {

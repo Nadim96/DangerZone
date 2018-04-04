@@ -42,6 +42,7 @@ namespace Assets.Scripts.Player
         /// </summary>
         private void GameOver()
         {
+
             Scenario.ScenarioBase.Instance.GameOver();
         }
     }

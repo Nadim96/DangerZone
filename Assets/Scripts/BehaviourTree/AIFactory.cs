@@ -34,6 +34,8 @@ namespace Assets.Scripts.BehaviourTree
         {
             switch (difficulty)
             {
+                case Difficulty.None:
+                    return CreateNoneBT(dataModel);
                 case Difficulty.Plein:
                     return CreatePleinBT(dataModel);
                 case Difficulty.Easy:
@@ -48,6 +50,29 @@ namespace Assets.Scripts.BehaviourTree
                     throw new ArgumentOutOfRangeException(
                         "difficulty", difficulty, "Unsupported difficulty level. Cannot create BT.");
             }
+        }
+
+        private static BT CreateNoneBT(DataModel d)
+        {
+            return new BT(
+                new Sequence
+                {
+                    new While(
+                        new Sequence
+                        {
+                            new IsHostile(d),
+                        },
+                        new Selector{
+                             new IsWeaponEquipped(d),
+                                new Sequence
+                                {
+                                    new EquipRandomWeapon(d),
+                                    new Wait(3f)
+                                }
+                        }
+                      )
+                });
+
         }
 
         private static BT CreatePleinBT(DataModel d)
@@ -133,7 +158,7 @@ namespace Assets.Scripts.BehaviourTree
                             new IsHostile(d),
                             new CanAttack(d)
                         })
-                                              
+
                     },
                     new RandomSelector
                     {

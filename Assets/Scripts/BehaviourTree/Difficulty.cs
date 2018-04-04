@@ -5,10 +5,12 @@
     /// </summary>
     public enum Difficulty
     {
+        None,
         Plein,
         Door,
         Easy,
         Medium,
-        Hard
+        Hard,
+         
     }
 }
