@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Assets.Scripts.Scenario;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Utility
     /// </summary>
     public class Door : MonoBehaviour
     {
-        float timeLeft = 2.00f;
+        float timeLeft = 5.00f;
         public bool IsOpen;
         public bool CanOpen;
 
@@ -22,21 +23,19 @@ namespace Assets.Scripts.Utility
         private Animator _animator;
 
         public GameObject IngameMenu;
-        public Text IngameMenuText;
         public Text IngameMenuTextDetail;
-        public String[] MenuMessages;
-        public GameObject StartButton;
-
 
 
         private void Awake()
         {
             instance = this;
+
         }
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
+
         }
 
         private void Update()
@@ -48,9 +47,7 @@ namespace Assets.Scripts.Utility
                 if (timeLeft <= 0.00f)
                 {
                     SetMenuEnabled(false);
-                    timeLeft = 0;
                     _animator.SetBool("IsOpen", true);
-                    SetOpen(IsOpen);
                 }
                 else
                 {
@@ -79,6 +76,7 @@ namespace Assets.Scripts.Utility
         }
         */
 
+
         /// <summary>
         /// Plays the correct open/close animation.
         /// </summary>
@@ -86,6 +84,8 @@ namespace Assets.Scripts.Utility
         public void SetOpen(bool isOpen)
         {
             IsOpen = isOpen;
+            _animator.SetBool("IsOpen", false);
+
         }
     }
 }
