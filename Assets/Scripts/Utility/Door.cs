@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Utility
 {
@@ -19,6 +20,12 @@ namespace Assets.Scripts.Utility
         private bool _previousIsOpen;
 
         private Animator _animator;
+
+        public GameObject IngameMenu;
+        public Text IngameMenuText;
+        public Text IngameMenuTextDetail;
+        public String[] MenuMessages;
+        public GameObject StartButton;
 
 
 
@@ -40,18 +47,23 @@ namespace Assets.Scripts.Utility
 
                 if (timeLeft <= 0.00f)
                 {
+                    SetMenuEnabled(false);
                     timeLeft = 0;
                     _animator.SetBool("IsOpen", true);
                     SetOpen(IsOpen);
                 }
                 else
                 {
+                    SetMenuEnabled(true);
                     timeLeft -= Time.deltaTime;
-                    Debug.Log(Math.Round(timeLeft));
+                    IngameMenuTextDetail.text = Math.Round(timeLeft).ToString();
                 }
-
-
             }
+        }
+
+        public void SetMenuEnabled(bool enabled)
+        {
+            IngameMenu.SetActive(enabled);
         }
 
         /// <summary>
