@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Scenario;
+using UnityEngine;
 
 namespace Assets.Scripts.Utility
 {
@@ -46,6 +47,7 @@ namespace Assets.Scripts.Utility
             if (CanOpen)
             {
                 SetOpen(true);
+                DoorScenario.isOpen = true;
             }
         }
 

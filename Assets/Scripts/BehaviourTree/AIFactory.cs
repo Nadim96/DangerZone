@@ -87,7 +87,7 @@ namespace Assets.Scripts.BehaviourTree
                     {
                         new SetMovementSpeed(d, true),
                         new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
-                        new Succeeder(new Seek(d, x => x.Target, 3f)),
+                        new Succeeder(new Seek(d, x => x.Target)),
                         new Despawn(d)
                     }
                 ),
@@ -324,11 +324,13 @@ namespace Assets.Scripts.BehaviourTree
                 // Attack
                 new Sequence
                 {
+                    new IsDoorOpen(d),
                     new IsHostile(d),
 
                     // Point weapon at either the player or another NPC
                     new ExecuteOnce(new Sequence
                     {
+                        new Wait(0.3f),
                         new EquipWeapon(d),
                         new Wait(1f),
                         new RandomSelector

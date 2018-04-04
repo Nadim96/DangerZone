@@ -13,7 +13,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
     public class Wander : SeekBase
     {
         private const float MIN_WANDER_DISTANCE = 2f;
-        private const float MAX_WANDER_DISTANCE = 3f;
+        private const float MAX_WANDER_DISTANCE = 12f;
         private const int NAVMESH_HIT_ATTEMPT_TIMEOUT = 5;
 
         private Vector3 _destination;
