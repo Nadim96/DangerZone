@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.BehaviourTree.Leaf.Conditions;
+using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
 using Assets.Scripts.Utility;
 using UnityEngine;
@@ -138,7 +140,7 @@ namespace Assets.Scripts.Scenario
 
         protected virtual void Update()
         {
-            MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
+           MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
 
             //check endgame 
             if (NPC.HostileNpcs.Count == 0 && Started)
@@ -173,6 +175,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+            IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
             {
@@ -222,7 +225,6 @@ namespace Assets.Scripts.Scenario
             Started = false;
             AttackTriggered = false;
             ScenarioStartedTime = 0;
-
             Time.timeScale = 1;
             Scenario.GameOver.instance.HideEndScreen();
 
