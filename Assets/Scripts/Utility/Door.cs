@@ -13,7 +13,7 @@ namespace Assets.Scripts.Utility
     /// </summary>
     public class Door : MonoBehaviour
     {
-        float timeLeft = 5.00f;
+        float timeLeft = 5f;
         public bool IsOpen;
         public bool CanOpen;
 
@@ -40,6 +40,7 @@ namespace Assets.Scripts.Utility
 
         private void Update()
         {
+
             // Used to open the door using the inspector
             if (CanOpen && IsOpen != _previousIsOpen)
             {
@@ -47,6 +48,9 @@ namespace Assets.Scripts.Utility
                 if (timeLeft <= 0.00f)
                 {
                     SetMenuEnabled(false);
+                    _previousIsOpen = IsOpen;
+                    SetOpen(IsOpen);
+                    timeLeft = 5f;
                     _animator.SetBool("IsOpen", true);
                 }
                 else
@@ -67,14 +71,14 @@ namespace Assets.Scripts.Utility
         /// Gets triggered to open when hit by a gun.
         /// </summary>
         /// <param name="hitMessage"></param>
-      /*  public void OnHit(HitMessage hitMessage)
-        {
-            if (CanOpen)
-            {
-                SetOpen(true);
-            }
-        }
-        */
+        /*  public void OnHit(HitMessage hitMessage)
+          {
+              if (CanOpen)
+              {
+                  SetOpen(true);
+              }
+          }
+          */
 
 
         /// <summary>
@@ -83,8 +87,10 @@ namespace Assets.Scripts.Utility
         /// <param name="isOpen"></param>
         public void SetOpen(bool isOpen)
         {
+            SetMenuEnabled(false);
             IsOpen = isOpen;
             _animator.SetBool("IsOpen", false);
+
 
         }
     }
