@@ -91,7 +91,7 @@ namespace Assets.Scripts.UI
         /// <param name="level"></param>
         public void LoadLevel(string level)
         {
-            ScenarioSettings.IsRandomScenario = (level == SceneToLoad.Door.ToString());
+            //ScenarioSettings.IsRandomScenario = (level == SceneToLoad.Door.ToString());
             StartCoroutine(LoadSceneCoroutine(stringToScene(level)));
         }
     
