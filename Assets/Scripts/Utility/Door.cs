@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using Assets.Scripts.Scenario;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Utility
 {
@@ -9,6 +13,7 @@ namespace Assets.Scripts.Utility
     /// </summary>
     public class Door : MonoBehaviour
     {
+        float timeLeft = 5f;
         public bool IsOpen;
         public bool CanOpen;
 
@@ -17,37 +22,64 @@ namespace Assets.Scripts.Utility
 
         private Animator _animator;
 
+        public GameObject IngameMenu;
+        public Text IngameMenuTextDetail;
+
+
         private void Awake()
         {
             instance = this;
+
         }
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
+
         }
 
         private void Update()
         {
+
             // Used to open the door using the inspector
             if (CanOpen && IsOpen != _previousIsOpen)
             {
-                _previousIsOpen = IsOpen;
-                SetOpen(IsOpen);
+
+                if (timeLeft <= 0.00f)
+                {
+                    SetMenuEnabled(false);
+                    _previousIsOpen = IsOpen;
+                    SetOpen(IsOpen);
+                    timeLeft = 5f;
+                    _animator.SetBool("IsOpen", true);
+                }
+                else
+                {
+                    SetMenuEnabled(true);
+                    timeLeft -= Time.deltaTime;
+                    IngameMenuTextDetail.text = Math.Round(timeLeft).ToString();
+                }
             }
+        }
+
+        public void SetMenuEnabled(bool enabled)
+        {
+            IngameMenu.SetActive(enabled);
         }
 
         /// <summary>
         /// Gets triggered to open when hit by a gun.
         /// </summary>
         /// <param name="hitMessage"></param>
-        public void OnHit(HitMessage hitMessage)
-        {
-            if (CanOpen)
-            {
-                SetOpen(true);
-            }
-        }
+        /*  public void OnHit(HitMessage hitMessage)
+          {
+              if (CanOpen)
+              {
+                  SetOpen(true);
+              }
+          }
+          */
+
 
         /// <summary>
         /// Plays the correct open/close animation.
@@ -55,9 +87,11 @@ namespace Assets.Scripts.Utility
         /// <param name="isOpen"></param>
         public void SetOpen(bool isOpen)
         {
-            _animator.SetBool("IsOpen", isOpen);
-
+            SetMenuEnabled(false);
             IsOpen = isOpen;
+            _animator.SetBool("IsOpen", false);
+
+
         }
     }
 }
