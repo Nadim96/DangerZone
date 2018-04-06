@@ -14,7 +14,8 @@ namespace Assets.Scripts.Scenario
             Room.instance.Generate();
             LoadStyle.SetDifficulty(Difficulty.Door);
             base.Load();
-
+            Door.IngameMenu.SetActive(false);
+            Door.SetOpen(false);
             Door.CanOpen = true;
         }
 
@@ -26,12 +27,12 @@ namespace Assets.Scripts.Scenario
         private IEnumerator PlayRoutine()
         {
             //close door first to make sure the door is closed when generating level
-            Door.SetOpen(false);
-            Door.CanOpen = false;
+    
             yield return new WaitForSecondsRealtime(1);
             Stop(); //hammertime
-            base.Play();
+            Door.SetOpen(false);
             Door.CanOpen = true;
+            base.Play();
         }
 
         public override void Stop()

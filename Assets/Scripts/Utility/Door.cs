@@ -22,10 +22,7 @@ namespace Assets.Scripts.Utility
         private Animator _animator;
 
         public GameObject IngameMenu;
-        public Text IngameMenuText;
         public Text IngameMenuTextDetail;
-        public String[] MenuMessages;
-        public GameObject StartButton;
 
 
 
@@ -48,8 +45,6 @@ namespace Assets.Scripts.Utility
                 if (timeLeft <= 0.00f)
                 {
                     SetMenuEnabled(false);
-                    _previousIsOpen = IsOpen;
-                    SetOpen(IsOpen);
                     timeLeft = 5.00f;
                     _animator.SetBool("IsOpen", true);
                 }
@@ -86,10 +81,8 @@ namespace Assets.Scripts.Utility
         /// <param name="isOpen"></param>
         public void SetOpen(bool isOpen)
         {
-            SetMenuEnabled(false);
-            IsOpen = isOpen;
-            _animator.SetBool("IsOpen", false);
-
+            IsOpen = false;
+            //_animator.SetBool("IsOpen", false);
         }
     }
 }
