@@ -12,7 +12,8 @@ namespace Assets.Scripts.Utility
     /// </summary>
     public class Door : MonoBehaviour
     {
-        float timeLeft = 5.00f;
+        float timeLeft;
+        public bool OpenTrigger;
         public bool IsOpen;
         public bool CanOpen;
 
@@ -38,14 +39,13 @@ namespace Assets.Scripts.Utility
 
         private void Update()
         {
-            // Used to open the door using the inspector
-            if (CanOpen && IsOpen != _previousIsOpen)
-            {
 
-                if (timeLeft <= 0.00f)
+            // Used to open the door using the inspector
+            if (CanOpen && OpenTrigger)
+            {
+                if (timeLeft <= 0f)
                 {
                     SetMenuEnabled(false);
-                    timeLeft = 5.00f;
                     _animator.SetBool("IsOpen", true);
                 }
                 else
@@ -75,14 +75,24 @@ namespace Assets.Scripts.Utility
           }
           */
 
+
+
+
         /// <summary>
         /// Plays the correct open/close animation.
         /// </summary>
         /// <param name="isOpen"></param>
         public void SetOpen(bool isOpen)
         {
-            IsOpen = false;
-            //_animator.SetBool("IsOpen", false);
+            IsOpen = isOpen;
+            _animator.SetBool("IsOpen", false);
+
+            if (IsOpen == true)
+            {
+                OpenTrigger = true;
+                timeLeft = 5.00f;
+            }
         }
+
     }
 }
