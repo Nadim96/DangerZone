@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Assets.Scripts.Scenario;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,6 +46,7 @@ namespace Assets.Scripts.Utility
             {
                 if (timeLeft <= 0f)
                 {
+					DoorScenario.isOpen = true;
                     SetMenuEnabled(false);
                     _animator.SetBool("IsOpen", true);
                 }

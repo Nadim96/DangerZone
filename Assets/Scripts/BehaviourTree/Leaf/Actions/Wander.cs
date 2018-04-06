@@ -12,7 +12,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
     /// </summary>
     public class Wander : SeekBase
     {
-        private const float MIN_WANDER_DISTANCE = 3f;
+        private const float MIN_WANDER_DISTANCE = 2f;
         private const float MAX_WANDER_DISTANCE = 12f;
         private const int NAVMESH_HIT_ATTEMPT_TIMEOUT = 5;
 
@@ -67,7 +67,9 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
 
             if (!isHit)
             {
-                throw new Exception("Unable to get random point on NavMesh.");
+                Debug.Log("Failed to get random point to wander too:    " + currentPos);
+                //throw new Exception("Unable to get random point on NavMesh.");
+                hit.position = currentPos;
             }
 
             return hit.position;
