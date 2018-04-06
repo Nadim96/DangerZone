@@ -13,7 +13,8 @@ namespace Assets.Scripts.Utility
     /// </summary>
     public class Door : MonoBehaviour
     {
-        float timeLeft = 2.00f;
+        float timeLeft;
+        public bool OpenTrigger;
         public bool IsOpen;
         public bool CanOpen;
 
@@ -23,10 +24,7 @@ namespace Assets.Scripts.Utility
         private Animator _animator;
 
         public GameObject IngameMenu;
-        public Text IngameMenuText;
         public Text IngameMenuTextDetail;
-        public String[] MenuMessages;
-        public GameObject StartButton;
 
 
 
@@ -42,17 +40,15 @@ namespace Assets.Scripts.Utility
 
         private void Update()
         {
-            // Used to open the door using the inspector
-            if (CanOpen && IsOpen != _previousIsOpen)
-            {
 
-                if (timeLeft <= 0.00f)
+            // Used to open the door using the inspector
+            if (CanOpen && OpenTrigger)
+            {
+                if (timeLeft <= 0f)
                 {
 					DoorScenario.isOpen = true;
                     SetMenuEnabled(false);
-                    timeLeft = 0;
                     _animator.SetBool("IsOpen", true);
-                    SetOpen(IsOpen);
                 }
                 else
                 {
@@ -72,14 +68,17 @@ namespace Assets.Scripts.Utility
         /// Gets triggered to open when hit by a gun.
         /// </summary>
         /// <param name="hitMessage"></param>
-      /*  public void OnHit(HitMessage hitMessage)
-        {
-            if (CanOpen)
-            {
-                SetOpen(true);
-            }
-        }
-        */
+        /*  public void OnHit(HitMessage hitMessage)
+          {
+              if (CanOpen)
+              {
+                  SetOpen(true);
+              }
+          }
+          */
+
+
+
 
         /// <summary>
         /// Plays the correct open/close animation.
@@ -88,6 +87,14 @@ namespace Assets.Scripts.Utility
         public void SetOpen(bool isOpen)
         {
             IsOpen = isOpen;
+            _animator.SetBool("IsOpen", false);
+
+            if (IsOpen == true)
+            {
+                OpenTrigger = true;
+                timeLeft = 5.00f;
+            }
         }
+
     }
 }
