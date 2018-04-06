@@ -75,7 +75,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// Timestamp of when Scenario is started
         /// </summary>
-        public float ScenarioStartedTime { get; private set; }
+        public float ScenarioStartedTime { get; protected set; }
 
         /// <summary>
         /// seconds to wait before Attack can start
@@ -133,7 +133,7 @@ namespace Assets.Scripts.Scenario
                 Play();
         }
 
-        public void SetIngameUIVisible()
+        public virtual void SetIngameUIVisible()
         {
             EnableIngameMenu = true;
         }
