@@ -5,5 +5,5 @@
     <GunVolume>4</GunVolume>
     <DialogueVolume>10</DialogueVolume>
   </Sound>
-  <LaserType>Always</LaserType>
+  <LaserType>Never</LaserType>
 </Settings>
