@@ -27,8 +27,8 @@ namespace Assets.Scripts.Scenario
             ShowWorld,
             Movement,
             InspectWeapon,
-            Cover,
             GoalExplention,
+            Cover,
             Practise,
         }
 
@@ -57,6 +57,7 @@ namespace Assets.Scripts.Scenario
         public Text IngameMenuTextDetail;
         public GameObject IngameMenuStartButton;
         public GameObject StartButton;
+        public GameObject[] CoverBodies;
 
         private float timer;
         private Vector3 startingPosition;
@@ -241,21 +242,14 @@ namespace Assets.Scripts.Scenario
                     SetMenuEnabled(true);
                     SpawnNPC(true, DummyTargetPrefab, NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
                     break;
-                case Stage.Cover:
-                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[5].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[6].rotation);
-                    break;
                 case Stage.GoalExplention:
-                    SpawnNPC(true, PersonTargetPrefabs[7], NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, PersonTargetPrefabs[7], NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
+                    SetMenuText("Je doel is om verdachten te neutraliseren, en hierbij geen burgers aan te wijzen of te raken.", "");
+                    SetMenuEnabled(true);
+                    break;
+                case Stage.Cover:
+                    SetMenuText("Zorg ervoor dat je zelf niet geraakt wordt.", "Dit kan bijvoorbeeld door dekking te zoeken achter verschillende objecten in het spel.");
+                    SetMenuEnabled(true);
+                    EnableCoverBodies(true);
                     break;
                 case Stage.Practise:
                     base.Load();
@@ -286,7 +280,8 @@ namespace Assets.Scripts.Scenario
                     break;
                 case Stage.Movement:
                     Vector3 distance = this.PlayerCameraEye.transform.position - startingPosition;
-                    if (distance.magnitude > 1) { 
+                    if (distance.magnitude > 1)
+                    {
                         EndStage(CurrentStage, StageEndReason.Succes);
                     }
                     break;
@@ -298,8 +293,7 @@ namespace Assets.Scripts.Scenario
                         SetMenuEnabled(false);
                     }
 
-                
-                     if (NPC.HostileNpcs.Count == 0)
+                    if (NPC.HostileNpcs.Count == 0)
                     {
                         SetMenuText("Goed gedaan!", "");
                         SetMenuStart(true);
@@ -307,9 +301,10 @@ namespace Assets.Scripts.Scenario
                         EndStage(CurrentStage, StageEndReason.Succes);
                     }
                     break;
+                case Stage.GoalExplention:
+                    break;
                 case Stage.Cover:
                     break;
-                case Stage.GoalExplention: break;
                 case Stage.Practise:
                     break;
             }
@@ -346,43 +341,11 @@ namespace Assets.Scripts.Scenario
                     break;
                 case Stage.InspectWeapon:
                     break;
-                case Stage.Cover:
-                    switch (reason)
-                    {
-                        case StageEndReason.Succes:
-                            Scenario.GameOver.instance.SetEndscreen(true);
-                            IngameMenuTextDetail.text = "";
-                            StartButton.SetActive(true);
-                            break;
-                        case StageEndReason.AgentDied:
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            IngameMenuTextDetail.text = "";
-                            break;
-                        case StageEndReason.CivilianDied:
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            IngameMenuTextDetail.text = "";
-
-                            break;
-                    }
-                    SetMenuEnabled(true);
-                    break;
-
                 case Stage.GoalExplention:
-                    switch (reason)
-                    {
-                        case StageEndReason.Succes:
-                            Scenario.GameOver.instance.SetEndscreen(true);
-                            break;
-                        case StageEndReason.AgentDied:
-                            IngameMenuTextDetail.text = "";
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            break;
-                        case StageEndReason.CivilianDied:
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            IngameMenuTextDetail.text = "";
-                            break;
-                    }
-                    SetMenuEnabled(true);
+                    break;
+                case Stage.Cover:
+                    SetMenuEnabled(false);
+                    EnableCoverBodies(false);
                     break;
                 case Stage.Practise:
                     switch (reason)
@@ -398,6 +361,18 @@ namespace Assets.Scripts.Scenario
                             break;
                     }
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Toggles the bodies in the scene
+        /// </summary>
+        /// <param name="enable"></param>
+        private void EnableCoverBodies(bool enable)
+        {
+            foreach (GameObject obj in CoverBodies)
+            {
+                obj.SetActive(enable);
             }
         }
 
