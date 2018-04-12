@@ -61,6 +61,7 @@ namespace Assets.Scripts.Scenario
 
         private float timer;
         private Vector3 startingPosition;
+        private bool HasLostBefore = false;
 
         protected override void Load()
         {
@@ -81,8 +82,10 @@ namespace Assets.Scripts.Scenario
 
             if (Started && !AttackTriggered)
             {
+            Debug.Log("Triggered");
                 if (Time.time > ScenarioStartedTime + timeBeforeAttack)
                 {
+                    Debug.Log("Attacking:" +(Time.time > ScenarioStartedTime + timeBeforeAttack));
                     AttackTriggered = true;
                 }
             }
@@ -93,19 +96,29 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void OnMenuPlayButton()
         {
+
             // If not practise stage then just play the next stage
-            if (CurrentStage != Stage.Practise - 1 && CurrentStage != Stage.Practise)
+            if ( CurrentStage != Stage.Practise)
             {
                 Play();
             }
             else
             {
                 //reset for the practise stage
-                Started = false;
                 ClearNPCS();
                 SetMenuEnabled(false);
                 Time.timeScale = 1f;
                 Scenario.GameOver.instance.HideEndScreen();
+
+                SetDifficulty(Difficulty.Plein);
+                Started = true;
+                AttackTriggered = false;
+                ScenarioStartedTime = Time.time;
+                timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+
+                base.Load();
+                base.Create();
+                base.Spawn();
             }
         }
 
@@ -143,11 +156,14 @@ namespace Assets.Scripts.Scenario
             Started = true;
             Time.timeScale = 1f;
             SetMenuEnabled(false);
-            AttackTriggered = false;
-            StartStage(CurrentStage);
-            ScenarioStartedTime = Time.time;
-            PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
-            timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+            if (!HasLostBefore)
+            {
+                AttackTriggered = false;
+                StartStage(CurrentStage);
+                ScenarioStartedTime = Time.time;
+                PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
+                timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+            }
         }
 
         /// <summary>
@@ -212,7 +228,7 @@ namespace Assets.Scripts.Scenario
             Scenario.GameOver.instance.SetEndscreen(false);
             UIRoot.SetActive(true);
             Time.timeScale = 0.0f;
-            SetMenuEnabled(true);
+            //SetMenuEnabled(true);
         }
 
         /// <summary>
@@ -252,13 +268,15 @@ namespace Assets.Scripts.Scenario
                     EnableCoverBodies(true);
                     break;
                 case Stage.Practise:
-                    base.Load();
-                    base.Create();
-                    base.Spawn();
+                    EnableCoverBodies(false);
+                    StartButton.SetActive(true);
+                    SetMenuText("Nu ga je oefenen!", "");
+                    if (!HasLostBefore)
+                    {
+                        SetMenuEnabled(true);
+                    }
                     break;
-
             }
-
         }
 
         /// <summary>
@@ -295,15 +313,17 @@ namespace Assets.Scripts.Scenario
 
                     if (NPC.HostileNpcs.Count == 0)
                     {
-                        SetMenuText("Goed gedaan!", "");
+                        SetMenuText("Goed gedaan!", "Schiet op volgende om door te gaan.");
                         SetMenuStart(true);
                         SetMenuEnabled(true);
                         EndStage(CurrentStage, StageEndReason.Succes);
                     }
                     break;
                 case Stage.GoalExplention:
+                   // EndStage(CurrentStage, StageEndReason.Succes);
                     break;
                 case Stage.Cover:
+                   // EndStage(CurrentStage, StageEndReason.Succes);
                     break;
                 case Stage.Practise:
                     break;
@@ -342,6 +362,7 @@ namespace Assets.Scripts.Scenario
                 case Stage.InspectWeapon:
                     break;
                 case Stage.GoalExplention:
+                    SetMenuEnabled(false);
                     break;
                 case Stage.Cover:
                     SetMenuEnabled(false);
@@ -352,11 +373,26 @@ namespace Assets.Scripts.Scenario
                     {
                         case StageEndReason.Succes:
                             Scenario.GameOver.instance.SetEndscreen(true);
+                            SetMenuText("Goed gedaan! Je bent nu klaar met de uitleg.", "Schiet op stop onder je voeten om terug te gaan naar het menu");
+                            SetMenuStart(false);
+                            SetMenuEnabled(true);
                             break;
                         case StageEndReason.AgentDied:
+                            if (!HasLostBefore)
+                            {
+                                HasLostBefore = true;
+                                SetMenuText("Helaas ben je neergeschoten.", "Schiet op restart onder je voeten om het op nieuw te proberen.");
+                                SetMenuEnabled(true);
+                            }
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                         case StageEndReason.CivilianDied:
+                            if (!HasLostBefore)
+                            {
+                                HasLostBefore = true;
+                                SetMenuText("Helaas heb je een onschuldige bureger neergeschoten.", "Schiet op restart onder je voeten om het op nieuw te proberen.");
+                                SetMenuEnabled(true);
+                            }
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                     }
