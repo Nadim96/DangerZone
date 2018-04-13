@@ -45,7 +45,7 @@ namespace Assets.Scripts.Utility
             // Used to open the door using the inspector
             if (CanOpen && OpenTrigger)
             {
-                if (timeLeft <= 0f)
+                if (timeLeft <= 1f)
                 {
 					DoorScenario.isOpen = true;
                     SetMenuEnabled(false);
@@ -94,7 +94,7 @@ namespace Assets.Scripts.Utility
             if (IsOpen == true)
             {
                 OpenTrigger = true;
-                timeLeft = 5.00f;
+                timeLeft = 3.00f;
             }
         }
 
