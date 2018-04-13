@@ -29,17 +29,7 @@ namespace Assets.Scripts.Scenario
             Practise
         }
 
-        /// <summary>
-        /// Reasons why a stage has ended
-        /// </summary>
-        private enum StageEndReason
-        {
-            AgentDied,
-            CivilianDied,
-            Succes
-        }
-
-        // Current stage
+      // Current stage
         private Stage CurrentStage = Stage.None;
         private Difficulty difficulty = Difficulty.Plein;
 

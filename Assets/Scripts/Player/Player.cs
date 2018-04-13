@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Scenario;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -44,6 +45,7 @@ namespace Assets.Scripts.Player
         {
 
             Scenario.ScenarioBase.Instance.GameOver();
+            Scenario.ScenarioBase.Instance.ShowGameOverReason(ScenarioBase.StageEndReason.AgentDied);
         }
     }
 }

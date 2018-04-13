@@ -8,6 +8,7 @@ using Assets.Scripts.NPCs;
 using Assets.Scripts.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Scenario
 {
@@ -61,6 +62,16 @@ namespace Assets.Scripts.Scenario
         public GoalType GoalType { get; set; }
         public List<Target> Targets { get; private set; }
 
+
+        /// <summary>
+        /// Reasons why a stage has ended
+        /// </summary>
+        public enum StageEndReason
+        {
+            AgentDied,
+            CivilianDied,
+            Succes
+        } 
         /// <summary>
         /// amount of target still alive in scene
         /// </summary>
@@ -71,6 +82,8 @@ namespace Assets.Scripts.Scenario
 
         public GameObject ingameUITrigger;
         public GameObject IngameUI;
+        public  GameObject GameOverScreen;
+        public  Text GameOverScreenText;
 
         /// <summary>
         /// Timestamp of when Scenario is started
@@ -175,6 +188,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+            HideGameOverReason();
             IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
@@ -198,9 +212,10 @@ namespace Assets.Scripts.Scenario
         {
             Started = false;
 
-            bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
+            StartCoroutine("gameoverWait", false);
+            //bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
-            StartCoroutine("gameoverWait", dead);
+            //StartCoroutine("gameoverWait", dead);
         }
 
         /// <summary>
@@ -275,12 +290,12 @@ namespace Assets.Scripts.Scenario
                 }
                 target.Spawn(prefab);
 
-                if (target is TargetNpc)
+               /* if (target is TargetNpc)
                 {
                     TargetNpc tnpc = ((TargetNpc)target);
                     tnpc.NPC.OnNPCDeathEvent += OnNpcDeath;
                     tnpc.NPC.OnNPCHitEvent += OnNpcHit;
-                }
+                }*/
             }
         }
 
@@ -357,6 +372,38 @@ namespace Assets.Scripts.Scenario
                 throw new Exception("Unable to return random NPC. Please ensure the NPC list field is filled.");
 
             return PersonTargetPrefabs[RNG.Next(0, PersonTargetPrefabs.Count)];
+        }
+
+        /// <summary>
+        /// Shows reason of gameover
+        /// </summary>
+        /// <param name="reason"></param>
+        public  void ShowGameOverReason(StageEndReason reason)
+        {
+              GameOverScreen.SetActive(true);
+
+            switch (reason)
+            {
+                case StageEndReason.AgentDied:
+                    GameOverScreenText.text = "Je bent geraakt.";
+                    break;
+                case StageEndReason.CivilianDied:
+                    GameOverScreenText.text = "Je hebt een burger geraakt.";
+                    break;
+                default:
+                    GameOverScreenText.text = "Game over";
+                    break;
+            }
+
+          
+        }
+
+        /// <summary>
+        /// Hides the game over message.
+        /// </summary>
+        public void HideGameOverReason()
+        {
+           GameOverScreen.SetActive(false);
         }
 
 
