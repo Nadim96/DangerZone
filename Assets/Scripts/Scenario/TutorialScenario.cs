@@ -82,10 +82,8 @@ namespace Assets.Scripts.Scenario
 
             if (Started && !AttackTriggered)
             {
-            Debug.Log("Triggered");
                 if (Time.time > ScenarioStartedTime + timeBeforeAttack)
                 {
-                    Debug.Log("Attacking:" +(Time.time > ScenarioStartedTime + timeBeforeAttack));
                     AttackTriggered = true;
                 }
             }
@@ -98,16 +96,14 @@ namespace Assets.Scripts.Scenario
         {
 
             // If not practise stage then just play the next stage
-            if ( CurrentStage != Stage.Practise)
+            if (CurrentStage != Stage.Practise)
             {
                 Play();
             }
             else
             {
                 //reset for the practise stage
-                ClearNPCS();
                 SetMenuEnabled(false);
-                Time.timeScale = 1f;
                 Scenario.GameOver.instance.HideEndScreen();
 
                 SetDifficulty(Difficulty.Plein);
@@ -116,9 +112,15 @@ namespace Assets.Scripts.Scenario
                 ScenarioStartedTime = Time.time;
                 timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
 
-                base.Load();
-                base.Create();
-                base.Spawn();
+                if (!HasLostBefore)
+                {
+                    ClearNPCS();
+                    Time.timeScale = 1f;
+
+                    base.Load();
+                    base.Create();
+                    base.Spawn();
+                }
             }
         }
 
@@ -129,6 +131,9 @@ namespace Assets.Scripts.Scenario
         {
             Play();
             SetMenuEnabled(false);
+            base.Load();
+            base.Create();
+            base.Spawn();
         }
 
         /// <summary>
@@ -163,6 +168,7 @@ namespace Assets.Scripts.Scenario
                 ScenarioStartedTime = Time.time;
                 PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
                 timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+               
             }
         }
 
@@ -200,6 +206,11 @@ namespace Assets.Scripts.Scenario
             IngameMenu.SetActive(enabled);
             EnableIngameMenu = enabled;
         }
+
+        /// <summary>
+        /// Gets wheter the ingamemenu is active
+        /// </summary>
+        public bool IsMenuEnabled { get { return IngameMenu.activeSelf; } }
 
         /// <summary>
         /// Enables the menu start button
@@ -320,12 +331,16 @@ namespace Assets.Scripts.Scenario
                     }
                     break;
                 case Stage.GoalExplention:
-                   // EndStage(CurrentStage, StageEndReason.Succes);
+                    // EndStage(CurrentStage, StageEndReason.Succes);
                     break;
                 case Stage.Cover:
-                   // EndStage(CurrentStage, StageEndReason.Succes);
+                    // EndStage(CurrentStage, StageEndReason.Succes);
                     break;
                 case Stage.Practise:
+                    if (NPC.HostileNpcs.Count == 0 && !IsMenuEnabled)
+                    {
+                        EndStage(CurrentStage, StageEndReason.Succes);
+                    }
                     break;
             }
         }
@@ -340,14 +355,14 @@ namespace Assets.Scripts.Scenario
             Time.timeScale = 0f;
             Started = false;
 
-            // If the reason is that tehe agent failed reset the stage back
-            if (reason == StageEndReason.AgentDied || reason == StageEndReason.CivilianDied)
-            {
-                if (CurrentStage > 0)
-                {
-                    CurrentStage--;
-                }
-            }
+            //// If the reason is that tehe agent failed reset the stage back
+            //if (reason == StageEndReason.AgentDied || reason == StageEndReason.CivilianDied)
+            //{
+            //    if (CurrentStage > 0)
+            //    {
+            //        CurrentStage--;
+            //    }
+            //}
 
             // Handle every case
             switch (stage)
