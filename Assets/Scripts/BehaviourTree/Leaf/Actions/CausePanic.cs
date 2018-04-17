@@ -13,7 +13,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
     /// </summary>
     public class CausePanic : Leaf
     {
-        private const float DEFAULT_CAUSE_PANIC_RANGE = 100f;
+        private const float DEFAULT_CAUSE_PANIC_RANGE = 500f;
 
         public static bool _isTriggered { get; set; }
 

@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.BehaviourTree.Leaf.Conditions;
+using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
 using Assets.Scripts.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Scenario
 {
@@ -59,6 +62,16 @@ namespace Assets.Scripts.Scenario
         public GoalType GoalType { get; set; }
         public List<Target> Targets { get; private set; }
 
+
+        /// <summary>
+        /// Reasons why a stage has ended
+        /// </summary>
+        public enum StageEndReason
+        {
+            AgentDied,
+            CivilianDied,
+            Succes
+        } 
         /// <summary>
         /// amount of target still alive in scene
         /// </summary>
@@ -69,6 +82,8 @@ namespace Assets.Scripts.Scenario
 
         public GameObject ingameUITrigger;
         public GameObject IngameUI;
+        public  GameObject GameOverScreen;
+        public  Text GameOverScreenText;
 
         /// <summary>
         /// Timestamp of when Scenario is started
@@ -138,7 +153,7 @@ namespace Assets.Scripts.Scenario
 
         protected virtual void Update()
         {
-            MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
+           MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
 
             //check endgame 
             if (NPC.HostileNpcs.Count == 0 && Started)
@@ -173,6 +188,8 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+            HideGameOverReason();
+            IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
             {
@@ -195,10 +212,10 @@ namespace Assets.Scripts.Scenario
         {
             Started = false;
 
-            bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
+            StartCoroutine("gameoverWait", false);
+            //bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
-            Debug.Log(dead);
-            StartCoroutine("gameoverWait", dead);
+            //StartCoroutine("gameoverWait", dead);
         }
 
         /// <summary>
@@ -223,7 +240,6 @@ namespace Assets.Scripts.Scenario
             Started = false;
             AttackTriggered = false;
             ScenarioStartedTime = 0;
-
             Time.timeScale = 1;
             Scenario.GameOver.instance.HideEndScreen();
 
@@ -272,8 +288,40 @@ namespace Assets.Scripts.Scenario
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
                 target.Spawn(prefab);
+
+               /* if (target is TargetNpc)
+                {
+                    TargetNpc tnpc = ((TargetNpc)target);
+                    tnpc.NPC.OnNPCDeathEvent += OnNpcDeath;
+                    tnpc.NPC.OnNPCHitEvent += OnNpcHit;
+                }*/
+            }
+        }
+
+        /// <summary>
+        /// Event triggered on the death of an NPC
+        /// </summary>
+        /// <param name="npc">NPC that died</param>
+        /// <param name="hitmessage">info about the hit that killed the NPC</param>
+        private void OnNpcDeath(NPC npc, HitMessage hitmessage)
+        {
+            if (hitmessage.IsPlayer)
+            {
+                StartCoroutine("gameoverWait", false);
+            }
+        }
+
+        /// <summary>
+        /// Even triggerd when an npc gets hit
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="hitmessage"></param>
+        private void OnNpcHit(NPC npc, HitMessage hitmessage)
+        {
+            if (hitmessage.IsPlayer)
+            {
+                StartCoroutine("gameoverWait", false);
             }
         }
 
@@ -296,6 +344,7 @@ namespace Assets.Scripts.Scenario
                 target.Waypoints.Add(waypoint);
             }
         }
+
 
         /// <summary>
         /// create waypoint at stated position
@@ -324,5 +373,39 @@ namespace Assets.Scripts.Scenario
 
             return PersonTargetPrefabs[RNG.Next(0, PersonTargetPrefabs.Count)];
         }
+
+        /// <summary>
+        /// Shows reason of gameover
+        /// </summary>
+        /// <param name="reason"></param>
+        public  void ShowGameOverReason(StageEndReason reason)
+        {
+              GameOverScreen.SetActive(true);
+
+            switch (reason)
+            {
+                case StageEndReason.AgentDied:
+                    GameOverScreenText.text = "Je bent geraakt.";
+                    break;
+                case StageEndReason.CivilianDied:
+                    GameOverScreenText.text = "Je hebt een burger geraakt.";
+                    break;
+                default:
+                    GameOverScreenText.text = "Game over";
+                    break;
+            }
+
+          
+        }
+
+        /// <summary>
+        /// Hides the game over message.
+        /// </summary>
+        public void HideGameOverReason()
+        {
+           GameOverScreen.SetActive(false);
+        }
+
+
     }
 }

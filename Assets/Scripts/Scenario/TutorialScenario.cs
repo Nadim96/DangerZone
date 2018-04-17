@@ -32,17 +32,7 @@ namespace Assets.Scripts.Scenario
             Practise,
         }
 
-        /// <summary>
-        /// Reasons why a stage has ended
-        /// </summary>
-        private enum StageEndReason
-        {
-            AgentDied,
-            CivilianDied,
-            Succes
-        }
-
-        // Current stage
+      // Current stage
         private Stage CurrentStage = Stage.None;
         private Difficulty difficulty = Difficulty.None;
 
@@ -448,8 +438,7 @@ namespace Assets.Scripts.Scenario
             // Spawn npc
             Transform trans = t.Spawn(type);
 
-            // Set events
-            t.NPC.OnDeath += OnNPCDeath;
+            t.NPC.OnNPCDeathEvent += OnNPCDeath;
             trans.rotation = rotation;
         }
 

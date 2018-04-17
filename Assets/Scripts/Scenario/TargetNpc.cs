@@ -1,6 +1,9 @@
-﻿using Assets.Scripts.Items;
+﻿using System;
+using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
+using Assets.Scripts.Points;
 using UnityEngine;
+using UnityEngine.AI;
 using Object = UnityEngine.Object;
 
 namespace Assets.Scripts.Scenario
@@ -36,6 +39,7 @@ namespace Assets.Scripts.Scenario
 
             NPC.IsHostile = IsHostile;
 
+            NPC.transform.position = SpawnEnemyAtRandomSpawnPoint(NPC.transform.position);
             return npcTransform;
         }
 
@@ -49,6 +53,18 @@ namespace Assets.Scripts.Scenario
             {
                 Object.Destroy(waypoint.gameObject);
             }
+        }
+
+        public Vector3 SpawnEnemyAtRandomSpawnPoint(Vector3 current)
+        {
+            if (PointList.EnemySpawn == null)
+            {
+                return current;
+            }
+            int maxValue = PointList.EnemySpawn.Count;
+            System.Random r = new System.Random();
+
+            return PointList.EnemySpawn[r.Next(0, maxValue)].transform.position;
         }
     }
 }

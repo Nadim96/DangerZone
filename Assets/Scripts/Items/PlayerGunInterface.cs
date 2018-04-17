@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Assets.Scripts.Audio;
+using Assets.Scripts.BehaviourTree.Leaf.Conditions;
 using Assets.Scripts.NPCs;
+using Assets.Scripts.Scenario;
 using Assets.Scripts.Utility;
 using TMPro;
 using UnityEngine;
@@ -47,8 +50,9 @@ namespace Assets.Scripts.Items
             target.NervousSource = transform.root.gameObject;
         }
 
-        public override void Shoot()
-        {
+       public override void Shoot()
+       {
+           IsPanicking.playerShot = true;
             if (_currentRoundsInMag > 0)
             {
                 base.Shoot();

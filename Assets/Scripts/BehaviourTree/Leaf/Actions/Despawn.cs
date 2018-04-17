@@ -16,7 +16,10 @@
             {
                 return Status.Invalid;
             }
-            DataModel.Npc.Despawn();
+            if (!DataModel.Npc.IsHostile)
+            {
+                DataModel.Npc.Despawn();
+            }
             return Status.Success;
         }
     }
