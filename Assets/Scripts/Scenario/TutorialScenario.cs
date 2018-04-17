@@ -26,13 +26,25 @@ namespace Assets.Scripts.Scenario
             None,
             ShowWorld,
             Movement,
-            InspectWeapon,
             GoalExplention,
             Cover,
             Practise,
         }
 
-      // Current stage
+        private Dictionary<string, string> Messages = new Dictionary<string, string>()
+        {
+            {"Welcome",         "WELKOM IN DANGER ZONE. SCHIET OP DE KNOP OM DE TUTORIAL TE STARTEN." },
+            {"Movement",        "DE BLAUWE LIJNEN OP DE GROND GEVEN HET SPEELVELD AAN. HIERIN KUN JE VRIJ BEWEGEN ZONDER IN HET ECHT ERGENS TEGENAAN TE LOPEN. LOOP DOOR DE RUIMTE OM VERDER TE GAAN." },
+            {"Goal",            "JE DOEL IS OM VERDACHTEN TE NEUTRALISEREN EN HIERBIJ GEEN BURGERS AAN TE WIJZEN OF TE RAKEN. JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN. NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."},
+            {"Cover",           "ZORG ERVOOR DAT JE ZELF NIET GERAAKT WORDT. DIT KAN BIJVOORBEELD DOOR DEKKING TE ZOEKEN ACHTER VERSCHILLENDE OBJECTEN IN HET SPEL." },
+            {"Practise",        "KLAAR OM TE OEFENEN? SCHIET OP 'START' OM TE BEGINNEN."},
+            {"PractiseSucces",  "GOED GEDAAN. SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENU." },
+            {"PractiseAgent",   "HELAAS, JE BENT NEERGESCHOTEN. SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."},
+            {"PractiseCiv",     "HELAAS, JE HEBT EEN ONSCHULDIGE BURGER NEERGESCHOTEN. SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN." }
+
+        };
+
+        // Current stage
         private Stage CurrentStage = Stage.None;
         private Difficulty difficulty = Difficulty.None;
 
@@ -44,7 +56,7 @@ namespace Assets.Scripts.Scenario
         // Ingame menu and dialog screen
         public GameObject IngameMenu;
         public Text IngameMenuText;
-        public Text IngameMenuTextDetail;
+        public Text IngameMenuStarText;
         public GameObject IngameMenuStartButton;
         public GameObject StartButton;
         public GameObject[] CoverBodies;
@@ -128,6 +140,7 @@ namespace Assets.Scripts.Scenario
         public void OnRestartButton()
         {
             Play();
+            Scenario.GameOver.instance.HideEndScreen();
             SetMenuEnabled(false);
             base.Load();
             base.Create();
@@ -189,10 +202,9 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         /// <param name="text"></param>
         /// <param name="aditionalinfo"></param>
-        private void SetMenuText(string text, string aditionalinfo)
+        private void SetMenuText(string text)
         {
             IngameMenuText.text = text;
-            IngameMenuTextDetail.text = aditionalinfo;
         }
 
         /// <summary>
@@ -217,6 +229,11 @@ namespace Assets.Scripts.Scenario
         public void SetMenuStart(bool enabled)
         {
             IngameMenuStartButton.SetActive(enabled);
+        }
+
+        public void SetMenuStarText(string text)
+        {
+            IngameMenuStarText.text = text;
         }
 
         /// <summary>
@@ -252,38 +269,53 @@ namespace Assets.Scripts.Scenario
             {
                 case Stage.None: break;
                 case Stage.ShowWorld:
-                    SetMenuText("Welkom bij dangerzone.", "");
-                    SetMenuStart(false);
+                    string m = "";
+                    Messages.TryGetValue("Welcome", out m);
+                    SetMenuText(m);
+
+                    SetMenuStart(true);
                     SetMenuEnabled(true);
+                    SetMenuStarText("START");
                     break;
                 case Stage.Movement:
-                    SetMenuText("Het blauwe vierkant is het speelveld. Loop maar door de ruimte heen!", "");
+                    string s = "";
+                    Messages.TryGetValue("Movement", out s);
+                    SetMenuText(s);
+
+                    SetMenuStart(false);
                     SetMenuEnabled(true);
                     Vector3 loc = this.PlayerCameraEye.transform.position;
                     startingPosition = new Vector3(loc.x, loc.y, loc.z);
                     break;
-                case Stage.InspectWeapon:
-                    SetMenuText("Kijk maar naar je wapen deze heeft 1 magazijn(15 kogels!)", "Verder op staat een dummie, probeer op hem.");
-                    SetMenuEnabled(true);
-                    SpawnNPC(true, DummyTargetPrefab, NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    break;
                 case Stage.GoalExplention:
-                    SetMenuText("Je doel is om verdachten te neutraliseren, en hierbij geen burgers aan te wijzen of te raken.", "");
+                    string x = "";
+                    Messages.TryGetValue("Goal", out x);
+                    SetMenuText(x);
+
                     SetMenuEnabled(true);
+                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
                     break;
                 case Stage.Cover:
-                    SetMenuText("Zorg ervoor dat je zelf niet geraakt wordt.", "Dit kan bijvoorbeeld door dekking te zoeken achter verschillende objecten in het spel.");
+                    string z = "";
+                    Messages.TryGetValue("Cover", out z);
+                    SetMenuText(z);
+
                     SetMenuEnabled(true);
                     EnableCoverBodies(true);
+                    SetMenuStarText("VERDER");
                     break;
                 case Stage.Practise:
+                    string c = "";
+                    Messages.TryGetValue("Practise", out c);
+                    SetMenuText(c);
+
                     EnableCoverBodies(false);
                     StartButton.SetActive(true);
-                    SetMenuText("Nu ga je oefenen!", "");
                     if (!HasLostBefore)
                     {
                         SetMenuEnabled(true);
                     }
+                    SetMenuStarText("START");
                     break;
             }
         }
@@ -298,12 +330,6 @@ namespace Assets.Scripts.Scenario
             {
                 case Stage.None: break;
                 case Stage.ShowWorld:
-                    timer += Time.deltaTime;
-                    if (timer > 5)
-                    {
-                        timer = 0;
-                        EndStage(CurrentStage, StageEndReason.Succes);
-                    }
                     break;
                 case Stage.Movement:
                     Vector3 distance = this.PlayerCameraEye.transform.position - startingPosition;
@@ -312,27 +338,14 @@ namespace Assets.Scripts.Scenario
                         EndStage(CurrentStage, StageEndReason.Succes);
                     }
                     break;
-                case Stage.InspectWeapon:
-                    timer += Time.deltaTime;
-
-                    if (timer > 3 && NPC.HostileNpcs.Count != 0)
-                    {
-                        SetMenuEnabled(false);
-                    }
-
+                case Stage.GoalExplention:
                     if (NPC.HostileNpcs.Count == 0)
                     {
-                        SetMenuText("Goed gedaan!", "Schiet op volgende om door te gaan.");
-                        SetMenuStart(true);
-                        SetMenuEnabled(true);
                         EndStage(CurrentStage, StageEndReason.Succes);
+                        SetMenuStart(true);
                     }
                     break;
-                case Stage.GoalExplention:
-                    // EndStage(CurrentStage, StageEndReason.Succes);
-                    break;
                 case Stage.Cover:
-                    // EndStage(CurrentStage, StageEndReason.Succes);
                     break;
                 case Stage.Practise:
                     if (NPC.HostileNpcs.Count == 0 && !IsMenuEnabled)
@@ -363,10 +376,9 @@ namespace Assets.Scripts.Scenario
                 case Stage.Movement:
                     Play();
                     break;
-                case Stage.InspectWeapon:
-                    break;
                 case Stage.GoalExplention:
                     SetMenuEnabled(false);
+                    Play();
                     break;
                 case Stage.Cover:
                     SetMenuEnabled(false);
@@ -376,27 +388,30 @@ namespace Assets.Scripts.Scenario
                     switch (reason)
                     {
                         case StageEndReason.Succes:
+                            string c = "";
+                            Messages.TryGetValue("PractiseSucces", out c);
+                            SetMenuText(c);
+
                             Scenario.GameOver.instance.SetEndscreen(true);
-                            SetMenuText("Goed gedaan! Je bent nu klaar met de uitleg.", "Schiet op stop onder je voeten om terug te gaan naar het menu");
                             SetMenuStart(false);
                             SetMenuEnabled(true);
                             break;
                         case StageEndReason.AgentDied:
-                           // if (!HasLostBefore)
-                            {
-                                HasLostBefore = true;
-                                SetMenuText("Helaas ben je neergeschoten.", "Schiet op restart onder je voeten om het op nieuw te proberen.");
-                                SetMenuEnabled(true);
-                            }
+                            string d = "";
+                            Messages.TryGetValue("PractiseAgent", out d);
+                            SetMenuText(d);
+
+                            HasLostBefore = true;
+                            SetMenuEnabled(true);
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                         case StageEndReason.CivilianDied:
-                          //  if (!HasLostBefore)
-                            {
-                                HasLostBefore = true;
-                                SetMenuText("Helaas heb je een onschuldige burger neergeschoten.", "Schiet op restart onder je voeten om het op nieuw te proberen.");
-                                SetMenuEnabled(true);
-                            }
+                            string x = "";
+                            Messages.TryGetValue("PractiseCiv", out x);
+                            SetMenuText(x);
+
+                            HasLostBefore = true;
+                            SetMenuEnabled(true);
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                     }
