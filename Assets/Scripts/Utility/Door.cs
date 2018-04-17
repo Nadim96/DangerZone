@@ -27,15 +27,16 @@ namespace Assets.Scripts.Utility
         public Text IngameMenuTextDetail;
 
 
-
         private void Awake()
         {
             instance = this;
+
         }
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
+
         }
 
         private void Update()
@@ -44,9 +45,9 @@ namespace Assets.Scripts.Utility
             // Used to open the door using the inspector
             if (CanOpen && OpenTrigger)
             {
-                if (timeLeft <= 0f)
+                if (timeLeft <= 1f)
                 {
-                    DoorScenario.isOpen = true;
+					DoorScenario.isOpen = true;
                     SetMenuEnabled(false);
                     _animator.SetBool("IsOpen", true);
                 }
@@ -86,14 +87,14 @@ namespace Assets.Scripts.Utility
         /// <param name="isOpen"></param>
         public void SetOpen(bool isOpen)
         {
-
+            SetMenuEnabled(false);
             IsOpen = isOpen;
             _animator.SetBool("IsOpen", false);
 
             if (IsOpen == true)
             {
                 OpenTrigger = true;
-                timeLeft = 5.00f;
+                timeLeft = 3.00f;
             }
         }
 
