@@ -290,12 +290,12 @@ namespace Assets.Scripts.Scenario
                 }
                 target.Spawn(prefab);
 
-               /* if (target is TargetNpc)
+                if (target is TargetNpc)
                 {
                     TargetNpc tnpc = ((TargetNpc)target);
                     tnpc.NPC.OnNPCDeathEvent += OnNpcDeath;
                     tnpc.NPC.OnNPCHitEvent += OnNpcHit;
-                }*/
+                }
             }
         }
 
@@ -317,11 +317,12 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         /// <param name="npc"></param>
         /// <param name="hitmessage"></param>
-        private void OnNpcHit(NPC npc, HitMessage hitmessage)
+        protected virtual void OnNpcHit(NPC npc, HitMessage hitmessage)
         {
-            if (hitmessage.IsPlayer)
+            if (!npc.IsHostile && hitmessage.IsPlayer)
             {
-                StartCoroutine("gameoverWait", false);
+                GameOver();
+                ShowGameOverReason(StageEndReason.CivilianDied);
             }
         }
 

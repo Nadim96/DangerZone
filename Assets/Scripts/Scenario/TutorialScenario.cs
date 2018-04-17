@@ -96,7 +96,7 @@ namespace Assets.Scripts.Scenario
                 SetMenuEnabled(false);
                 Scenario.GameOver.instance.HideEndScreen();
 
-                SetDifficulty(Difficulty.Plein);
+                SetDifficulty(Difficulty.Street);
                 Started = true;
                 AttackTriggered = false;
                 ScenarioStartedTime = Time.time;
@@ -111,6 +111,14 @@ namespace Assets.Scripts.Scenario
                     base.Create();
                     base.Spawn();
                 }
+            }
+        }
+
+        protected override void OnNpcHit(NPC npc, HitMessage hitmessage)
+        {
+            if (!npc.IsHostile && hitmessage.IsPlayer)
+            {
+                EndStage(CurrentStage, StageEndReason.CivilianDied);
             }
         }
 
@@ -151,14 +159,14 @@ namespace Assets.Scripts.Scenario
             Started = true;
             Time.timeScale = 1f;
             SetMenuEnabled(false);
+            AttackTriggered = false;
+            ScenarioStartedTime = Time.time;
+            PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
+            timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+
             if (!HasLostBefore)
             {
-                AttackTriggered = false;
                 StartStage(CurrentStage);
-                ScenarioStartedTime = Time.time;
-                PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
-                timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
-               
             }
         }
 
@@ -345,15 +353,6 @@ namespace Assets.Scripts.Scenario
             Time.timeScale = 0f;
             Started = false;
 
-            //// If the reason is that tehe agent failed reset the stage back
-            //if (reason == StageEndReason.AgentDied || reason == StageEndReason.CivilianDied)
-            //{
-            //    if (CurrentStage > 0)
-            //    {
-            //        CurrentStage--;
-            //    }
-            //}
-
             // Handle every case
             switch (stage)
             {
@@ -383,7 +382,7 @@ namespace Assets.Scripts.Scenario
                             SetMenuEnabled(true);
                             break;
                         case StageEndReason.AgentDied:
-                            if (!HasLostBefore)
+                           // if (!HasLostBefore)
                             {
                                 HasLostBefore = true;
                                 SetMenuText("Helaas ben je neergeschoten.", "Schiet op restart onder je voeten om het op nieuw te proberen.");
@@ -392,10 +391,10 @@ namespace Assets.Scripts.Scenario
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                         case StageEndReason.CivilianDied:
-                            if (!HasLostBefore)
+                          //  if (!HasLostBefore)
                             {
                                 HasLostBefore = true;
-                                SetMenuText("Helaas heb je een onschuldige bureger neergeschoten.", "Schiet op restart onder je voeten om het op nieuw te proberen.");
+                                SetMenuText("Helaas heb je een onschuldige burger neergeschoten.", "Schiet op restart onder je voeten om het op nieuw te proberen.");
                                 SetMenuEnabled(true);
                             }
                             Scenario.GameOver.instance.SetEndscreen(false);
