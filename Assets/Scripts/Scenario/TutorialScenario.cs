@@ -24,14 +24,62 @@ namespace Assets.Scripts.Scenario
         private enum Stage
         {
             None,
-            ShowPeople,
+            ShowWorld,
+            Movement,
+            GoalExplention,
             Cover,
-            Practise
+            Practise,
         }
 
-      // Current stage
+        private Dictionary<string, string> Messages = new Dictionary<string, string>()
+        {
+            {
+                "Welcome",
+                "WELKOM IN DANGER ZONE." + '\n' + '\n' +
+                "SCHIET OP DE KNOP OM DE TUTORIAL TE STARTEN."
+            },
+            {
+                "Movement",
+                "DE BLAUWE LIJNEN OP DE GROND GEVEN HET SPEELVELD AAN."+ '\n' + '\n' +
+                "HIERIN KUN JE VRIJ BEWEGEN ZONDER IN HET ECHT ERGENS TEGENAAN TE LOPEN." +'\n' + '\n' +
+                "LOOP DOOR DE RUIMTE OM VERDER TE GAAN."
+            },
+            {
+                "Goal",
+                "JE DOEL IS OM VERDACHTEN TE NEUTRALISEREN EN HIERBIJ GEEN BURGERS AAN TE WIJZEN OF TE RAKEN. " + '\n' + '\n' +
+                "JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN, NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."
+            },
+            {
+                "Cover",
+                "ZORG ERVOOR DAT JE ZELF NIET GERAAKT WORDT. " + '\n' + '\n' +
+                "DIT KAN BIJVOORBEELD DOOR DEKKING TE ZOEKEN ACHTER VERSCHILLENDE OBJECTEN IN HET SPEL."
+            },
+            {
+                "Practise",
+                "KLAAR OM TE OEFENEN?" + '\n' + '\n' +
+                "SCHIET OP 'START' OM TE BEGINNEN."
+            },
+            {
+                "PractiseSucces",
+                "GOED GEDAAN. " +'\n' + '\n' +
+                "SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENU."
+            },
+            {
+                "PractiseAgent",
+                "HELAAS, JE BENT NEERGESCHOTEN. " + '\n' + '\n' +
+                "SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
+            },
+            {
+                "PractiseCiv",
+                "HELAAS, JE HEBT EEN BURGER NEERGESCHOTEN." + '\n' + '\n' +     
+                " SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
+            }
+
+        };
+
+        // Current stage
         private Stage CurrentStage = Stage.None;
-        private Difficulty difficulty = Difficulty.Plein;
+        private Difficulty difficulty = Difficulty.None;
 
         // Points for spawning of npcs
         public Transform[] NPCSpawnPoints;
@@ -41,30 +89,31 @@ namespace Assets.Scripts.Scenario
         // Ingame menu and dialog screen
         public GameObject IngameMenu;
         public Text IngameMenuText;
-        public Text IngameMenuTextDetail;
-        public String[] MenuMessages;
+        public Text IngameMenuStarText;
+        public GameObject IngameMenuStartButton;
         public GameObject StartButton;
+        public GameObject[] CoverBodies;
+
+        private float timer;
+        private Vector3 startingPosition;
+        private bool HasLostBefore = false;
 
         protected override void Load()
         {
-            SetDifficulty(Difficulty.Plein);
+            SetDifficulty(Difficulty.None);
             base.Load();
         }
 
         protected override void Start()
         {
             base.Start();
-            IngameMenuText.text = MenuMessages[0];
-            IngameMenuTextDetail.text = MenuMessages[5] + '\n' + MenuMessages[6];
             SetMenuEnabled(true);
+            timer = 0;
         }
 
         protected override void Update()
         {
-            if (StageEnded())
-            {
-                EndStage(CurrentStage, StageEndReason.Succes);
-            }
+            UpdateStage(CurrentStage);
 
             if (Started && !AttackTriggered)
             {
@@ -80,19 +129,43 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void OnMenuPlayButton()
         {
-            // If not practise stage then just play the next stage
-            if (CurrentStage != Stage.Practise - 1 && CurrentStage != Stage.Practise)
-            {
-                Play();
+            switch (CurrentStage) {
+                case Stage.Practise:
+                    SetMenuEnabled(false);
+                    Scenario.GameOver.instance.HideEndScreen();
+
+                    SetDifficulty(Difficulty.Street);
+                    Started = true;
+                    AttackTriggered = false;
+                    ScenarioStartedTime = Time.time;
+                    timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+
+                    if (!HasLostBefore)
+                    {
+                        ClearNPCS();
+                        Time.timeScale = 1f;
+
+                        base.Load();
+                        base.Create();
+                        base.Spawn();
+                    }
+                    break;
+                case Stage.GoalExplention:
+                    SetMenuEnabled(false);
+                    break;
+                 default :
+                    Play();
+                    break;
             }
-            else
+
+       
+        }
+
+        protected override void OnNpcHit(NPC npc, HitMessage hitmessage)
+        {
+            if (!npc.IsHostile && hitmessage.IsPlayer)
             {
-                //reset for the practise stage
-                Started = false;
-                ClearNPCS();
-                SetMenuEnabled(false);
-                Time.timeScale = 1f;
-                Scenario.GameOver.instance.HideEndScreen();
+                EndStage(CurrentStage, StageEndReason.CivilianDied);
             }
         }
 
@@ -102,7 +175,11 @@ namespace Assets.Scripts.Scenario
         public void OnRestartButton()
         {
             Play();
+            Scenario.GameOver.instance.HideEndScreen();
             SetMenuEnabled(false);
+            base.Load();
+            base.Create();
+            base.Spawn();
         }
 
         /// <summary>
@@ -131,10 +208,14 @@ namespace Assets.Scripts.Scenario
             Time.timeScale = 1f;
             SetMenuEnabled(false);
             AttackTriggered = false;
-            StartStage(CurrentStage);
             ScenarioStartedTime = Time.time;
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+
+            if (!HasLostBefore)
+            {
+                StartStage(CurrentStage);
+            }
         }
 
         /// <summary>
@@ -152,6 +233,16 @@ namespace Assets.Scripts.Scenario
         }
 
         /// <summary>
+        /// Sets the text on the ingame menu
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="aditionalinfo"></param>
+        private void SetMenuText(string text)
+        {
+            IngameMenuText.text = text;
+        }
+
+        /// <summary>
         /// Enables or disables the ingame menu
         /// </summary>
         /// <param name="enabled"></param>
@@ -159,6 +250,25 @@ namespace Assets.Scripts.Scenario
         {
             IngameMenu.SetActive(enabled);
             EnableIngameMenu = enabled;
+        }
+
+        /// <summary>
+        /// Gets wheter the ingamemenu is active
+        /// </summary>
+        public bool IsMenuEnabled { get { return IngameMenu.activeSelf; } }
+
+        /// <summary>
+        /// Enables the menu start button
+        /// </summary>
+        /// <param name="enabled"></param>
+        public void SetMenuStart(bool enabled)
+        {
+            IngameMenuStartButton.SetActive(enabled);
+        }
+
+        public void SetMenuStarText(string text)
+        {
+            IngameMenuStarText.text = text;
         }
 
         /// <summary>
@@ -179,7 +289,7 @@ namespace Assets.Scripts.Scenario
             Scenario.GameOver.instance.SetEndscreen(false);
             UIRoot.SetActive(true);
             Time.timeScale = 0.0f;
-            SetMenuEnabled(true);
+            //SetMenuEnabled(true);
         }
 
         /// <summary>
@@ -192,30 +302,94 @@ namespace Assets.Scripts.Scenario
             //Handles every stage
             switch (stage)
             {
-                case Stage.ShowPeople:
-                    SpawnNPC(true, PersonTargetPrefabs[7], NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, PersonTargetPrefabs[7], NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
+                case Stage.None: break;
+                case Stage.ShowWorld:
+                    string m = "";
+                    Messages.TryGetValue("Welcome", out m);
+                    SetMenuText(m);
+
+                    SetMenuStart(true);
+                    SetMenuEnabled(true);
+                    SetMenuStarText("START");
+                    break;
+                case Stage.Movement:
+                    string s = "";
+                    Messages.TryGetValue("Movement", out s);
+                    SetMenuText(s);
+
+                    SetMenuStart(false);
+                    SetMenuEnabled(true);
+                    Vector3 loc = this.PlayerCameraEye.transform.position;
+                    startingPosition = new Vector3(loc.x, loc.y, loc.z);
+                    break;
+                case Stage.GoalExplention:
+                    string x = "";
+                    Messages.TryGetValue("Goal", out x);
+                    SetMenuText(x);
+
+                    SetMenuEnabled(true);
+                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
+                    SetMenuStart(true);
                     break;
                 case Stage.Cover:
-                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
-                    SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[2].position, NPCSpawnPoints[2].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[1].position, NPCSpawnPoints[1].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[3].position, NPCSpawnPoints[3].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[4].position, NPCSpawnPoints[4].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[5].position, NPCSpawnPoints[5].rotation);
-                    SpawnNPC(false, GetRandomNpc(), NPCSpawnPoints[6].position, NPCSpawnPoints[6].rotation);
+                    string z = "";
+                    Messages.TryGetValue("Cover", out z);
+                    SetMenuText(z);
+
+                    SetMenuEnabled(true);
+                    EnableCoverBodies(true);
+                    SetMenuStarText("VERDER");
                     break;
                 case Stage.Practise:
-                    base.Load();
-                    base.Create();
-                    base.Spawn();
-                    break;
+                    string c = "";
+                    Messages.TryGetValue("Practise", out c);
+                    SetMenuText(c);
 
+                    EnableCoverBodies(false);
+                    StartButton.SetActive(true);
+                    if (!HasLostBefore)
+                    {
+                        SetMenuEnabled(true);
+                    }
+                    SetMenuStarText("START");
+                    break;
             }
-           
+        }
+
+        /// <summary>
+        /// Updates during the stage
+        /// </summary>
+        /// <param name="stage">the current stage being updated</param>
+        private void UpdateStage(Stage stage)
+        {
+            switch (stage)
+            {
+                case Stage.None: break;
+                case Stage.ShowWorld:
+                    break;
+                case Stage.Movement:
+                    Vector3 distance = this.PlayerCameraEye.transform.position - startingPosition;
+                    if (distance.magnitude > 1)
+                    {
+                        EndStage(CurrentStage, StageEndReason.Succes);
+                    }
+                    break;
+                case Stage.GoalExplention:
+                    if (NPC.HostileNpcs.Count == 0)
+                    {
+                        EndStage(CurrentStage, StageEndReason.Succes);
+                        SetMenuStart(true);
+                    }
+                    break;
+                case Stage.Cover:
+                    break;
+                case Stage.Practise:
+                    if (NPC.HostileNpcs.Count == 0 && !IsMenuEnabled)
+                    {
+                        EndStage(CurrentStage, StageEndReason.Succes);
+                    }
+                    break;
+            }
         }
 
         /// <summary>
@@ -228,76 +402,68 @@ namespace Assets.Scripts.Scenario
             Time.timeScale = 0f;
             Started = false;
 
-            // If the reason is that tehe agent failed reset the stage back
-            if (reason == StageEndReason.AgentDied || reason == StageEndReason.CivilianDied)
-            {
-                if (CurrentStage > 0)
-                {
-                    CurrentStage--;
-                }
-            }
-
             // Handle every case
             switch (stage)
             {
-                case Stage.ShowPeople:
-                    switch (reason)
-                    {
-                        case StageEndReason.Succes:
-                            Scenario.GameOver.instance.SetEndscreen(true);
-                            IngameMenuText.text = MenuMessages[2];
-                            IngameMenuTextDetail.text = MenuMessages[7] + '\n' + MenuMessages[8];
-                            break;
-                        case StageEndReason.AgentDied:
-                            IngameMenuText.text = MenuMessages[3];
-                            IngameMenuTextDetail.text = "";
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            break;
-                        case StageEndReason.CivilianDied:
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            IngameMenuText.text = MenuMessages[1];
-                            IngameMenuTextDetail.text = "";
-                            break;
-                    }
-                    SetMenuEnabled(true);
+                case Stage.None: break;
+                case Stage.ShowWorld:
+                    Play();
+                    break;
+                case Stage.Movement:
+                    Play();
+                    break;
+                case Stage.GoalExplention:
+                    SetMenuEnabled(false);
+                    Play();
                     break;
                 case Stage.Cover:
-                    switch (reason)
-                    {
-                        case StageEndReason.Succes:
-                            Scenario.GameOver.instance.SetEndscreen(true);
-                            IngameMenuText.text = MenuMessages[4];
-                            IngameMenuTextDetail.text = "";
-                            StartButton.SetActive(true);
-                            break;
-                        case StageEndReason.AgentDied:
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            IngameMenuText.text = MenuMessages[3];
-                            IngameMenuTextDetail.text = "";
-                            break;
-                        case StageEndReason.CivilianDied:
-                            Scenario.GameOver.instance.SetEndscreen(false);
-                            IngameMenuText.text = MenuMessages[1];
-                            IngameMenuTextDetail.text = "";
-
-                            break;
-                    }
-                    SetMenuEnabled(true);
+                    SetMenuEnabled(false);
+                    EnableCoverBodies(false);
                     break;
                 case Stage.Practise:
                     switch (reason)
                     {
                         case StageEndReason.Succes:
+                            string c = "";
+                            Messages.TryGetValue("PractiseSucces", out c);
+                            SetMenuText(c);
+
                             Scenario.GameOver.instance.SetEndscreen(true);
+                            SetMenuStart(false);
+                            SetMenuEnabled(true);
                             break;
                         case StageEndReason.AgentDied:
+                            string d = "";
+                            Messages.TryGetValue("PractiseAgent", out d);
+                            SetMenuText(d);
+
+                            HasLostBefore = true;
+                            SetMenuEnabled(true);
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                         case StageEndReason.CivilianDied:
+                            string x = "";
+                            Messages.TryGetValue("PractiseCiv", out x);
+                            SetMenuText(x);
+
+                            HasLostBefore = true;
+                            SetMenuEnabled(true);
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                     }
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Toggles the bodies in the scene
+        /// </summary>
+        /// <param name="enable"></param>
+        private void EnableCoverBodies(bool enable)
+        {
+            foreach (GameObject obj in CoverBodies)
+            {
+                obj.SetActive(enable);
             }
         }
 
@@ -333,6 +499,7 @@ namespace Assets.Scripts.Scenario
         /// <param name="hitmessage">the info about the hit</param>
         private void OnNPCDeath(NPC npc, HitMessage hitmessage)
         {
+            timer = 0;
             // Check if the npc was killed by a player and was a neutral npc
             if (!npc.IsHostile && hitmessage.IsPlayer)
             {

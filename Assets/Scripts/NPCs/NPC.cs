@@ -416,11 +416,7 @@ namespace Assets.Scripts.NPCs
         /// <param name="npc"></param>
         private void OnDeathEvent(NPC npc, HitMessage hitmessage)
         {
-            if (!npc.IsHostile && hitmessage.IsPlayer)
-            {
-                ScenarioBase.Instance.GameOver();
-                ScenarioBase.Instance.ShowGameOverReason(ScenarioBase.StageEndReason.CivilianDied);
-            }
+          
         }
 
         /// <summary>
