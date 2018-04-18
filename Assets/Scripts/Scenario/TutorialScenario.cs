@@ -33,14 +33,47 @@ namespace Assets.Scripts.Scenario
 
         private Dictionary<string, string> Messages = new Dictionary<string, string>()
         {
-            {"Welcome",         "WELKOM IN DANGER ZONE. SCHIET OP DE KNOP OM DE TUTORIAL TE STARTEN." },
-            {"Movement",        "DE BLAUWE LIJNEN OP DE GROND GEVEN HET SPEELVELD AAN. HIERIN KUN JE VRIJ BEWEGEN ZONDER IN HET ECHT ERGENS TEGENAAN TE LOPEN. LOOP DOOR DE RUIMTE OM VERDER TE GAAN." },
-            {"Goal",            "JE DOEL IS OM VERDACHTEN TE NEUTRALISEREN EN HIERBIJ GEEN BURGERS AAN TE WIJZEN OF TE RAKEN. JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN. NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."},
-            {"Cover",           "ZORG ERVOOR DAT JE ZELF NIET GERAAKT WORDT. DIT KAN BIJVOORBEELD DOOR DEKKING TE ZOEKEN ACHTER VERSCHILLENDE OBJECTEN IN HET SPEL." },
-            {"Practise",        "KLAAR OM TE OEFENEN? SCHIET OP 'START' OM TE BEGINNEN."},
-            {"PractiseSucces",  "GOED GEDAAN. SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENU." },
-            {"PractiseAgent",   "HELAAS, JE BENT NEERGESCHOTEN. SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."},
-            {"PractiseCiv",     "HELAAS, JE HEBT EEN ONSCHULDIGE BURGER NEERGESCHOTEN. SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN." }
+            {
+                "Welcome",
+                "WELKOM IN DANGER ZONE." + '\n' + '\n' +
+                "SCHIET OP DE KNOP OM DE TUTORIAL TE STARTEN."
+            },
+            {
+                "Movement",
+                "DE BLAUWE LIJNEN OP DE GROND GEVEN HET SPEELVELD AAN."+ '\n' + '\n' +
+                "HIERIN KUN JE VRIJ BEWEGEN ZONDER IN HET ECHT ERGENS TEGENAAN TE LOPEN." +'\n' + '\n' +
+                "LOOP DOOR DE RUIMTE OM VERDER TE GAAN."
+            },
+            {
+                "Goal",
+                "JE DOEL IS OM VERDACHTEN TE NEUTRALISEREN EN HIERBIJ GEEN BURGERS AAN TE WIJZEN OF TE RAKEN. " + '\n' + '\n' +
+                "JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN, NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."
+            },
+            {
+                "Cover",
+                "ZORG ERVOOR DAT JE ZELF NIET GERAAKT WORDT. " + '\n' + '\n' +
+                "DIT KAN BIJVOORBEELD DOOR DEKKING TE ZOEKEN ACHTER VERSCHILLENDE OBJECTEN IN HET SPEL."
+            },
+            {
+                "Practise",
+                "KLAAR OM TE OEFENEN?" + '\n' + '\n' +
+                "SCHIET OP 'START' OM TE BEGINNEN."
+            },
+            {
+                "PractiseSucces",
+                "GOED GEDAAN. " +'\n' + '\n' +
+                "SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENU."
+            },
+            {
+                "PractiseAgent",
+                "HELAAS, JE BENT NEERGESCHOTEN. " + '\n' + '\n' +
+                "SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
+            },
+            {
+                "PractiseCiv",
+                "HELAAS, JE HEBT EEN BURGER NEERGESCHOTEN." + '\n' + '\n' +     
+                " SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
+            }
 
         };
 
@@ -96,34 +129,36 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void OnMenuPlayButton()
         {
+            switch (CurrentStage) {
+                case Stage.Practise:
+                    SetMenuEnabled(false);
+                    Scenario.GameOver.instance.HideEndScreen();
 
-            // If not practise stage then just play the next stage
-            if (CurrentStage != Stage.Practise)
-            {
-                Play();
+                    SetDifficulty(Difficulty.Street);
+                    Started = true;
+                    AttackTriggered = false;
+                    ScenarioStartedTime = Time.time;
+                    timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
+
+                    if (!HasLostBefore)
+                    {
+                        ClearNPCS();
+                        Time.timeScale = 1f;
+
+                        base.Load();
+                        base.Create();
+                        base.Spawn();
+                    }
+                    break;
+                case Stage.GoalExplention:
+                    SetMenuEnabled(false);
+                    break;
+                 default :
+                    Play();
+                    break;
             }
-            else
-            {
-                //reset for the practise stage
-                SetMenuEnabled(false);
-                Scenario.GameOver.instance.HideEndScreen();
 
-                SetDifficulty(Difficulty.Street);
-                Started = true;
-                AttackTriggered = false;
-                ScenarioStartedTime = Time.time;
-                timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
-
-                if (!HasLostBefore)
-                {
-                    ClearNPCS();
-                    Time.timeScale = 1f;
-
-                    base.Load();
-                    base.Create();
-                    base.Spawn();
-                }
-            }
+       
         }
 
         protected override void OnNpcHit(NPC npc, HitMessage hitmessage)
@@ -294,6 +329,7 @@ namespace Assets.Scripts.Scenario
 
                     SetMenuEnabled(true);
                     SpawnNPC(true, GetRandomNpc(), NPCSpawnPoints[0].position, NPCSpawnPoints[0].rotation);
+                    SetMenuStart(true);
                     break;
                 case Stage.Cover:
                     string z = "";
