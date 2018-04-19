@@ -71,7 +71,7 @@ namespace Assets.Scripts.Scenario
             AgentDied,
             CivilianDied,
             Succes
-        } 
+        }
         /// <summary>
         /// amount of target still alive in scene
         /// </summary>
@@ -82,8 +82,8 @@ namespace Assets.Scripts.Scenario
 
         public GameObject ingameUITrigger;
         public GameObject IngameUI;
-        public  GameObject GameOverScreen;
-        public  Text GameOverScreenText;
+        public GameObject GameOverScreen;
+        public Text GameOverScreenText;
 
         /// <summary>
         /// Timestamp of when Scenario is started
@@ -112,10 +112,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void SetLoadType()
         {
-            if (Settings.ScenarioSettings.IsRandomScenario)
-                LoadStyle = new LoadRandom();
-            else
-                LoadStyle = new LoadXml();
+            LoadStyle = new LoadRandom();
         }
 
         /// <summary>
@@ -153,7 +150,7 @@ namespace Assets.Scripts.Scenario
 
         protected virtual void Update()
         {
-           MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
+            MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
 
             //check endgame 
             if (NPC.HostileNpcs.Count == 0 && Started)
@@ -354,7 +351,7 @@ namespace Assets.Scripts.Scenario
         /// <param name="position"></param>
         /// <returns></returns>
         public Waypoint CreateWaypoint(Target target, Vector3 position)
-        {        
+        {
             Transform t = Instantiate(WaypointPrefab, position, Quaternion.identity);
             Waypoint waypoint = t.GetComponent<Waypoint>();
             if (waypoint == null)
@@ -379,9 +376,9 @@ namespace Assets.Scripts.Scenario
         /// Shows reason of gameover
         /// </summary>
         /// <param name="reason"></param>
-        public  void ShowGameOverReason(StageEndReason reason)
+        public void ShowGameOverReason(StageEndReason reason)
         {
-              GameOverScreen.SetActive(true);
+            GameOverScreen.SetActive(true);
 
             switch (reason)
             {
@@ -396,7 +393,7 @@ namespace Assets.Scripts.Scenario
                     break;
             }
 
-          
+
         }
 
         /// <summary>
@@ -404,7 +401,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void HideGameOverReason()
         {
-           GameOverScreen.SetActive(false);
+            GameOverScreen.SetActive(false);
         }
 
 
