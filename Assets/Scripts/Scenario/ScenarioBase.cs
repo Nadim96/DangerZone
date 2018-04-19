@@ -212,10 +212,10 @@ namespace Assets.Scripts.Scenario
         {
             Started = false;
 
-            StartCoroutine("gameoverWait", false);
-            //bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
+            //StartCoroutine("gameoverWait", false);
+            bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
-            //StartCoroutine("gameoverWait", dead);
+            StartCoroutine("gameoverWait", dead);
         }
 
         /// <summary>
