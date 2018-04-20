@@ -200,6 +200,8 @@ namespace Assets.Scripts.Scenario
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
             Time.timeScale = 1f;
+
+            Statistics.Reset();
         }
 
         /// <summary>

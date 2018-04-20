@@ -97,19 +97,18 @@ namespace Assets.Scripts.Utility
             _gameTime.SetText(FormatTime(Time.timeSinceLevelLoad));
 
             // Percentage aimed at hostiles
-            int percentage = (int) Math.Round(TimeSpentAimingOnHostiles /
-                                              (TimeSpentAimingOnCivilians > 0 ? TimeSpentAimingOnCivilians : 1) * 100);
+            int percentage = (int) Math.Round(TimeSpentAimingOnHostiles / (TimeSpentAimingOnCivilians > 0 ? TimeSpentAimingOnCivilians : 1) * 100);
 
-            _lofCivilians.SetText(string.Format("{0}s", Math.Round(TimeSpentAimingOnCivilians)));
-            _lofWrongEnemies.SetText(string.Format("{0}s", Math.Round(TimeSpentAimingOnHostiles, 2)));
+            _lofCivilians.SetText("Tijd op burgers gericht: " + string.Format("{0}s", Math.Round(TimeSpentAimingOnCivilians)));
+            _lofWrongEnemies.SetText("Tijd op verdachten gericht: " + string.Format("{0}s", Math.Round(TimeSpentAimingOnHostiles, 2)));
             _lofTime.SetText("Speler richtte {0}% van de tijd op verdachten", percentage);
 
-            _shotsFired.SetText(ShotsFired.ToString());
+            _shotsFired.SetText("Schoten: " + ShotsFired.ToString());
 
-            _deadFriendlies.SetText(string.Format("{0}", DeadFriendliesByEnemy + DeadFriendliesByPlayer));
-            _deadEnemies.SetText(string.Format("{0}", DeadHostilesByEnemy + DeadHostilesByPlayer));
+            _deadFriendlies.SetText("Dode burgers: " + string.Format("{0}", DeadFriendliesByEnemy + DeadFriendliesByPlayer));
+            _deadEnemies.SetText("Dode verdachten: " + string.Format("{0}", DeadHostilesByEnemy + DeadHostilesByPlayer));
 
-            _timesHit.SetText(PlayerHit.ToString());
+            _timesHit.SetText("Keren geraakt:" + PlayerHit.ToString());
         }
 
         /// <summary>

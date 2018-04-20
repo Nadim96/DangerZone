@@ -336,6 +336,7 @@ namespace Assets.Scripts.NPCs
         /// <param name="hitmessage"></param>
         private void SaveHit(HitMessage hitmessage)
         {
+            Debug.Log("Save hit");
             // Gameobject that got hit
             List<GameObject> tempList = new List<GameObject> {HitLocation.Save(this, hitmessage.PointOfImpact)};
 
