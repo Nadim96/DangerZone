@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Scripts.BehaviourTree.Leaf.Conditions;
 using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
+using Assets.Scripts.Player;
 using Assets.Scripts.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -62,6 +63,9 @@ namespace Assets.Scripts.Scenario
         public GoalType GoalType { get; set; }
         public List<Target> Targets { get; private set; }
 
+        public GameObject PlayerGunObject;
+        private VR_Controller_Gun PlayerGun;
+
 
         /// <summary>
         /// Reasons why a stage has ended
@@ -70,6 +74,7 @@ namespace Assets.Scripts.Scenario
         {
             AgentDied,
             CivilianDied,
+            OutOfAmmo,
             Succes
         } 
         /// <summary>
@@ -142,18 +147,49 @@ namespace Assets.Scripts.Scenario
                                     "Please ensure the Spawnable NPC list is filled.");
             SetLoadType();
 
+            foreach (PlayerGunInterface gun in PlayerGunInterface.AllPlayerGuns) {
+                gun.OnShoot = OnPlayerShoot;
+            }
+
             if (StartOnLoad)
                 Play();
+            PlayerGun = PlayerGunObject.GetComponent<VR_Controller_Gun>();
+
+        }
+
+        /// <summary>
+        /// Event that triggers if the gun has fired
+        /// </summary>
+        /// <param name="gunempty"></param>
+        public void OnPlayerShoot(bool gunempty) {
+            if (gunempty) {
+                StartCoroutine(WaitHitCheck());
+            }
+        }
+
+        IEnumerator WaitHitCheck()
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            if (Started) {
+                ShowGameOverReason(StageEndReason.OutOfAmmo);
+                GameOver();
+            }
+          
         }
 
         public virtual void SetIngameUIVisible()
         {
             EnableIngameMenu = true;
+
         }
 
         protected virtual void Update()
         {
-           MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
+            MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
+
+            if (Input.GetKeyDown(KeyCode.R)) {
+                Play();
+            }
 
             //check endgame 
             if (NPC.HostileNpcs.Count == 0 && Started)
@@ -189,6 +225,7 @@ namespace Assets.Scripts.Scenario
         public virtual void Play()
         {
             HideGameOverReason();
+            PlayerGun.PlayerGunInterface.ReloadGun();
             IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
@@ -203,6 +240,7 @@ namespace Assets.Scripts.Scenario
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
             Time.timeScale = 1f;
+
         }
 
         /// <summary>
@@ -212,10 +250,10 @@ namespace Assets.Scripts.Scenario
         {
             Started = false;
 
-            StartCoroutine("gameoverWait", false);
-            //bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
+            //StartCoroutine("gameoverWait", false);
+            bool win = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
-            //StartCoroutine("gameoverWait", dead);
+            StartCoroutine("gameoverWait", win);
         }
 
         /// <summary>
@@ -390,6 +428,9 @@ namespace Assets.Scripts.Scenario
                     break;
                 case StageEndReason.CivilianDied:
                     GameOverScreenText.text = "Je hebt een burger geraakt.";
+                    break;
+                case StageEndReason.OutOfAmmo:
+                    GameOverScreenText.text = "Je 15 kogels zijn op.";
                     break;
                 default:
                     GameOverScreenText.text = "Game over";

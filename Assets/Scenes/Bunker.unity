@@ -16716,6 +16716,7 @@ MonoBehaviour:
   PlayerCameraEyeCamera: {fileID: 1575440274}
   minTimeElapsedBeforeAttack: 3
   maxTimeElapsedBeforeAttack: 10
+  PlayerGunObject: {fileID: 533722846}
   ingameUITrigger: {fileID: 1905534228}
   IngameUI: {fileID: 364174548}
   GameOverScreen: {fileID: 525331185}
@@ -20639,7 +20640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &525331186
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20647,8 +20648,8 @@ RectTransform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 525331185}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.49000168, y: 0.0009994507, z: 0.246}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10400009, y: 0.7789993, z: 0.246}
   m_LocalScale: {x: 0.02027, y: 0.020000003, z: 0.9720702}
   m_Children:
   - {fileID: 1743578994}
@@ -20657,7 +20658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.49, y: 0.001}
+  m_AnchoredPosition: {x: 0.104, y: 0.779}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &525331187
@@ -22362,7 +22363,7 @@ MonoBehaviour:
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
   casingPool: {fileID: 291230010}
-  _maxRoundsMag: 1500
+  _maxRoundsMag: 15
   _lineOfFireWarning: {fileID: 0}
   _explosion: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b,
     type: 2}
@@ -44853,7 +44854,7 @@ MonoBehaviour:
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
   casingPool: {fileID: 291230010}
-  _maxRoundsMag: 1500
+  _maxRoundsMag: 15
   _lineOfFireWarning: {fileID: 0}
   _explosion: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b,
     type: 2}
