@@ -285,6 +285,16 @@ namespace Assets.Scripts.NPCs
             }
 
             OnNPCHitEvent(this, hitMessage);
+
+            if (hitMessage.IsPlayer)
+            {
+                ShowNpcHit showNpcHit = Object.FindObjectOfType<ShowNpcHit>();
+                if (showNpcHit != null)
+                {
+                    showNpcHit.Save(this, hitMessage);
+                }
+             
+            }
         }
 
         /// <summary>
@@ -328,27 +338,6 @@ namespace Assets.Scripts.NPCs
                 Ragdoll.stateType = StateType.One;
                 Ragdoll.ragFull = true;
             }
-        }
-
-        /// <summary>
-        /// Save the all the NPCs in the scene to a list
-        /// </summary>
-        /// <param name="hitmessage"></param>
-        private void SaveHit(HitMessage hitmessage)
-        {
-            Debug.Log("Save hit");
-            // Gameobject that got hit
-            List<GameObject> tempList = new List<GameObject> {HitLocation.Save(this, hitmessage.PointOfImpact)};
-
-            // Add rest of the npcs to the list
-            foreach (NPC npc in Npcs)
-            {
-                // Return if current. to prevent the same NPC is added twice
-                if (npc.gameObject.Equals(gameObject)) continue;
-                tempList.Add(HitLocation.Save(npc));
-            }
-
-            ShowNpcHit.HitNPCs.Add(tempList);
         }
 
         /// <summary>
