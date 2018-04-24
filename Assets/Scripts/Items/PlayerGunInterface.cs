@@ -73,14 +73,11 @@ namespace Assets.Scripts.Items
                 _currentRoundsInMag--;
 
                 Statistics.ShotsFired++;
-
-                Debug.Log("Schieten met kogels in het magazijn");
             }
             else
             {
                 // Gun empty
                 AudioController.PlayAudio(gameObject, AudioCategory.GunTrigger);
-                Debug.Log("Schieten zonder kogels in het magazijn");
             }
             OnShoot(_currentRoundsInMag <= 0);
         }

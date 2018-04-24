@@ -225,7 +225,6 @@ namespace Assets.Scripts.Scenario
         public virtual void Play()
         {
             HideGameOverReason();
-            PlayerGun.PlayerGunInterface.ReloadGun();
             IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
@@ -240,7 +239,7 @@ namespace Assets.Scripts.Scenario
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
             Time.timeScale = 1f;
-
+            PlayerGun.PlayerGunInterface.ReloadGun();
         }
 
         /// <summary>
@@ -248,6 +247,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void GameOver()
         {
+            Debug.Log("GAMEOVER");
             Started = false;
 
             //StartCoroutine("gameoverWait", false);
@@ -281,9 +281,10 @@ namespace Assets.Scripts.Scenario
             Time.timeScale = 1;
             Scenario.GameOver.instance.HideEndScreen();
 
-            foreach (Target t in Targets)
+            foreach (Target t in Targets) {
                 t.Destroy();
-            Targets = new List<Target>();
+            }
+            Targets.Clear();
         }
 
         public void BackToMainMenu(float delay)
