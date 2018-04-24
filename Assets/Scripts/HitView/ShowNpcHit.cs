@@ -131,12 +131,12 @@ namespace Assets.Scripts.HitView
         /// <param name="npc"></param>
         private void Create(NPC npc)
         {
-           Doll doll = HitNPCs[npc];
+            Doll doll = HitNPCs[npc];
 
             GameObject skin = GameObject.Instantiate(doll.Skin);
 
             skin.SetActive(true);
-         
+
             skin.transform.SetParent(SpawnLoaction);
             skin.transform.localPosition = new Vector3(0, 0, 0);
             skin.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -161,6 +161,7 @@ namespace Assets.Scripts.HitView
         {
             if (Current == null) return;
             GameObject.Destroy(Current.Instance);
+            Current.Instance = null;
             Current = null;
         }
 
@@ -175,6 +176,27 @@ namespace Assets.Scripts.HitView
             hitObject.GetComponent<Renderer>().material.color = Color.magenta;
             hitObject.SetActive(true);
             return hitObject;
+        }
+
+
+        /// <summary>
+        /// resets and clears all the dolls
+        /// </summary>
+        public void Reset()
+        {
+            foreach (KeyValuePair<NPC, Doll> value in HitNPCs)
+            {
+                Doll doll = value.Value;
+
+                if (doll.Instance != null)
+                {
+                    GameObject.Destroy(doll.Instance);
+                }
+
+                GameObject.Destroy(doll.Skin);
+            }
+
+            HitNPCs.Clear();
         }
 
         /// <summary>

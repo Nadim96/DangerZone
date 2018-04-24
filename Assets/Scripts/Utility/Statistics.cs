@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.HitView;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -134,6 +135,13 @@ namespace Assets.Scripts.Utility
             DeadHostilesByEnemy = 0;
             DeadHostilesByPlayer = 0;
             PlayerHit = 0;
+
+            ShowNpcHit showNpcHit = UnityEngine.Object.FindObjectOfType<ShowNpcHit>();
+            if (showNpcHit != null)
+            {
+                showNpcHit.Reset();
+            }
+
         }
     }
 }
