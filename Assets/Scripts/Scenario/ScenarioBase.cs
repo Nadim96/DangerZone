@@ -162,7 +162,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         /// <param name="gunempty"></param>
         public void OnPlayerShoot(bool gunempty) {
-            if (gunempty) {
+            if (gunempty && Started) {
                 StartCoroutine(WaitHitCheck());
             }
         }
@@ -235,11 +235,11 @@ namespace Assets.Scripts.Scenario
             Create();
             Spawn();
             ScenarioStartedTime = Time.time;
+            PlayerGun.PlayerGunInterface.ReloadGun();
             Started = true;
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
             Time.timeScale = 1f;
-            PlayerGun.PlayerGunInterface.ReloadGun();
         }
 
         /// <summary>
