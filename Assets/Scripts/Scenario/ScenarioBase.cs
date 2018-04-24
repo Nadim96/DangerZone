@@ -117,10 +117,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void SetLoadType()
         {
-            if (Settings.ScenarioSettings.IsRandomScenario)
                 LoadStyle = new LoadRandom();
-            else
-                LoadStyle = new LoadXml();
         }
 
         /// <summary>
