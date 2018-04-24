@@ -22,10 +22,21 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public GameObject Skin { get; internal set; }
 
-        public Doll(NPC npc, GameObject skin)
+        /// <summary>
+        /// Hits on the doll
+        /// </summary>
+        public List<HitInfo> Hits { get; internal set; }
+
+        /// <summary>
+        /// Instance of the doll being shown
+        /// </summary>
+        public GameObject Instance { get; set; }
+
+        public Doll(NPC npc, GameObject skin, List<HitInfo> hits)
         {
             this.NPC = npc;
             this.Skin = skin;
+            this.Hits = hits;
         }
     }
 }

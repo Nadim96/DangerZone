@@ -21,6 +21,9 @@ namespace Assets.Scripts.HitView
         [SerializeField]
         private Transform SpawnLoaction;
 
+        [SerializeField]
+        private Transform DollStorage;
+
         /// <summary>
         /// Current doll that is placed
         /// </summary>
@@ -29,14 +32,14 @@ namespace Assets.Scripts.HitView
         /// <summary>
         /// Stores all of the hits per hit NPC.
         /// </summary>
-        public Dictionary<NPC, List<HitInfo>> HitNPCs { get; set; }
+        public Dictionary<NPC, Doll> HitNPCs { get; set; }
 
         /// <summary>
         /// Starts the behavior
         /// </summary>
         public void Start()
         {
-            HitNPCs = new Dictionary<NPC, List<HitInfo>>();
+            HitNPCs = new Dictionary<NPC, Doll>();
         }
 
         /// <summary>
@@ -48,17 +51,21 @@ namespace Assets.Scripts.HitView
         {
             Vector3 location = hitMessage.HitObject.transform.InverseTransformPoint(hitMessage.PointOfImpact);
 
-            Debug.Log(hitMessage.PointOfImpact + " " + location);
-
             int count = HitNPCs.Count;
 
             if (HitNPCs.ContainsKey(npc))
             {
-                HitNPCs[npc].Add(new HitInfo(hitMessage.HitObject, location));
+                HitNPCs[npc].Hits.Add(new HitInfo(hitMessage.HitObject, location));
             }
             else
             {
-                HitNPCs.Add(npc, new List<HitInfo>() { new HitInfo(hitMessage.HitObject, location) });
+                GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
+
+                skin.transform.SetParent(DollStorage);
+                skin.transform.localPosition = new Vector3(0, 0, 0);
+                skin.SetActive(false);
+
+                HitNPCs.Add(npc, new Doll(npc, skin, new List<HitInfo>() { new HitInfo(hitMessage.HitObject, location) }));
             }
 
             if (count == 0)
@@ -79,6 +86,8 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Prev()
         {
+            Debug.Log("Prev");
+
             if (Current == null) return;
 
             int index = GetIndexForKey(Current.NPC);
@@ -94,6 +103,8 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Next()
         {
+            Debug.Log("Next");
+
             if (Current == null) return;
 
             int index = GetIndexForKey(Current.NPC);
@@ -120,19 +131,17 @@ namespace Assets.Scripts.HitView
         /// <param name="npc"></param>
         private void Create(NPC npc)
         {
-            List<HitInfo> hits = HitNPCs[npc];
+           Doll doll = HitNPCs[npc];
 
-            //GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
-            GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
+            GameObject skin = GameObject.Instantiate(doll.Skin);
 
-            // PrefabUtility.ResetToPrefabState(skin);
-
-            PrefabUtility.RevertPrefabInstance(skin);
-
+            skin.SetActive(true);
+         
             skin.transform.SetParent(SpawnLoaction);
             skin.transform.localPosition = new Vector3(0, 0, 0);
+            skin.transform.localRotation = Quaternion.Euler(0, 0, 0);
 
-            foreach (HitInfo hit in hits)
+            foreach (HitInfo hit in doll.Hits)
             {
                 GameObject hitpoint = CreateHitPoint();
                 Transform bodypart = FindDeepChild(skin.transform, hit.BodyPart.name.Trim());
@@ -140,7 +149,8 @@ namespace Assets.Scripts.HitView
                 hitpoint.transform.localPosition = hit.HitLocation;
             }
 
-            Current = new Doll(npc, skin);
+            Current = doll;
+            doll.Instance = skin;
         }
 
         /// <summary>
@@ -150,7 +160,7 @@ namespace Assets.Scripts.HitView
         private void Delete()
         {
             if (Current == null) return;
-            GameObject.Destroy(Current.Skin);
+            GameObject.Destroy(Current.Instance);
             Current = null;
         }
 
@@ -203,6 +213,12 @@ namespace Assets.Scripts.HitView
             return null;
         }
 
+        /// <summary>
+        /// Search through all childeren in a transform on name
+        /// </summary>
+        /// <param name="aParent"></param>
+        /// <param name="aName"></param>
+        /// <returns></returns>
         public static Transform FindDeepChild(Transform aParent, string aName)
         {
             Transform[] childeren = aParent.GetComponentsInChildren<Transform>();
