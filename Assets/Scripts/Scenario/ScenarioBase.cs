@@ -221,6 +221,8 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+            PlayerGun.PlayerGunInterface.ReloadGun();
+
             HideGameOverReason();
             IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
