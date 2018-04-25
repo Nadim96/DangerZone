@@ -9,7 +9,7 @@ namespace Assets.Scripts.Player
     {
         private const ushort HAPTIC_PULSE_DURATION = 3999;
 
-        private PlayerGunInterface PlayerGunInterface
+        public PlayerGunInterface PlayerGunInterface
         {
             get { return GetComponentInChildren<PlayerGunInterface>(); }
         }
