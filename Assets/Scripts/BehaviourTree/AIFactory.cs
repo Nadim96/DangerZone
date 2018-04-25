@@ -100,7 +100,7 @@ namespace Assets.Scripts.BehaviourTree
                             new IsHostile(d),
                             new CanAttack(d)
                         },
-                        new Sequence //Step 2, starting attack
+                        new Repeater(new Sequence //Step 2, starting attack
                         {
                             new SetMovementSpeed(d, true), //Allows npc to run
                             new RandomSelector { //Selects NPC or Player at random.
@@ -130,7 +130,7 @@ namespace Assets.Scripts.BehaviourTree
                                     new IsWithinWeaponsRange(d),
                                     new IsTargetAlive(d),
                                     new TurnToFaceTarget(d)
-                                }, 
+                                },
                                 new Repeater( //use weapon
                                     new Sequence
                                     {
@@ -140,7 +140,8 @@ namespace Assets.Scripts.BehaviourTree
                                         new Wait(1f)
                                     }, true)
                             )
-                        }
+                        },false)
+                        
 
                     )
                 },
@@ -167,7 +168,7 @@ namespace Assets.Scripts.BehaviourTree
                             }
                             },
                         new Sequence{})
-                        }          
+                        }
             };
             return new BT(rootSelector);
         }
