@@ -248,6 +248,7 @@ namespace Assets.Scripts.Scenario
             foreach (Target t in Targets)
                 t.Destroy();
             Targets = new List<Target>();
+
         }
 
         public void BackToMainMenu(float delay)
