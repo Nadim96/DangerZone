@@ -16,6 +16,16 @@ namespace Assets.Scripts.HitView
     public class ShowNpcHit : MonoBehaviour
     {
         /// <summary>
+        /// whether the feedback is shown
+        /// </summary>
+        private bool shown;
+
+        /// <summary>
+        /// UI 
+        /// </summary>
+        public GameObject UI;
+
+        /// <summary>
         /// The spawn location of the doll
         /// </summary>
         [SerializeField]
@@ -77,6 +87,27 @@ namespace Assets.Scripts.HitView
                 if (Current.NPC == npc)
                 {
                     ReCreate(npc);
+                }
+            }
+            Current.Instance.SetActive(shown);
+        }
+
+        /// <summary>
+        /// Shows the statistics to the world
+        /// </summary>
+        /// <param name="show"></param>
+        public void Show(bool show)
+        {
+            shown = show;
+            UI.SetActive(show);
+            if (Current != null)
+            {
+                Current.Instance.SetActive(show);
+
+                if (show)
+                {
+                    ReCreate(Current.NPC);
+                    Current.Instance.SetActive(show);
                 }
             }
         }

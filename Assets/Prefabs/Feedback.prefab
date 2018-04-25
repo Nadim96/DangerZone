@@ -1433,6 +1433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56865e084256ba46bb856ba41f8c46c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI: {fileID: 1760580330971650}
   SpawnLoaction: {fileID: 224284954558367478}
   DollStorage: {fileID: 224252938901996152}
 --- !u!114 &114573314139826802
@@ -1940,6 +1941,9 @@ MonoBehaviour:
   _deadEnemies: {fileID: 114035857187239626}
   _deadFriendlies: {fileID: 114323078809093632}
   _timesHit: {fileID: 114100113554592592}
+  board: {fileID: 1801173897309288}
+  showShots: {fileID: 114054365379246830}
+  showNpcHit: {fileID: 114568611633410176}
 --- !u!114 &114923644915239382
 MonoBehaviour:
   m_ObjectHideFlags: 1

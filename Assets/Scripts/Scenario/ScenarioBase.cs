@@ -202,6 +202,7 @@ namespace Assets.Scripts.Scenario
             Time.timeScale = 1f;
 
             Statistics.Reset();
+            Statistics.Show(false);
         }
 
         /// <summary>
@@ -229,6 +230,8 @@ namespace Assets.Scripts.Scenario
             if (Started) yield break;
             Scenario.GameOver.instance.SetEndscreen(dead);
             Time.timeScale = 0.0f; // Set time still
+
+            Statistics.Show(true);
         }
 
         /// <summary>

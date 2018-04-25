@@ -23,7 +23,6 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public Vector3 ImpactPoint { get; private set; }
 
-
         public Shot(GameObject hit, Vector3 origin, Vector3 impactPoint)
         {
             this.Hit = hit;

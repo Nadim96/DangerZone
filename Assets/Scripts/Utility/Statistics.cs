@@ -22,6 +22,11 @@ namespace Assets.Scripts.Utility
         [SerializeField] private TextMeshProUGUI _deadFriendlies;
         [SerializeField] private TextMeshProUGUI _timesHit;
 
+        //Other feedback objects
+        public GameObject board;
+        public ShowShots showShots;
+        public ShowNpcHit showNpcHit;
+
         /// <summary>
         /// Amount of time in seconds player spent aiming at civilians  
         /// </summary>
@@ -124,6 +129,21 @@ namespace Assets.Scripts.Utility
         }
 
         /// <summary>
+        /// Enables the statistics and feedback
+        /// </summary>
+        /// <param name="show"></param>
+        public static void Show(bool show)
+        {
+            Statistics stats = UnityEngine.Object.FindObjectOfType<Statistics>();
+            if (stats != null)
+            {
+                stats.board.SetActive(show);
+                stats.showShots.Show(show);
+                stats.showNpcHit.Show(show);
+            }
+        }
+
+        /// <summary>
         /// Reset Statistic parameters
         /// </summary>
         public static void Reset()
@@ -136,19 +156,12 @@ namespace Assets.Scripts.Utility
             DeadHostilesByPlayer = 0;
             PlayerHit = 0;
 
-            ShowNpcHit showNpcHit = UnityEngine.Object.FindObjectOfType<ShowNpcHit>();
-            if (showNpcHit != null)
+            Statistics stats = UnityEngine.Object.FindObjectOfType<Statistics>();
+            if (stats != null)
             {
-                showNpcHit.Reset();
+                stats.showNpcHit.Reset();
+                stats.showShots.Reset();
             }
-
-
-            ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
-            if (showShots != null)
-            {
-                showShots.Reset();
-            }
-
         }
     }
 }
