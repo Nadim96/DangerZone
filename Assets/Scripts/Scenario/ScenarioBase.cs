@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Scripts.BehaviourTree.Leaf.Conditions;
 using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
+using Assets.Scripts.Player;
 using Assets.Scripts.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -62,6 +63,9 @@ namespace Assets.Scripts.Scenario
         public GoalType GoalType { get; set; }
         public List<Target> Targets { get; private set; }
 
+        public GameObject PlayerGunObject;
+        private VR_Controller_Gun PlayerGun;
+
 
         /// <summary>
         /// Reasons why a stage has ended
@@ -70,8 +74,9 @@ namespace Assets.Scripts.Scenario
         {
             AgentDied,
             CivilianDied,
+            OutOfAmmo,
             Succes
-        }
+        } 
         /// <summary>
         /// amount of target still alive in scene
         /// </summary>
@@ -139,18 +144,49 @@ namespace Assets.Scripts.Scenario
                                     "Please ensure the Spawnable NPC list is filled.");
             SetLoadType();
 
+            foreach (PlayerGunInterface gun in PlayerGunInterface.AllPlayerGuns) {
+                gun.OnShoot = OnPlayerShoot;
+            }
+
             if (StartOnLoad)
                 Play();
+            PlayerGun = PlayerGunObject.GetComponent<VR_Controller_Gun>();
+
+        }
+
+        /// <summary>
+        /// Event that triggers if the gun has fired
+        /// </summary>
+        /// <param name="gunempty"></param>
+        public void OnPlayerShoot(bool gunempty) {
+            if (gunempty && Started) {
+                StartCoroutine(WaitHitCheck());
+            }
+        }
+
+        IEnumerator WaitHitCheck()
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            if (Started) {
+                ShowGameOverReason(StageEndReason.OutOfAmmo);
+                GameOver();
+            }
+          
         }
 
         public virtual void SetIngameUIVisible()
         {
             EnableIngameMenu = true;
+
         }
 
         protected virtual void Update()
         {
             MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
+
+            if (Input.GetKeyDown(KeyCode.R)) {
+                Play();
+            }
 
             //check endgame 
             if (NPC.HostileNpcs.Count == 0 && Started)
@@ -185,6 +221,8 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+            PlayerGun.PlayerGunInterface.ReloadGun();
+
             HideGameOverReason();
             IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
@@ -196,6 +234,7 @@ namespace Assets.Scripts.Scenario
             Create();
             Spawn();
             ScenarioStartedTime = Time.time;
+            PlayerGun.PlayerGunInterface.ReloadGun();
             Started = true;
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
@@ -207,6 +246,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void GameOver()
         {
+            Debug.Log("GAMEOVER");
             Started = false;
 
             //StartCoroutine("gameoverWait", false);
@@ -240,9 +280,10 @@ namespace Assets.Scripts.Scenario
             Time.timeScale = 1;
             Scenario.GameOver.instance.HideEndScreen();
 
-            foreach (Target t in Targets)
+            foreach (Target t in Targets) {
                 t.Destroy();
-            Targets = new List<Target>();
+            }
+            Targets.Clear();
         }
 
         public void BackToMainMenu(float delay)
@@ -387,6 +428,9 @@ namespace Assets.Scripts.Scenario
                     break;
                 case StageEndReason.CivilianDied:
                     GameOverScreenText.text = "Je hebt een burger geraakt.";
+                    break;
+                case StageEndReason.OutOfAmmo:
+                    GameOverScreenText.text = "Je 15 kogels zijn op.";
                     break;
                 default:
                     GameOverScreenText.text = "Game over";

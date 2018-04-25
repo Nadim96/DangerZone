@@ -16788,6 +16788,7 @@ MonoBehaviour:
   PlayerCameraEyeCamera: {fileID: 1575440274}
   minTimeElapsedBeforeAttack: 3
   maxTimeElapsedBeforeAttack: 10
+  PlayerGunObject: {fileID: 533722846}
   ingameUITrigger: {fileID: 1905534228}
   IngameUI: {fileID: 364174548}
   GameOverScreen: {fileID: 525331185}
@@ -20711,7 +20712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &525331186
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22435,7 +22436,7 @@ MonoBehaviour:
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
   casingPool: {fileID: 291230010}
-  _maxRoundsMag: 1500
+  _maxRoundsMag: 15
   _lineOfFireWarning: {fileID: 0}
   _explosion: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b,
     type: 2}
@@ -44926,7 +44927,7 @@ MonoBehaviour:
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
   casingPool: {fileID: 291230010}
-  _maxRoundsMag: 1500
+  _maxRoundsMag: 15
   _lineOfFireWarning: {fileID: 0}
   _explosion: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b,
     type: 2}
