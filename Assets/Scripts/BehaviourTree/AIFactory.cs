@@ -93,6 +93,7 @@ namespace Assets.Scripts.BehaviourTree
                 ),
                 new Sequence
                 {
+                    new Sequence {
                     //Attack
                     new While( //Continues as long as everthing returns true
                         new Sequence //Step 1. If NPC is hostile continue
@@ -100,7 +101,7 @@ namespace Assets.Scripts.BehaviourTree
                             new IsHostile(d),
                             new CanAttack(d)
                         },
-                        new Repeater(new Sequence //Step 2, starting attack
+                        new Sequence //Step 2, starting attack
                         {
                             new SetMovementSpeed(d, true), //Allows npc to run
                             new RandomSelector { //Selects NPC or Player at random.
@@ -140,10 +141,56 @@ namespace Assets.Scripts.BehaviourTree
                                         new Wait(1f)
                                     }, true)
                             )
-                        },false)
-                        
-
+                        }
                     )
+                    },
+                    new Sequence {
+                        new While
+                            ( //Continues as long as everthing returns true
+                                new Sequence //Step 1. If NPC is hostile continue
+                                {
+                                    new IsHostile(d),
+                                    new CanAttack(d)
+                                },
+                                new Sequence {
+                                     new Sequence //Step 2, starting attack
+                                {
+                                    new SetTarget(d,true)
+                                },
+                                new While
+                                ( //movetotarget
+                                    new Sequence
+                                    {
+                                        new IsWithinWeaponsRange(d, true),
+                                        new CanSeeTarget(d, true)
+                                    },
+                                    new Seek(d, x => x.Target) //If the target is not visable, seek the target.
+                                 ),
+                                new While
+                                (
+                                    new Sequence //use conditions
+                                    {
+                                        new IsWithinWeaponsRange(d),
+                                        new IsTargetAlive(d),
+                                        new TurnToFaceTarget(d)
+                                    },
+                                    new Repeater
+                                    ( //use weapon
+                                        new Sequence
+                                        {
+                                            new ReloadWeapon(d),
+                                            new CausePanic(d),
+                                            new UseItem(d),
+                                            new Wait(1f)
+                                        }, true
+                                     )
+                                 )
+
+                                }
+                               
+                             )}
+                    
+
                 },
                new Sequence
                 {

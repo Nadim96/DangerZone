@@ -18,6 +18,7 @@
         GunHitStone,
         GunHitWood,
         GunShoot,
+        GunShoot2,
         GunPoliceShoot,
         GunTrigger,
         Menu,

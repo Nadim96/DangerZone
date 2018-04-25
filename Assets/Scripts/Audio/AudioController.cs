@@ -49,6 +49,7 @@ namespace Assets.Scripts.Audio
             AddToDict(AudioCategory.GunShoot, "Gun/Shoot");
             AddToDict(AudioCategory.GunPoliceShoot, "Gun/PoliceShoot");
             AddToDict(AudioCategory.GunTrigger, "Gun/Trigger");
+            AddToDict(AudioCategory.GunShoot2, "Gun/Shoot2");
 
             // Pain
             AddToDict(AudioCategory.PainFemaleLethal, "Pain/Female/Lethal");
