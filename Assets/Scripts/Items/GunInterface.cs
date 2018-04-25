@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Audio;
+using Assets.Scripts.HitView;
 using Assets.Scripts.Utility;
 using UnityEngine;
 
@@ -71,6 +72,14 @@ namespace Assets.Scripts.Items
             if (Physics.Raycast(RaycastObject.transform.position, barrelDirection, out hit))
             {
                 Debug.DrawLine(RaycastObject.transform.position, hit.transform.position, Color.green, 5f);
+
+                ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
+                if (showShots != null)
+                {
+                    Shot shot = new Shot(hit.transform.gameObject, RaycastObject.transform.position, hit.transform.position);
+
+                    showShots.Save(shot);
+                }
 
                 HandleHit(hit);
             }

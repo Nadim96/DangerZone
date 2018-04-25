@@ -142,6 +142,13 @@ namespace Assets.Scripts.Utility
                 showNpcHit.Reset();
             }
 
+
+            ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
+            if (showShots != null)
+            {
+                showShots.Reset();
+            }
+
         }
     }
 }
