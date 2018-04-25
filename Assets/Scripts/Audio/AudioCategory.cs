@@ -19,6 +19,7 @@
         GunHitWood,
         GunShoot,
         GunShoot2,
+        GunAk47,
         GunPoliceShoot,
         GunTrigger,
         Menu,

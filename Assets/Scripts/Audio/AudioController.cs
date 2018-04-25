@@ -50,12 +50,14 @@ namespace Assets.Scripts.Audio
             AddToDict(AudioCategory.GunPoliceShoot, "Gun/PoliceShoot");
             AddToDict(AudioCategory.GunTrigger, "Gun/Trigger");
             AddToDict(AudioCategory.GunShoot2, "Gun/Shoot2");
+            AddToDict(AudioCategory.GunAk47, "Gun/AK47");
 
             // Pain
             AddToDict(AudioCategory.PainFemaleLethal, "Pain/Female/Lethal");
             AddToDict(AudioCategory.PainFemaleNonLethal, "Pain/Female/Non-Lethal");
             AddToDict(AudioCategory.PainMaleLethal, "Pain/Male/Lethal");
             AddToDict(AudioCategory.PainMaleNonLethal, "Pain/Male/Non-Lethal");
+
 
             // Scream
             AddToDict(AudioCategory.ScreamFemale, "Scream/Female");
@@ -125,6 +127,9 @@ namespace Assets.Scripts.Audio
             {
                 source.clip = audioClip;
                 source.loop = loop;
+                if (type.ToString().ToLower().Contains("pain") || type.ToString().ToLower().Contains("scream")) {
+                    source.volume = 0.2f;
+                }
                 source.Play();
             }
             else
