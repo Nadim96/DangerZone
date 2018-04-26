@@ -3800,11 +3800,12 @@ MonoBehaviour:
   WaypointPrefab: {fileID: 4891987585886032, guid: 36579ae38c4649a45b82794bf9615060,
     type: 2}
   WaypointsObject: {fileID: 609954582}
-  StartOnLoad: 1
+  StartOnLoad: 0
   PlayerCameraEye: {fileID: 2046800453}
   PlayerCameraEyeCamera: {fileID: 2046800452}
   minTimeElapsedBeforeAttack: 5
   maxTimeElapsedBeforeAttack: 15
+  PlayerGunObject: {fileID: 2046800456}
   ingameUITrigger: {fileID: 695481607}
   IngameUI: {fileID: 695481606}
   GameOverScreen: {fileID: 292500557}
@@ -15746,6 +15747,28 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11489174, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
       propertyPath: size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114676598186101698, guid: 4d293c8e162f3874b982baadd71153d2,
+        type: 2}
+      propertyPath: _maxRoundsMag
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114273966232678108, guid: 4d293c8e162f3874b982baadd71153d2,
+        type: 2}
+      propertyPath: _maxRoundsMag
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 192944, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 159396, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 124034, guid: 4d293c8e162f3874b982baadd71153d2, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
