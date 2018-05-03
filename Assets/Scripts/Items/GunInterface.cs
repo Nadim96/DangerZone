@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Assets.Scripts.Audio;
 using Assets.Scripts.HitView;
+using Assets.Scripts.NPCs;
 using Assets.Scripts.Utility;
 using UnityEngine;
 
@@ -166,6 +167,12 @@ namespace Assets.Scripts.Items
                 ImpactForce,
                 true
             );
+
+            bool hitNPC = (hit.transform.gameObject.GetComponentInParent<NPC>() != null) ? true :false;
+            if (hitNPC)
+            {
+                Statistics.ShotsHit++;
+            }
 
             // Check tags to see if it hit the environment or something else
             switch (hit.transform.tag)

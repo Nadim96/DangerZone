@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.HitView;
+using Assets.Scripts.NPCs;
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -10,17 +12,8 @@ namespace Assets.Scripts.Utility
     /// </summary>
     public class Statistics : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _gameTime;
-        [SerializeField] private TextMeshProUGUI _panicTime;
-        [SerializeField] private TextMeshProUGUI _lofCivilians;
-        [SerializeField] private TextMeshProUGUI _lofWrongEnemies;
-        [SerializeField] private TextMeshProUGUI _lofTime;
+        [SerializeField] private TextMeshProUGUI _timeAimedOnCivilians;
         [SerializeField] private TextMeshProUGUI _shotsFired;
-        [SerializeField] private TextMeshProUGUI _friendliesInScene;
-        [SerializeField] private TextMeshProUGUI _enemiesInScene;
-        [SerializeField] private TextMeshProUGUI _deadEnemies;
-        [SerializeField] private TextMeshProUGUI _deadFriendlies;
-        [SerializeField] private TextMeshProUGUI _timesHit;
 
         //Other feedback objects
         public GameObject board;
@@ -68,10 +61,20 @@ namespace Assets.Scripts.Utility
         public static int ShotsFired { get; set; }
 
         /// <summary>
+        /// Amount of times  the player hit an npc
+        /// </summary>
+        public static int ShotsHit { get; set; }
+
+        /// <summary>
         /// Timestamp Panic Started.
         /// </summary>
         /// <remarks>PanicStarted can be initiated with Time.time</remarks>
         public static float PanicStarted { get; set; }
+
+        /// <summary>
+        /// List of npc's who have been aimed at
+        /// </summary>
+        public static List<NPC> NpcsAimedAt { get; set; }
 
         /// <summary>
         /// time since last update
@@ -81,6 +84,7 @@ namespace Assets.Scripts.Utility
 
         void Start()
         {
+            NpcsAimedAt = new List<NPC>();
             TimeSpentAimingOnCivilians = 0;
             TimeSpentAimingOnHostiles = 0;
             DeadFriendliesByEnemy = 0;
@@ -89,6 +93,7 @@ namespace Assets.Scripts.Utility
             DeadHostilesByPlayer = 0;
             PlayerHit = 0;
             ShotsFired = 0;
+            ShotsHit = 0;
 
             _lastUpdate = Time.time;
         }
@@ -99,22 +104,25 @@ namespace Assets.Scripts.Utility
             if (_lastUpdate + 1 > Time.time) return;
             _lastUpdate = Time.time;
 
+            //_gameTime.SetText(FormatTime(Time.timeSinceLevelLoad));
 
-            _gameTime.SetText(FormatTime(Time.timeSinceLevelLoad));
+            //// Percentage aimed at hostiles
+            //int percentage = (int) Math.Round(TimeSpentAimingOnHostiles / (TimeSpentAimingOnCivilians > 0 ? TimeSpentAimingOnCivilians : 1) * 100);
 
-            // Percentage aimed at hostiles
-            int percentage = (int) Math.Round(TimeSpentAimingOnHostiles / (TimeSpentAimingOnCivilians > 0 ? TimeSpentAimingOnCivilians : 1) * 100);
+            //_lofWrongEnemies.SetText("Tijd op verdachten gericht: " + string.Format("{0}s", Math.Round(TimeSpentAimingOnHostiles, 2)));
+            //_lofTime.SetText("Speler richtte {0}% van de tijd op verdachten", percentage);
+            //_deadFriendlies.SetText("Dode burgers: " + string.Format("{0}", DeadFriendliesByEnemy + DeadFriendliesByPlayer));
+            //_deadEnemies.SetText("Dode verdachten: " + string.Format("{0}", DeadHostilesByEnemy + DeadHostilesByPlayer));
+            //_timesHit.SetText("Keren geraakt:" + PlayerHit.ToString());
 
-            _lofCivilians.SetText("Tijd op burgers gericht: " + string.Format("{0}s", Math.Round(TimeSpentAimingOnCivilians)));
-            _lofWrongEnemies.SetText("Tijd op verdachten gericht: " + string.Format("{0}s", Math.Round(TimeSpentAimingOnHostiles, 2)));
-            _lofTime.SetText("Speler richtte {0}% van de tijd op verdachten", percentage);
 
-            _shotsFired.SetText("Schoten: " + ShotsFired.ToString());
+            int hitPercentage = ShotsFired > 0 ? (int)((ShotsHit*1.0) / (ShotsFired*1.0) * 100.0) : 0;
 
-            _deadFriendlies.SetText("Dode burgers: " + string.Format("{0}", DeadFriendliesByEnemy + DeadFriendliesByPlayer));
-            _deadEnemies.SetText("Dode verdachten: " + string.Format("{0}", DeadHostilesByEnemy + DeadHostilesByPlayer));
+            _shotsFired.SetText("Schoten raak: " + ShotsHit + "/" + ShotsFired + "(" + hitPercentage+ "%)");
 
-            _timesHit.SetText("Keren geraakt:" + PlayerHit.ToString());
+            int civsAimedAt = NpcsAimedAt.FindAll(t => t.IsHostile == false).Count;
+
+            _timeAimedOnCivilians.SetText("Burgers aangewezen: " + civsAimedAt + string.Format("({0}s)", Math.Round(TimeSpentAimingOnCivilians,2)));
         }
 
         /// <summary>
@@ -148,6 +156,7 @@ namespace Assets.Scripts.Utility
         /// </summary>
         public static void Reset()
         {
+            NpcsAimedAt.Clear();
             TimeSpentAimingOnCivilians = 0;
             TimeSpentAimingOnHostiles = 0;
             DeadFriendliesByEnemy = 0;
@@ -155,6 +164,8 @@ namespace Assets.Scripts.Utility
             DeadHostilesByEnemy = 0;
             DeadHostilesByPlayer = 0;
             PlayerHit = 0;
+            ShotsFired = 0;
+            ShotsHit = 0;
 
             Statistics stats = UnityEngine.Object.FindObjectOfType<Statistics>();
             if (stats != null)
