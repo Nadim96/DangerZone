@@ -117,8 +117,6 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Prev()
         {
-            Debug.Log("Prev");
-
             if (Current == null) return;
 
             int index = GetIndexForKey(Current.NPC);
@@ -134,8 +132,6 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Next()
         {
-            Debug.Log("Next");
-
             if (Current == null) return;
 
             int index = GetIndexForKey(Current.NPC);
