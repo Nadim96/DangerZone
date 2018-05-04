@@ -9,6 +9,8 @@ namespace Assets.Scripts.HitView
 {
     public class ShowShots : MonoBehaviour
     {
+        public Material shader;
+
         /// <summary>
         /// List of shot representation
         /// </summary>
@@ -23,6 +25,13 @@ namespace Assets.Scripts.HitView
             Color color = (shot.Hit.GetComponentInParent<NPC>() != null) ? Color.green : Color.red;
 
             GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, color);
+
+            NPC npc = shot.Hit.GetComponentInParent<NPC>();
+            if (npc != null)
+            {
+                GameObject skin = CreateHitSkin(npc.gameObject);
+                 Shots.Add(skin);
+            }
 
             Shots.Add(sr);
         }
@@ -49,6 +58,30 @@ namespace Assets.Scripts.HitView
             {
                 shot.SetActive(show);
             }
+        }
+
+        /// <summary>
+        /// Creates the hit skin for feedback
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        private GameObject CreateHitSkin(GameObject npc)
+        {
+            GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
+            skin.transform.parent = transform;
+
+            skin.transform.position = npc.transform.position;
+            skin.transform.rotation = npc.transform.rotation;
+            skin.transform.Rotate(Vector3.up, 180);
+            skin.SetActive(false);
+
+            SkinnedMeshRenderer[] smrs = skin.GetComponentsInChildren<SkinnedMeshRenderer>();
+            foreach (SkinnedMeshRenderer smr in smrs)
+            {
+                smr.materials = new Material[] { shader , shader , shader };
+            }
+            return skin;
         }
 
         /// <summary>
