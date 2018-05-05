@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: 47d294533eb4d064abf13f1bffadad5f
+timeCreated: 1525540525
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: body
+    100004: door_lb
+    100006: door_lf
+    100008: door_rb
+    100010: door_rf
+    100012: ESM_CONNECTOR001
+    100014: ESM_CONNECTOR_driver_seat_lf
+    100016: ESM_CONNECTOR_driver_seat_rf
+    100018: ESM_CONNECTOR_seat_lb
+    100020: ESM_CONNECTOR_seat_rb
+    100022: ESM_driver_dummy
+    100024: ESM_driver_dummy001
+    100026: ESM_LICENSE_PLATE001
+    100028: ESM_LICENSE_PLATE002
+    100030: ESM_passenger_dummy
+    100032: ESM_passenger_dummy001
+    100034: interior
+    100036: wheel_lb
+    100038: wheel_lf
+    100040: wheel_rb
+    100042: wheel_rf
+    400000: //RootNode
+    400002: body
+    400004: door_lb
+    400006: door_lf
+    400008: door_rb
+    400010: door_rf
+    400012: ESM_CONNECTOR001
+    400014: ESM_CONNECTOR_driver_seat_lf
+    400016: ESM_CONNECTOR_driver_seat_rf
+    400018: ESM_CONNECTOR_seat_lb
+    400020: ESM_CONNECTOR_seat_rb
+    400022: ESM_driver_dummy
+    400024: ESM_driver_dummy001
+    400026: ESM_LICENSE_PLATE001
+    400028: ESM_LICENSE_PLATE002
+    400030: ESM_passenger_dummy
+    400032: ESM_passenger_dummy001
+    400034: interior
+    400036: wheel_lb
+    400038: wheel_lf
+    400040: wheel_rb
+    400042: wheel_rf
+    2300000: body
+    2300002: door_lb
+    2300004: door_lf
+    2300006: door_rb
+    2300008: door_rf
+    2300010: ESM_driver_dummy
+    2300012: ESM_driver_dummy001
+    2300014: ESM_passenger_dummy
+    2300016: ESM_passenger_dummy001
+    2300018: interior
+    2300020: wheel_lb
+    2300022: wheel_lf
+    2300024: wheel_rb
+    2300026: wheel_rf
+    3300000: body
+    3300002: door_lb
+    3300004: door_lf
+    3300006: door_rb
+    3300008: door_rf
+    3300010: ESM_driver_dummy
+    3300012: ESM_driver_dummy001
+    3300014: ESM_passenger_dummy
+    3300016: ESM_passenger_dummy001
+    3300018: interior
+    3300020: wheel_lb
+    3300022: wheel_lf
+    3300024: wheel_rb
+    3300026: wheel_rf
+    4300000: wheel_rb
+    4300002: wheel_lb
+    4300004: door_lb
+    4300006: door_lf
+    4300008: door_rf
+    4300010: door_rb
+    4300012: interior
+    4300014: body
+    4300016: wheel_lf
+    4300018: wheel_rf
+    4300020: ESM_driver_dummy
+    4300022: ESM_driver_dummy001
+    4300024: ESM_passenger_dummy
+    4300026: ESM_passenger_dummy001
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: a07586def3bb9034296ab49fcde0c59b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: 138113cfae394ff4587b46d72e39d7f4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #37'
+    second: {fileID: 2100000, guid: 66389d6255de76a4c8851c902bdc4df3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: fcff0cdcecc013d4e8735e3df0f7f769, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
