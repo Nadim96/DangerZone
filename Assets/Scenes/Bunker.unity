@@ -26265,8 +26265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ec7e64c4feb954db1a01dd1732c727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Debug: 0
-  Sensitivity: 0.25
+  Debug: 1
+  Sensitivity: 1
   Inversed: 0
   Speed: 5
   Accelaration: 5
