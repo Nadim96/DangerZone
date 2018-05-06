@@ -16478,7 +16478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Debug: 1
-  Sensitivity: 0.25
+  Sensitivity: 1
   Inversed: 0
   Speed: 5
   Accelaration: 5
