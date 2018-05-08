@@ -22,8 +22,7 @@ namespace Assets.Scripts.Utility
         /// </summary>
         public bool IsPlayer { get; set; }
 
-        public HitMessage(Vector3 pointOfImpact, GameObject hitObject, Transform source, float damage,
-            float impactForce, bool isPlayer = false) : this()
+        public HitMessage(Vector3 pointOfImpact, GameObject hitObject, Transform source, float damage, float impactForce, bool isPlayer = false) : this()
         {
             PointOfImpact = pointOfImpact;
             HitObject = hitObject;

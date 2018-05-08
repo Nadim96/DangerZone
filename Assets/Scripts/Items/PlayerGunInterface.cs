@@ -57,6 +57,11 @@ namespace Assets.Scripts.Items
             else
                 Statistics.TimeSpentAimingOnHostiles += Time.deltaTime;
 
+            if (!Statistics.NpcsAimedAt.Contains(target))
+            {
+                Statistics.NpcsAimedAt.Add(target);
+            }
+
             // Time is increased by deltaTime * 2, 
             // because of the standard rate of decay (Time.deltaTime) each tick.
             target.TimeHeldAtGunpoint += Time.deltaTime * 2;
@@ -71,13 +76,16 @@ namespace Assets.Scripts.Items
                 base.Shoot();
                 HandleSuicide();
                 _currentRoundsInMag--;
-
+                Debug.Log("SHOOT");
                 Statistics.ShotsFired++;
+                AudioController.PlayAudio(gameObject, AudioCategory.GunShoot2);
+
             }
             else
             {
                 // Gun empty
                 AudioController.PlayAudio(gameObject, AudioCategory.GunTrigger);
+                Debug.Log("CLICK CLICK");
             }
             OnShoot(_currentRoundsInMag <= 0);
         }
@@ -89,6 +97,7 @@ namespace Assets.Scripts.Items
         public void ReloadGun()
         {
             _currentRoundsInMag = _maxRoundsMag;
+            Debug.Log("RELOADING");
         }
 
         /// <summary>
