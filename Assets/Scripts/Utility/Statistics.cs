@@ -163,7 +163,11 @@ namespace Assets.Scripts.Utility
             ShotsFired = 0;
             ShotsHit = 0;
 
-          
+            ShowShots stats = UnityEngine.Object.FindObjectOfType<ShowShots>();
+            if (stats != null)
+            {
+                stats.Reset();
+            }
         }
     }
 }
