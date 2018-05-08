@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Items;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -10,6 +11,7 @@ namespace Assets.Scripts.Player
         private const ushort HAPTIC_PULSE_DURATION = 3999;
 
         public PlayerGunInterface PlayerGunInterface
+        public  PlayerGunInterface PlayerGunInterface
         {
             get { return GetComponentInChildren<PlayerGunInterface>(); }
         }
@@ -17,12 +19,17 @@ namespace Assets.Scripts.Player
         protected override void Update()
         {
             base.Update();
+             
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                PlayerGunInterface.Shoot();
+            }
 
             if (PlayerGunInterface != null)
             {
                 if (Controller.GetPressDown(GripButton))
                 {
-                    PlayerGunInterface.ReloadGun();
+                  //  PlayerGunInterface.ReloadGun();
                 }
 
                 if (Controller.GetPressDown(TriggerButton))
