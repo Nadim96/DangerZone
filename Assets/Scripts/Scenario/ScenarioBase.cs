@@ -269,6 +269,11 @@ namespace Assets.Scripts.Scenario
                 yield return new WaitForSeconds(2);
             if (Started) yield break;
             Scenario.GameOver.instance.SetEndscreen(dead);
+
+            if (dead)
+            {
+                ShowGameOverReason(StageEndReason.Succes);
+            }
             Time.timeScale = 0.0f; // Set time still
 
             Statistics.Show(true);
@@ -438,6 +443,9 @@ namespace Assets.Scripts.Scenario
                     break;
                 case StageEndReason.OutOfAmmo:
                     GameOverScreenText.text = "Je 15 kogels zijn op.";
+                    break;
+                case StageEndReason.Succes:
+                    GameOverScreenText.text = "Goed gedaan!";
                     break;
                 default:
                     GameOverScreenText.text = "Game over";

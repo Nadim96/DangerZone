@@ -16,7 +16,6 @@ namespace Assets.Scripts.Utility
         [SerializeField] private TextMeshProUGUI _shotsFired;
 
         //Other feedback objects
-        public GameObject board;
         public ShowShots showShots;
 
         /// <summary>
@@ -144,7 +143,6 @@ namespace Assets.Scripts.Utility
             Statistics stats = UnityEngine.Object.FindObjectOfType<Statistics>();
             if (stats != null)
             {
-                stats.board.SetActive(show);
                 stats.showShots.Show(show);
             }
         }
