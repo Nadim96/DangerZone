@@ -70,7 +70,7 @@ public class DebugMovement : MonoBehaviour
             igun.PlayerGunInterface.Shoot();
             pressed = true;
         }
-        else if (!Input.GetKey(KeyCode.Space))
+        else if(!Input.GetKey(KeyCode.Space) )
         {
             pressed = false;
         }
