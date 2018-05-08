@@ -239,6 +239,9 @@ namespace Assets.Scripts.Scenario
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
             Time.timeScale = 1f;
+
+            Statistics.Reset();
+            Statistics.Show(false);
         }
 
         /// <summary>
@@ -266,7 +269,14 @@ namespace Assets.Scripts.Scenario
                 yield return new WaitForSeconds(2);
             if (Started) yield break;
             Scenario.GameOver.instance.SetEndscreen(dead);
+
+            if (dead)
+            {
+                ShowGameOverReason(StageEndReason.Succes);
+            }
             Time.timeScale = 0.0f; // Set time still
+
+            Statistics.Show(true);
         }
 
         /// <summary>
@@ -282,6 +292,8 @@ namespace Assets.Scripts.Scenario
 
             foreach (Target t in Targets) {
                 t.Destroy();
+            Targets = new List<Target>();
+
             }
             Targets.Clear();
         }
@@ -431,6 +443,9 @@ namespace Assets.Scripts.Scenario
                     break;
                 case StageEndReason.OutOfAmmo:
                     GameOverScreenText.text = "Je 15 kogels zijn op.";
+                    break;
+                case StageEndReason.Succes:
+                    GameOverScreenText.text = "Goed gedaan!";
                     break;
                 default:
                     GameOverScreenText.text = "Game over";

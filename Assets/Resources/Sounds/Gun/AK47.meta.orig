@@ -1,12 +1,12 @@
 fileFormatVersion: 2
 <<<<<<< HEAD:Assets/Resources/Sounds/Gun/AK47.meta
-guid: 43bc4c3ef03a1684aa7f985dc7f82751
+guid: 4482b0aea4ff0ca409ea7b4688f216c7
 folderAsset: yes
-timeCreated: 1524652802
+timeCreated: 1522877026
 =======
-guid: 7aab67e4b749a1640985cf26c20d1412
+guid: c25b0bf179c314c459c75c05b70dfcac
 folderAsset: yes
-timeCreated: 1524770069
+timeCreated: 1524221086
 >>>>>>> refs/remotes/origin/develop:Assets/Imports/Handgun.fbm.meta
 licenseType: Free
 DefaultImporter:
