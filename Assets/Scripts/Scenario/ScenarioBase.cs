@@ -234,7 +234,6 @@ namespace Assets.Scripts.Scenario
             Create();
             Spawn();
             ScenarioStartedTime = Time.time;
-            PlayerGun.PlayerGunInterface.ReloadGun();
             Started = true;
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
