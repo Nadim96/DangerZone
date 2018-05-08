@@ -286,15 +286,6 @@ namespace Assets.Scripts.NPCs
 
             OnNPCHitEvent(this, hitMessage);
 
-            if (hitMessage.IsPlayer)
-            {
-                ShowNpcHit showNpcHit = Object.FindObjectOfType<ShowNpcHit>();
-                if (showNpcHit != null)
-                {
-                    showNpcHit.Save(this, hitMessage);
-                }
-             
-            }
         }
 
         /// <summary>

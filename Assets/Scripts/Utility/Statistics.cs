@@ -18,7 +18,6 @@ namespace Assets.Scripts.Utility
         //Other feedback objects
         public GameObject board;
         public ShowShots showShots;
-        public ShowNpcHit showNpcHit;
 
         /// <summary>
         /// Amount of time in seconds player spent aiming at civilians  
@@ -147,7 +146,6 @@ namespace Assets.Scripts.Utility
             {
                 stats.board.SetActive(show);
                 stats.showShots.Show(show);
-                stats.showNpcHit.Show(show);
             }
         }
 
@@ -167,12 +165,7 @@ namespace Assets.Scripts.Utility
             ShotsFired = 0;
             ShotsHit = 0;
 
-            Statistics stats = UnityEngine.Object.FindObjectOfType<Statistics>();
-            if (stats != null)
-            {
-                stats.showNpcHit.Reset();
-                stats.showShots.Reset();
-            }
+          
         }
     }
 }
