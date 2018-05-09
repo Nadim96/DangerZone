@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4046641085505014}
   - component: {fileID: 95294627395767540}
   m_Layer: 0
-  m_Name: asset_object_int_planter_concrete
+  m_Name: Bloemenbak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

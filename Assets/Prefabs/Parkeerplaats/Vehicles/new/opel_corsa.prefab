@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4241350048784884}
   - component: {fileID: 95496682589145260}
   m_Layer: 0
-  m_Name: asset_vehicle_int_opel_corsa
+  m_Name: opel_corsa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

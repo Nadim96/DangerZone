@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4930309103731324}
   - component: {fileID: 95426488474601636}
   m_Layer: 0
-  m_Name: asset_vehicle_gbr_bmw_m3
+  m_Name: dikke_bmw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

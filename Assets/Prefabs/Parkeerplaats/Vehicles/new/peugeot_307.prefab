@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4676953276995492}
   - component: {fileID: 95241650117709314}
   m_Layer: 0
-  m_Name: asset_vehicle_int_peugeot_307
+  m_Name: peugeot_307
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 4553598785767298}
   - component: {fileID: 95714509790037798}
   m_Layer: 0
-  m_Name: asset_vehicle_int_mercedes_a140
+  m_Name: mercedes_a140
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

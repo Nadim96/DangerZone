@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4131889559859174}
   - component: {fileID: 95117290771897084}
   m_Layer: 0
-  m_Name: asset_vehicle_gbr_audi_black
+  m_Name: audi_black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

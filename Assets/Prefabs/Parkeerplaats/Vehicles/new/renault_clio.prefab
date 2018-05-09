@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4576176441905530}
   - component: {fileID: 95853955386340882}
   m_Layer: 0
-  m_Name: asset_vehicle_int_renault_clio
+  m_Name: renault_clio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4964666102609512}
   - component: {fileID: 95981816771507036}
   m_Layer: 0
-  m_Name: asset_vehicle_int_nissan_navara
+  m_Name: nissan_navara
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
