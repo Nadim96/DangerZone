@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: OutlineRed
+  m_Name: OutlineOrange
   m_Shader: {fileID: 4800000, guid: 0c1cf10ea69e60e4f9eb8955749f88ec, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -74,4 +74,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0.44034123, g: 0.58823526, b: 0.42820066, a: 1}
-    - g_vOutlineColor: {r: 1, g: 0, b: 0, a: 1}
+    - g_vOutlineColor: {r: 1, g: 0.65882355, b: 0.066176474, a: 1}

@@ -10,7 +10,7 @@ namespace Assets.Scripts.HitView
     public class ShowShots : MonoBehaviour
     {
         public Material WhiteShader;
-        public Material RedShader;
+        public Material OrangeShader;
 
         /// <summary>
         /// List of shot representation
@@ -24,13 +24,15 @@ namespace Assets.Scripts.HitView
         public void Save(Shot shot)
         {
             NPC npc = shot.Hit.GetComponentInParent<NPC>();
-            Color color = (npc != null) ? (npc.IsHostile? Color.green: Color.red) : Color.red;
+
+
+            Color color = (npc != null) ? (npc.IsHostile ? Color.green : new Color(1f, 0.8f, 0f, 1f)) : Color.red;
 
             GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, color);
 
             if (npc != null)
             {
-                Material m = npc.IsHostile ? WhiteShader : RedShader;
+                Material m = npc.IsHostile ? WhiteShader : OrangeShader;
                 GameObject skin = CreateHitSkin(npc.gameObject, m);
                 Shots.Add(skin);
             }
