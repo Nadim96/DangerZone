@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Assets.Scripts.Player;
 
 namespace Assets.Scripts.HitView
 {
@@ -12,32 +13,48 @@ namespace Assets.Scripts.HitView
         public Material WhiteShader;
         public Material OrangeShader;
 
+        public Transform EnemyFire;
+        public Transform FriendlyFire;
+
         /// <summary>
         /// List of shot representation
         /// </summary>
-        private List<GameObject> Shots = new List<GameObject>();
+        private List<GameObject> FriendlyShots = new List<GameObject>();
+        private List<GameObject> EnemyShots = new List<GameObject>();
 
         /// <summary>
         /// Saving the shot to be shown
         /// </summary>
         /// <param name="shot"></param>
-        public void Save(Shot shot)
+        public void Save(Shot shot, bool friendly)
         {
-            NPC npc = shot.Hit.GetComponentInParent<NPC>();
-
-
-            Color color = (npc != null) ? (npc.IsHostile ? Color.green : new Color(1f, 0.8f, 0f, 1f)) : Color.red;
-
-            GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, color);
-
-            if (npc != null)
+            if (friendly)
             {
-                Material m = npc.IsHostile ? WhiteShader : OrangeShader;
-                GameObject skin = CreateHitSkin(npc.gameObject, m);
-                Shots.Add(skin);
-            }
+                NPC npc = shot.Hit.GetComponentInParent<NPC>();
+                Color color = (npc != null) ? (npc.IsHostile ? Color.green : new Color(1f, 0.8f, 0f, 1f)) : Color.red;
 
-            Shots.Add(sr);
+                GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, color, FriendlyFire);
+                FriendlyShots.Add(sr);
+
+                if (npc != null)
+                {
+                    Material m = npc.IsHostile ? WhiteShader : OrangeShader;
+                    GameObject skin = CreateHitSkin(npc.gameObject, m, FriendlyFire);
+                    FriendlyShots.Add(skin);
+                }
+            }
+            else
+            {
+                GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, Color.red, EnemyFire);
+                EnemyShots.Add(sr);
+
+                Player.Player player = shot.Hit.GetComponentInParent<Player.Player>();
+                if (player != null)
+                {
+                    GameObject sphere = CreateHitSphere(shot.ImpactPoint, EnemyFire);
+                    EnemyShots.Add(sphere);
+                }
+            }
         }
 
         /// <summary>
@@ -45,11 +62,17 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Reset()
         {
-            foreach (GameObject shot in Shots)
+            foreach (GameObject shot in FriendlyShots)
             {
                 GameObject.Destroy(shot);
             }
-            Shots.Clear();
+            FriendlyShots.Clear();
+
+            foreach (GameObject shot in EnemyShots)
+            {
+                GameObject.Destroy(shot);
+            }
+            EnemyShots.Clear();
         }
 
         /// <summary>
@@ -58,7 +81,11 @@ namespace Assets.Scripts.HitView
         /// <param name="show"></param>
         public void Show(bool show)
         {
-            foreach (GameObject shot in Shots)
+            foreach (GameObject shot in FriendlyShots)
+            {
+                shot.SetActive(false);
+            }
+            foreach (GameObject shot in EnemyShots)
             {
                 shot.SetActive(show);
             }
@@ -70,10 +97,10 @@ namespace Assets.Scripts.HitView
         /// <param name="npc"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        private GameObject CreateHitSkin(GameObject npc, Material shader)
+        private GameObject CreateHitSkin(GameObject npc, Material shader, Transform parent)
         {
             GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
-            skin.transform.parent = transform;
+            skin.transform.parent = parent;
 
             skin.transform.position = npc.transform.position;
             skin.transform.rotation = npc.transform.rotation;
@@ -89,13 +116,29 @@ namespace Assets.Scripts.HitView
         }
 
         /// <summary>
+        /// Creates a small sphere to show a place that has been hit
+        /// </summary>
+        /// <returns></returns>
+        private GameObject CreateHitSphere(Vector3 location, Transform parent)
+        {
+            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            sphere.GetComponent<MeshRenderer>().material.color = Color.red;
+            sphere.transform.parent = parent;
+            sphere.transform.position = location;
+            sphere.SetActive(false);
+
+            return sphere;
+        }
+
+        /// <summary>
         /// Creates the shot representation from shot info
         /// </summary>
         /// <param name="start">position where the shot started</param>
         /// <param name="end">position where the shot ended</param>
         /// <param name="color">color showing whether its hit or not</param>
         /// <returns></returns>
-        private GameObject CreateShotRepresentation(Vector3 start, Vector3 end, Color color)
+        private GameObject CreateShotRepresentation(Vector3 start, Vector3 end, Color color, Transform parent)
         {
             GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
@@ -104,7 +147,7 @@ namespace Assets.Scripts.HitView
 
             obj.transform.localScale = new Vector3(thickness, thickness, length);
             obj.transform.position = start + ((end - start) / 2);
-            obj.transform.parent = transform;
+            obj.transform.parent = parent;
             obj.transform.LookAt(end);
 
             obj.GetComponent<MeshRenderer>().material.color = color;
