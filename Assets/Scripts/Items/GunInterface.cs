@@ -72,8 +72,6 @@ namespace Assets.Scripts.Items
             RaycastHit hit;
             if (Physics.Raycast(RaycastObject.transform.position, barrelDirection, out hit))
             {
-                Debug.DrawLine(RaycastObject.transform.position, hit.transform.position, Color.green, 5f);
-
                 // Adds shots to statistics
                 ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
                 if (showShots != null)

@@ -9,7 +9,8 @@ namespace Assets.Scripts.HitView
 {
     public class ShowShots : MonoBehaviour
     {
-        public Material shader;
+        public Material WhiteShader;
+        public Material RedShader;
 
         /// <summary>
         /// List of shot representation
@@ -22,15 +23,16 @@ namespace Assets.Scripts.HitView
         /// <param name="shot"></param>
         public void Save(Shot shot)
         {
-            Color color = (shot.Hit.GetComponentInParent<NPC>() != null) ? Color.green : Color.red;
+            NPC npc = shot.Hit.GetComponentInParent<NPC>();
+            Color color = (npc != null) ? (npc.IsHostile? Color.green: Color.red) : Color.red;
 
             GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, color);
 
-            NPC npc = shot.Hit.GetComponentInParent<NPC>();
             if (npc != null)
             {
-                GameObject skin = CreateHitSkin(npc.gameObject);
-                 Shots.Add(skin);
+                Material m = npc.IsHostile ? WhiteShader : RedShader;
+                GameObject skin = CreateHitSkin(npc.gameObject, m);
+                Shots.Add(skin);
             }
 
             Shots.Add(sr);
@@ -66,7 +68,7 @@ namespace Assets.Scripts.HitView
         /// <param name="npc"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        private GameObject CreateHitSkin(GameObject npc)
+        private GameObject CreateHitSkin(GameObject npc, Material shader)
         {
             GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
             skin.transform.parent = transform;
@@ -79,7 +81,7 @@ namespace Assets.Scripts.HitView
             SkinnedMeshRenderer[] smrs = skin.GetComponentsInChildren<SkinnedMeshRenderer>();
             foreach (SkinnedMeshRenderer smr in smrs)
             {
-                smr.materials = new Material[] { shader , shader , shader };
+                smr.materials = new Material[] { shader, shader, shader };
             }
             return skin;
         }
@@ -99,7 +101,7 @@ namespace Assets.Scripts.HitView
             float length = Vector3.Distance(start, end);
 
             obj.transform.localScale = new Vector3(thickness, thickness, length);
-            obj.transform.position = start + ((end-start)/2);
+            obj.transform.position = start + ((end - start) / 2);
             obj.transform.parent = transform;
             obj.transform.LookAt(end);
 
