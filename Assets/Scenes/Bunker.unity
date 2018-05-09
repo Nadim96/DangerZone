@@ -22709,8 +22709,8 @@ Prefab:
     - target: {fileID: 114246936191118182, guid: eb9f3900075bf004a98fd7ed6c2b4126,
         type: 2}
       propertyPath: m_Text
-      value: "JE KOMT IN EEN GEVAARLIJKE SITUATIE TERECHT. MAAK CORRECT GEBRUIK VAN
-        DEKKING OM ALLE VERDACHTEN MET EEN VUURWAPEN UIT TE SCHAKELEN. \n"
+      value: 'MAAK GEBRUIK VAN DEKKING EN SCHAKEL ALLE VERDACHTEN MET EEN VUURWAPEN
+        UIT. '
       objectReference: {fileID: 0}
     - target: {fileID: 224989744259650888, guid: eb9f3900075bf004a98fd7ed6c2b4126,
         type: 2}
@@ -22721,6 +22721,11 @@ Prefab:
         type: 2}
       propertyPath: m_LocalScale.y
       value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 114573607519158618, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_Text
+      value: OPDRACHT
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb9f3900075bf004a98fd7ed6c2b4126, type: 2}
