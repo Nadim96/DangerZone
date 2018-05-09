@@ -684,7 +684,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6f07aceb24155d04299ea4f6daaf1dcb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 5d355924f5f101443ba9ce5731d56687, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.686
   m_Pitch: 1
@@ -825,8 +825,6 @@ MonoBehaviour:
   RaycastObject: {fileID: 1096469405488588}
   MuzzleFlash: {fileID: 198141337637171698}
   MuzzleFlashLight: {fileID: 108271703435786184}
-  BulletCasing: {fileID: 1942551344619302, guid: 5ecea9de972e8e34380ca1d62dc379b3,
-    type: 2}
   BulletCasingSpawnLocation: {fileID: 1404884729153058}
   SmokePuff: {fileID: 198976399862707720}
   BloodOnHit: {fileID: 198146296074399244, guid: daee700df95e38d41a1302c7f1da1354,
@@ -837,6 +835,7 @@ MonoBehaviour:
     type: 2}
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
+  casingPool: {fileID: 0}
   _maxRoundsMag: 1500
   _lineOfFireWarning: {fileID: 0}
   _explosion: {fileID: 198000012777718758, guid: acf39d9f4addf294d93fa56fa373961b,
