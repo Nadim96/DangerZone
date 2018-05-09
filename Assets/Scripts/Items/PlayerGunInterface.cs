@@ -57,11 +57,13 @@ namespace Assets.Scripts.Items
             else
                 Statistics.TimeSpentAimingOnHostiles += Time.deltaTime;
 
-            if (!Statistics.NpcsAimedAt.Contains(target))
+            if (Statistics.NpcsAimedAt != null)
             {
-                Statistics.NpcsAimedAt.Add(target);
+                if (!Statistics.NpcsAimedAt.Contains(target))
+                {
+                    Statistics.NpcsAimedAt.Add(target);
+                }
             }
-
             // Time is increased by deltaTime * 2, 
             // because of the standard rate of decay (Time.deltaTime) each tick.
             target.TimeHeldAtGunpoint += Time.deltaTime * 2;

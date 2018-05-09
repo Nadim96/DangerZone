@@ -63,7 +63,12 @@ namespace Assets.Scripts.Scenario
             }
            
 
-            int maxValue = PointList.EnemySpawn.Count;
+            int maxValue = Math.Max(0, PointList.EnemySpawn.Count-1);
+
+            if (maxValue == 0)
+            {
+                return current;
+            }
 
             System.Random r = new System.Random();
 
