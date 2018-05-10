@@ -62,7 +62,8 @@ namespace Assets.Scripts.Scenario
             {
                 "PractiseSucces",
                 "GOED GEDAAN. " +'\n' + '\n' +
-                "SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENU."
+                "SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENUO."  +'\n' + '\n' +
+                "OF DRUK OP RESTART OM OPNIEUW TE OEFENEN"
             },
             {
                 "PractiseAgent",
@@ -72,7 +73,7 @@ namespace Assets.Scripts.Scenario
             {
                 "PractiseCiv",
                 "HELAAS, JE HEBT EEN BURGER NEERGESCHOTEN." + '\n' + '\n' +     
-                " SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
+                "SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
             }
 
         };
@@ -457,7 +458,7 @@ namespace Assets.Scripts.Scenario
                             SetMenuText(x);
 
                             HasLostBefore = true;
-                            SetMenuEnabled(true);
+                                SetMenuEnabled(true);
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                     }
