@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
   <Sound>
-    <MasterVolume>1</MasterVolume>
+    <MasterVolume>8</MasterVolume>
     <GunVolume>4</GunVolume>
     <DialogueVolume>10</DialogueVolume>
   </Sound>

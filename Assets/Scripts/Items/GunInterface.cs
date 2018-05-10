@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Audio;
+using Assets.Scripts.HitView;
+using Assets.Scripts.NPCs;
 using Assets.Scripts.Utility;
 using UnityEngine;
 
@@ -71,6 +73,13 @@ namespace Assets.Scripts.Items
             if (Physics.Raycast(RaycastObject.transform.position, barrelDirection, out hit))
             {
                 Debug.DrawLine(RaycastObject.transform.position, hit.transform.position, Color.green, 5f);
+
+                // Adds shots to statistics
+                ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
+                if (showShots != null)
+                {
+                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, hit.point));
+                }
 
                 HandleHit(hit);
             }
@@ -158,6 +167,12 @@ namespace Assets.Scripts.Items
                 ImpactForce,
                 true
             );
+
+            bool hitNPC = (hit.transform.gameObject.GetComponentInParent<NPC>() != null) ? true :false;
+            if (hitNPC)
+            {
+                Statistics.ShotsHit++;
+            }
 
             // Check tags to see if it hit the environment or something else
             switch (hit.transform.tag)
