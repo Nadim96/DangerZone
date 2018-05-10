@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.Player;
+using TMPro;
 
 namespace Assets.Scripts.HitView
 {
@@ -17,11 +18,22 @@ namespace Assets.Scripts.HitView
         public Transform EnemyFire;
         public Transform FriendlyFire;
 
+        public TextMeshProUGUI FeedbackText;
+
         /// <summary>
         /// List of shot representation
         /// </summary>
-        private List<GameObject> FriendlyShots = new List<GameObject>();
-        private List<GameObject> EnemyShots = new List<GameObject>();
+        private FeedbackCollection FriendlyShots = new FeedbackCollection("Jouw schoten");
+        private FeedbackCollection EnemyShots = new FeedbackCollection("Verdachte schoten");
+        private FeedbackCollection Tips = new FeedbackCollection("Tips");
+
+        private List<FeedbackCollection> AllFeedback;
+        private int current = 0;
+
+        public void Start()
+        {
+            AllFeedback = new List<FeedbackCollection>() { FriendlyShots, EnemyShots, Tips };
+        }
 
         /// <summary>
         /// Saving the shot to be shown
@@ -35,30 +47,30 @@ namespace Assets.Scripts.HitView
                 Color color = (npc != null) ? (npc.IsHostile ? Color.green : new Color(1f, 0.8f, 0f, 1f)) : Color.red;
 
                 GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, color, FriendlyFire);
-                FriendlyShots.Add(sr);
+                FriendlyShots.Objects.Add(sr);
 
                 if (npc != null)
                 {
                     Material m = npc.IsHostile ? WhiteShader : OrangeShader;
                     GameObject skin = CreateHitSkin(npc.gameObject, m, FriendlyFire);
-                    FriendlyShots.Add(skin);
+                    FriendlyShots.Objects.Add(skin);
                 }
             }
             else
             {
                 GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, Color.red, EnemyFire);
-                EnemyShots.Add(sr);
+                EnemyShots.Objects.Add(sr);
 
                 Player.Player player = shot.Hit.GetComponentInParent<Player.Player>();
                 if (player != null)
                 {
                     GameObject sphere = CreateHitSphere(shot.ImpactPoint, EnemyFire);
-                    EnemyShots.Add(sphere);
+                    EnemyShots.Objects.Add(sphere);
 
                     if (!player.IsAlive)
                     {
                         GameObject skin = CreateHitSkin(shot.OriginObject, RedShader, EnemyFire);
-                        EnemyShots.Add(skin);
+                        EnemyShots.Objects.Add(skin);
                     }
                 }
             }
@@ -69,16 +81,7 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Reset()
         {
-            foreach (GameObject shot in FriendlyShots)
-            {
-                GameObject.Destroy(shot);
-            }
             FriendlyShots.Clear();
-
-            foreach (GameObject shot in EnemyShots)
-            {
-                GameObject.Destroy(shot);
-            }
             EnemyShots.Clear();
         }
 
@@ -88,14 +91,40 @@ namespace Assets.Scripts.HitView
         /// <param name="show"></param>
         public void Show(bool show)
         {
-            foreach (GameObject shot in FriendlyShots)
+            foreach (FeedbackCollection fc in AllFeedback)
             {
-                shot.SetActive(false);
+                fc.Show(false);
             }
-            foreach (GameObject shot in EnemyShots)
-            {
-                shot.SetActive(show);
-            }
+            AllFeedback[current].Show(show);
+            SetText();
+        }
+
+        /// <summary>
+        /// Goes to the next feedback
+        /// </summary>
+        public void Next()
+        {
+            if (current == AllFeedback.Count - 1) return;
+            current++;
+            Show(true);
+        }
+
+        /// <summary>
+        /// Goes to the previous feedback
+        /// </summary>
+        public void Previous()
+        {
+            if (current == 0) return;
+            current--;
+            Show(true);
+        }
+
+        /// <summary>
+        /// sets the correct feedback text
+        /// </summary>
+        public void SetText()
+        {
+            FeedbackText.text = AllFeedback[current].Text;
         }
 
         /// <summary>

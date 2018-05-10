@@ -89,6 +89,7 @@ MonoBehaviour:
   RedShader: {fileID: 2100000, guid: c35df0023a7a6f240902be24890988e7, type: 2}
   EnemyFire: {fileID: 224462347701783618}
   FriendlyFire: {fileID: 224417535899033092}
+  FeedbackText: {fileID: 0}
 --- !u!114 &114846283234265642
 MonoBehaviour:
   m_ObjectHideFlags: 1
