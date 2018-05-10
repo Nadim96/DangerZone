@@ -6353,12 +6353,12 @@ Prefab:
         type: 2}
       propertyPath: _timeAimedOnCivilians
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1115421920}
     - target: {fileID: 114846283234265642, guid: 9d31183d408566e448a475771f21943e,
         type: 2}
       propertyPath: _shotsFired
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1115421919}
     - target: {fileID: 114054365379246830, guid: 9d31183d408566e448a475771f21943e,
         type: 2}
       propertyPath: FeedbackText
@@ -9501,6 +9501,18 @@ GameObject:
 --- !u!114 &1115421918 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114924880491967058, guid: 17689d4a16b5bc047b8a05acbc6c3c91,
+    type: 2}
+  m_PrefabInternal: {fileID: 1115421915}
+  m_Script: {fileID: 1453722849, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
+--- !u!114 &1115421919 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114569350209528366, guid: 17689d4a16b5bc047b8a05acbc6c3c91,
+    type: 2}
+  m_PrefabInternal: {fileID: 1115421915}
+  m_Script: {fileID: 1453722849, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
+--- !u!114 &1115421920 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114483459070191298, guid: 17689d4a16b5bc047b8a05acbc6c3c91,
     type: 2}
   m_PrefabInternal: {fileID: 1115421915}
   m_Script: {fileID: 1453722849, guid: 89f0137620f6af44b9ba852b4190e64e, type: 3}
