@@ -54,7 +54,7 @@ namespace Assets.Scripts.Scenario
         void Awake()
         {
             instance = this;
-            load = new LoadRandom {difficulty = Difficulty.Door};
+            load = new LoadRandom { difficulty = Difficulty.Door };
             IsLoading = false;
         }
 
@@ -127,7 +127,7 @@ namespace Assets.Scripts.Scenario
             Transform frame = Door.instance.transform.parent;
 
             int side = RNG.Next(0, 2);
-            Debug.Log(side);
+        //    Debug.Log(side);
             switch (side)
             {
                 case 0: //rightside hinge
@@ -174,7 +174,7 @@ namespace Assets.Scripts.Scenario
         /// <returns></returns>
         private ObjectSpawn NoWall()
         {
-            return new ObjectSpawn {objectType = ObjectType.Empty};
+            return new ObjectSpawn { objectType = ObjectType.Empty };
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Assets.Scripts.Scenario
         /// <returns></returns>
         private ObjectSpawn SetSingleWall(List<SideType> sides)
         {
-            ObjectSpawn objectSpawn = new ObjectSpawn {objectType = ObjectType.SingleWall};
+            ObjectSpawn objectSpawn = new ObjectSpawn { objectType = ObjectType.SingleWall };
             switch (sides[0])
             {
                 case SideType.Up:
@@ -212,7 +212,7 @@ namespace Assets.Scripts.Scenario
         /// <returns></returns>
         private ObjectSpawn SetCornerWall(List<SideType> sides)
         {
-            ObjectSpawn objectSpawn = new ObjectSpawn {objectType = ObjectType.Corner};
+            ObjectSpawn objectSpawn = new ObjectSpawn { objectType = ObjectType.Corner };
 
             if (sides.Contains(SideType.Up) && sides.Contains(SideType.Left))
                 objectSpawn.rotation = 180;
@@ -240,11 +240,11 @@ namespace Assets.Scripts.Scenario
         private IEnumerator generateCoRoutine()
         {
             SetRoomSize();
-            GenerateRoom();
+            Transform[] transforms = GenerateRoom();
             SetDoor();
             SetLights();
             GenerateNavMesh();
-            GenerateFurniture();
+            GenerateFurniture(transforms);
 
             yield return null;
         }
@@ -252,7 +252,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// spawn random amount of furniture in the room
         /// </summary>
-        private void GenerateFurniture()
+        private void GenerateFurniture(Transform[] locations)
         {
             if (furnitureList != null)
             {
@@ -263,56 +263,30 @@ namespace Assets.Scripts.Scenario
             }
             furnitureList = new List<GameObject>();
 
-            int amount = RNG.Next(3, 3);
-
-            Debug.Log("Furniture amount: " + amount);
-            for (int i = 0; i < amount; i++)
+            for (int x = 0; x < Width; x++)
             {
-                int furniturenumber = RNG.Next(0, FurnitureArray.Length - 1);
-
-                GameObject furniture = FurnitureArray[furniturenumber];
-                Vector3 center = furniture.GetComponent<NavMeshObstacle>().center;
-                Vector3 size = furniture.GetComponent<NavMeshObstacle>().size;
-
-                //remove height. 
-                center.y = 0;
-                size.y = 0;
-
-                //give up placing after 10 tries
-                int MaxTries = 10;
-                for (int j = 0; j < MaxTries; j++)
+                for (int y = 0; y < Length; y++)
                 {
-                    Vector3 Randompos = LoadRandom.GetRandomTargetPoint();
-                    furniture.transform.position = Randompos;
-                    Vector3 centerposition = Randompos + center;
-                    float offset = 0.01f;
-                    NavMeshHit hit;
-                    //middle
-                    if (!NavMesh.SamplePosition(centerposition, out hit, offset, NavMesh.AllAreas))
-                        continue;
-                    //upperleft
-                    if (!NavMesh.SamplePosition(centerposition + new Vector3(-size.x, 0, -size.z) / 2, out hit, offset,
-                        NavMesh.AllAreas))
-                        continue;
-                    //upperright
-                    if (!NavMesh.SamplePosition(centerposition + new Vector3(size.x, 0, -size.z) / 2, out hit, offset,
-                        NavMesh.AllAreas))
-                        continue;
-                    //bottomleft
-                    if (!NavMesh.SamplePosition(centerposition + new Vector3(-size.x, 0, size.z) / 2, out hit, offset,
-                        NavMesh.AllAreas))
-                        continue;
-                    //bottomright
-                    if (!NavMesh.SamplePosition(centerposition + new Vector3(size.x, 0, size.z) / 2, out hit, offset,
-                        NavMesh.AllAreas))
-                        continue;
+                    Transform current = locations[x + y * Width];
 
-                    //check if it collides with other obstacles
-                    if (!CheckNavmeshObstacle(centerposition + new Vector3(0, 0.1f, 0), size))
-                        continue;
+                    if (current == null) continue;
 
-                    furnitureList.Add(Instantiate(furniture));
-                    break;
+                    if (10 % RNG.Next(1, 15) == 0)
+                    {
+                        GameObject furniture = FurnitureArray[RNG.Next(1, FurnitureArray.Length)];
+
+                        if (x == 0 || x == Width - 1 || y == 0 || y == Length - 1)
+                        {
+                            furniture = FurnitureArray[0];
+                        }
+
+                        furniture.transform.position = current.position;
+
+                        //Debug.Log(current.rotation.eulerAngles);
+                        furniture.transform.rotation = current.rotation;
+                        furniture.transform.Translate( Vector3.forward * 0.37f);
+                        furnitureList.Add(Instantiate(furniture));
+                    }
                 }
             }
         }
@@ -350,11 +324,14 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// Generate Room at size selected
         /// </summary>
-        private void GenerateRoom()
+        private Transform[] GenerateRoom()
         {
+            Transform[] transforms = new Transform[Width * Length];
+
             IsLoading = true;
             meshSurfaces = new List<NavMeshSurface>();
             Vector3 spawnPos = SetSpawnPos();
+
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Length; y++)
@@ -402,9 +379,16 @@ namespace Assets.Scripts.Scenario
                     tempObj.transform.position = new Vector3(x, 0, y);
                     tempObj.transform.rotation = Quaternion.Euler(new Vector3(0, objectSpawn.rotation, 0));
                     tempObj.SetActive(true);
+
+                    if (!((x == 0 || x == Width - 1 || y == 0 || y == Length - 1) && (x == spawnPos.x && y == spawnPos.z)))
+                    {
+                        transforms[x + y * Width] = (tempObj.transform);
+                    }
                 }
             }
             IsLoading = false;
+
+            return transforms;
         }
 
         /// <summary>
