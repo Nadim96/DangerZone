@@ -36,7 +36,7 @@ namespace Assets.Scripts.Scenario
             {
                 "Welcome",
                 "WELKOM IN DANGER ZONE." + '\n' + '\n' +
-                "SCHIET OP DE KNOP OM DE TUTORIAL TE STARTEN."
+                "DIT IS EEN VAARDIGHEIDSTRAINING IN EEN RIJKE CONTEXT."
             },
             {
                 "Movement",
