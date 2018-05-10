@@ -76,7 +76,7 @@ namespace Assets.Scripts.Items
                 ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
                 if (showShots != null)
                 {
-                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, hit.point), true);
+                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, RaycastObject, hit.point), true);
                 }
 
                 HandleHit(hit);
@@ -102,13 +102,6 @@ namespace Assets.Scripts.Items
             RaycastHit hit;
             if (Physics.Linecast(RaycastObject.transform.position, playerEye.position, out hit))
             {
-                // Adds shots to statistics
-                ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
-                if (showShots != null)
-                {
-                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, hit.point), false);
-                }
-
                 if (hit.transform == playerEye)
                 {
                     float damage = RNG.NextFloat(_minDamage, _maxDamage);
@@ -117,6 +110,13 @@ namespace Assets.Scripts.Items
                 else
                 {
                     HandleHit(hit);
+                }
+
+                // Adds shots to statistics
+                ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
+                if (showShots != null)
+                {
+                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, this.gameObject.transform.GetComponentInParent<NPC>().gameObject, hit.point), false);
                 }
             }
         }

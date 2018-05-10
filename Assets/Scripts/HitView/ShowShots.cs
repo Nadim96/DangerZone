@@ -12,6 +12,7 @@ namespace Assets.Scripts.HitView
     {
         public Material WhiteShader;
         public Material OrangeShader;
+        public Material RedShader;
 
         public Transform EnemyFire;
         public Transform FriendlyFire;
@@ -53,6 +54,12 @@ namespace Assets.Scripts.HitView
                 {
                     GameObject sphere = CreateHitSphere(shot.ImpactPoint, EnemyFire);
                     EnemyShots.Add(sphere);
+
+                    if (!player.IsAlive)
+                    {
+                        GameObject skin = CreateHitSkin(shot.OriginObject, RedShader, EnemyFire);
+                        EnemyShots.Add(skin);
+                    }
                 }
             }
         }
@@ -99,6 +106,7 @@ namespace Assets.Scripts.HitView
         /// <returns></returns>
         private GameObject CreateHitSkin(GameObject npc, Material shader, Transform parent)
         {
+            Debug.Log(npc.name);
             GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
             skin.transform.parent = parent;
 

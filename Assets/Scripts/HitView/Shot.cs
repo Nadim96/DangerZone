@@ -19,15 +19,21 @@ namespace Assets.Scripts.HitView
         public Vector3 Origin { get; private set; }
 
         /// <summary>
+        /// Origin of the shot
+        /// </summary>
+        public GameObject OriginObject { get; private set; }
+
+        /// <summary>
         /// Impact point of the shot
         /// </summary>
         public Vector3 ImpactPoint { get; private set; }
 
-        public Shot(GameObject hit, Vector3 origin, Vector3 impactPoint)
+        public Shot(GameObject hit, Vector3 origin, GameObject originObject, Vector3 impactPoint)
         {
             this.Hit = hit;
             this.Origin = origin;
             this.ImpactPoint = impactPoint;
+            this.OriginObject = originObject;
         }
     }
 }

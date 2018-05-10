@@ -86,6 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WhiteShader: {fileID: 2100000, guid: 3d938759d8b7a414988ec3261fb5265d, type: 2}
   OrangeShader: {fileID: 2100000, guid: 58d0c7c20718d534f8a0ce19a200478f, type: 2}
+  RedShader: {fileID: 2100000, guid: c35df0023a7a6f240902be24890988e7, type: 2}
   EnemyFire: {fileID: 224462347701783618}
   FriendlyFire: {fileID: 224417535899033092}
 --- !u!114 &114846283234265642
