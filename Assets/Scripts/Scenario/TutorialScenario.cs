@@ -157,8 +157,6 @@ namespace Assets.Scripts.Scenario
                     Play();
                     break;
             }
-
-       
         }
 
         protected override void OnNpcHit(NPC npc, HitMessage hitmessage)
@@ -266,7 +264,7 @@ namespace Assets.Scripts.Scenario
             IngameMenuStartButton.SetActive(enabled);
         }
 
-        public void SetMenuStarText(string text)
+        public void SetMenuStartText(string text)
         {
             IngameMenuStarText.text = text;
         }
@@ -298,6 +296,8 @@ namespace Assets.Scripts.Scenario
         /// <param name="stage">the stage to be started</param>
         private void StartStage(Stage stage)
         {
+
+
             Scenario.GameOver.instance.HideEndScreen();
             //Handles every stage
             switch (stage)
@@ -310,7 +310,7 @@ namespace Assets.Scripts.Scenario
 
                     SetMenuStart(true);
                     SetMenuEnabled(true);
-                    SetMenuStarText("START");
+                    SetMenuStartText("START");
                     break;
                 case Stage.Movement:
                     string s = "";
@@ -335,10 +335,11 @@ namespace Assets.Scripts.Scenario
                     string z = "";
                     Messages.TryGetValue("Cover", out z);
                     SetMenuText(z);
-
                     SetMenuEnabled(true);
                     EnableCoverBodies(true);
-                    SetMenuStarText("VERDER");
+                    SetMenuStartText("VERDER");
+                    SetMenuStart(false);
+                    timer = 0;
                     break;
                 case Stage.Practise:
                     string c = "";
@@ -351,7 +352,7 @@ namespace Assets.Scripts.Scenario
                     {
                         SetMenuEnabled(true);
                     }
-                    SetMenuStarText("START");
+                    SetMenuStartText("START");
                     break;
             }
         }
@@ -362,6 +363,8 @@ namespace Assets.Scripts.Scenario
         /// <param name="stage">the current stage being updated</param>
         private void UpdateStage(Stage stage)
         {
+            timer += Time.deltaTime;
+
             switch (stage)
             {
                 case Stage.None: break;
@@ -382,6 +385,14 @@ namespace Assets.Scripts.Scenario
                     }
                     break;
                 case Stage.Cover:
+                    if (timer < 5)
+                    {
+                        SetMenuStart(false);
+                    }
+                    else
+                    {
+                        SetMenuStart(true);
+                    }
                     break;
                 case Stage.Practise:
                     if (NPC.HostileNpcs.Count == 0 && !IsMenuEnabled)
@@ -417,7 +428,6 @@ namespace Assets.Scripts.Scenario
                     Play();
                     break;
                 case Stage.Cover:
-                    SetMenuEnabled(false);
                     EnableCoverBodies(false);
                     break;
                 case Stage.Practise:
