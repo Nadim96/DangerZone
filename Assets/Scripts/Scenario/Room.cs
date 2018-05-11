@@ -260,7 +260,7 @@ namespace Assets.Scripts.Scenario
             {
                 for (int y = 0; y < Length; y++)
                 {
-                    if ((x == 0 || x == Width - 1) && (y == 0 || y == Length - 1))
+                 //   if ((x == 0 || x == Width - 1) || (y == 0 || y == Length - 1))
                     {
                         int pos = x + y * Width;
                         if (placed[pos]) continue;

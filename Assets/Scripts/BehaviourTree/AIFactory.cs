@@ -370,22 +370,14 @@ namespace Assets.Scripts.BehaviourTree
             return new BT(new Sequence
             {
                 new While(new IsPanicking(d), //panic
-                    new RandomSelector
-                    {
-                        new Sequence //run away
+                         new ExecuteOnce(new Sequence //run away
                         {
                             new SetMovementSpeed(d, true),
                             new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
-                            new Succeeder(new Seek(d, x => x.Target, 3f)),
-                          //  new Despawn(d)
-                        },
-                        new Sequence //freeze
-                        {
+                            new Succeeder(new Seek(d, x => x.Target, 2f)),
+                          //  new Despawn(d),
                             new TriggerAnimation(d, "Nervous"),
-                            new RandomWait(2, 6),
-                            new TriggerAnimation(d, "Idle")
-                        }
-                    }
+                        })
                 ),
 
                 new Sequence
@@ -400,6 +392,7 @@ namespace Assets.Scripts.BehaviourTree
                         new Wait(0.3f),
                         new EquipWeapon(d),
                         new Wait(1f),
+                        new CausePanic(d),
                         new RandomSelector
                         {
                            // new SetTarget(d),
@@ -408,7 +401,7 @@ namespace Assets.Scripts.BehaviourTree
                         new TurnToFaceTarget(d),
                         new SetTarget(d, true),
 
-                        new CausePanic(d),
+
                     }),
 
                     new CanSeeTarget(d),
@@ -430,7 +423,7 @@ namespace Assets.Scripts.BehaviourTree
                     )
                 },
 
-                
+
             });
         }
     }
