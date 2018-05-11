@@ -187,9 +187,9 @@ namespace Assets.Scripts.BehaviourTree
                                  )
 
                                 }
-                               
+
                              )}
-                    
+
 
                 },
                new Sequence
@@ -367,11 +367,30 @@ namespace Assets.Scripts.BehaviourTree
 
         private static BT CreateDoorBT(DataModel d)
         {
-            return new BT(new Selector
+            return new BT(new Sequence
             {
-                // Attack
+                new While(new IsPanicking(d), //panic
+                    new RandomSelector
+                    {
+                        new Sequence //run away
+                        {
+                            new SetMovementSpeed(d, true),
+                            new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
+                            new Succeeder(new Seek(d, x => x.Target, 3f)),
+                          //  new Despawn(d)
+                        },
+                        new Sequence //freeze
+                        {
+                            new TriggerAnimation(d, "Nervous"),
+                            new RandomWait(2, 6),
+                            new TriggerAnimation(d, "Idle")
+                        }
+                    }
+                ),
+
                 new Sequence
                 {
+
                     new IsDoorOpen(d),
                     new IsHostile(d),
 
@@ -388,6 +407,8 @@ namespace Assets.Scripts.BehaviourTree
                         },
                         new TurnToFaceTarget(d),
                         new SetTarget(d, true),
+
+                        new CausePanic(d),
                     }),
 
                     new CanSeeTarget(d),
@@ -405,10 +426,11 @@ namespace Assets.Scripts.BehaviourTree
                             new TurnToFaceTarget(d),
                             new Wait(0.5f),
                             new UseItem(d),
-
                         }
                     )
-                }
+                },
+
+                
             });
         }
     }
