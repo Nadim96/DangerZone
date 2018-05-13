@@ -1,11 +1,41 @@
 fileFormatVersion: 2
 guid: a051211930123c14db5eda7934fd6823
-timeCreated: 1525862570
+timeCreated: 1526210468
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName: {}
-  externalObjects: {}
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: ESM_CONNECTOR001
+    100004: object_planter
+    400000: //RootNode
+    400002: ESM_CONNECTOR001
+    400004: object_planter
+    2300000: object_planter
+    3300000: object_planter
+    4300000: object_planter
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: 909b16a90ee63454a91d8897bfed64e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02 - Default
+    second: {fileID: 2100000, guid: 880439cb900c707448bd31485cbe3b63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plant 1
+    second: {fileID: 2100000, guid: 8cbb139af0ffc304496f61f84d9c5d87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plant 2
+    second: {fileID: 2100000, guid: 79f95a560aa3aac499aa3c872db6aaa9, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
