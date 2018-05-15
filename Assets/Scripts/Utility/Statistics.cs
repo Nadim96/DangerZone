@@ -72,8 +72,7 @@ namespace Assets.Scripts.Utility
         /// <summary>
         /// List of npc's who have been aimed at
         /// </summary>
-        public static List<NPC> NpcsAimedAt { get; set; }
-
+        public static List<NPC> NpcsAimedAt = new List<NPC>();
         /// <summary>
         /// time since last update
         /// </summary>
