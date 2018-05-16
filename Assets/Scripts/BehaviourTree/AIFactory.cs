@@ -187,9 +187,9 @@ namespace Assets.Scripts.BehaviourTree
                                  )
 
                                 }
-                               
+
                              )}
-                    
+
 
                 },
                new Sequence
@@ -331,6 +331,7 @@ namespace Assets.Scripts.BehaviourTree
         {
             return new BT(new Selector
             {
+             
                 //attack
                 new Sequence
                 {
@@ -338,6 +339,7 @@ namespace Assets.Scripts.BehaviourTree
                     new CanAttack(d),
                     new SetTarget(d, true),
                     new EquipWeapon(d),
+                    new CausePanic(d),
                     new TurnToFaceTarget(d),
                     new Wait(2f),
                     new UseItem(d),
@@ -349,7 +351,16 @@ namespace Assets.Scripts.BehaviourTree
                     new IsHostile(d, true),
                     new CanAttack(d),
                     new SetMovementSpeed(d, true),
-                    new Wander(d)
+                    new Wander(d),
+                     new While(new IsPanicking(d), //panic
+                        new ExecuteOnce(new Sequence //run away
+                        {
+                            new SetMovementSpeed(d, true),
+                            new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
+                            new Succeeder(new Seek(d, x => x.Target, 2f)),
+                            new TriggerAnimation(d, "Nervous"),
+                        })
+                     ),
                 },
                 //wander    
                 new While(new CanAttack(d, true),
@@ -360,18 +371,28 @@ namespace Assets.Scripts.BehaviourTree
                         new Seek(d, x => x.MovePosition),
                         new RandomWait(0.5f, 1)
                     }
-                )
+                ),
             });
         }
 
 
         private static BT CreateDoorBT(DataModel d)
         {
-            return new BT(new Selector
+            return new BT(new Sequence
             {
-                // Attack
+                new While(new IsPanicking(d), //panic
+                        new ExecuteOnce(new Sequence //run away
+                        {
+                            new SetMovementSpeed(d, true),
+                            new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
+                            new Succeeder(new Seek(d, x => x.Target, 2f)),
+                            new TriggerAnimation(d, "Nervous"),
+                        })
+                ),
+
                 new Sequence
                 {
+
                     new IsDoorOpen(d),
                     new IsHostile(d),
 
@@ -381,6 +402,7 @@ namespace Assets.Scripts.BehaviourTree
                         new Wait(0.3f),
                         new EquipWeapon(d),
                         new Wait(1f),
+                        new CausePanic(d),
                         new RandomSelector
                         {
                            // new SetTarget(d),
@@ -388,6 +410,8 @@ namespace Assets.Scripts.BehaviourTree
                         },
                         new TurnToFaceTarget(d),
                         new SetTarget(d, true),
+
+
                     }),
 
                     new CanSeeTarget(d),
@@ -405,10 +429,11 @@ namespace Assets.Scripts.BehaviourTree
                             new TurnToFaceTarget(d),
                             new Wait(0.5f),
                             new UseItem(d),
-
                         }
                     )
-                }
+                },
+
+
             });
         }
     }
