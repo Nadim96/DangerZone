@@ -20,6 +20,8 @@ namespace Assets.Scripts.HitView
 
         public TextMeshProUGUI FeedbackText;
 
+        public GameObject[] TipObjects;
+
         /// <summary>
         /// List of shot representation
         /// </summary>
@@ -33,6 +35,8 @@ namespace Assets.Scripts.HitView
         public void Start()
         {
             AllFeedback = new List<FeedbackCollection>() { FriendlyShots, EnemyShots, Tips };
+
+            Tips.Objects.AddRange(TipObjects);
         }
 
         /// <summary>
