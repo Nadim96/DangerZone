@@ -17,6 +17,7 @@ namespace Assets.Scripts.Scenario
         public ObjectPool singleWall;
         public ObjectPool cornerWall;
         public ObjectPool noWall;
+        public GameObject escapepoint;
 
         public GameObject Spawn;
 
@@ -244,15 +245,41 @@ namespace Assets.Scripts.Scenario
             SetDoor();
             SetLights();
             GenerateNavMesh();
-            GenerateFurniture(transforms);
-
+            bool[] placed = GenerateFurniture(transforms);
+            GenerateEscapePoints(placed, transforms);
             yield return null;
+        }
+
+        /// <summary>
+        /// Spawns escape points in the room
+        /// </summary>
+        /// <param name="placed"></param>
+        private void GenerateEscapePoints(bool[] placed, Transform[] transforms)
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Length; y++)
+                {
+                 //   if ((x == 0 || x == Width - 1) || (y == 0 || y == Length - 1))
+                    {
+                        int pos = x + y * Width;
+                        if (placed[pos]) continue;
+                        if (transforms[pos] == null) continue;
+
+                        GameObject go = Instantiate(escapepoint);
+
+                        furnitureList.Add(go);
+                        go.transform.position = transforms[pos].position;
+                    }
+                }
+            }
+
         }
 
         /// <summary>
         /// spawn random amount of furniture in the room
         /// </summary>
-        private void GenerateFurniture(Transform[] locations)
+        private bool[] GenerateFurniture(Transform[] locations)
         {
             if (furnitureList != null)
             {
@@ -275,13 +302,18 @@ namespace Assets.Scripts.Scenario
                     if (current == null) continue;
                     if (placed[arrayPosition]) continue;
 
-                    switch (RNG.Next(0,5))
+                    switch (RNG.Next(0, 5))
                     {
-                        case 0: case 1: case 2:
+                        case 0:
+                        case 1:
+                        case 2:
                             if (x == 0 || x == Width - 1 || y == 0 || y == Length - 1)
                             {
-                                switch (RNG.Next(0,5)) {
-                                    case 0: case 1: case 2: 
+                                switch (RNG.Next(0, 5))
+                                {
+                                    case 0:
+                                    case 1:
+                                    case 2:
                                         SpawnFurniture(FurnitureArray[0], current, 0);
                                         placed[arrayPosition] = true;
                                         break;
@@ -294,7 +326,7 @@ namespace Assets.Scripts.Scenario
                                         placed[arrayPosition] = true;
                                         break;
                                 }
-                               
+
                             }
                             break;
                         case 3:
@@ -314,13 +346,14 @@ namespace Assets.Scripts.Scenario
                             }
                             else
                             {
-                             //   SpawnFurniture(FurnitureArray[4], current, 0);
-                               // placed[arrayPosition] = true;
+                                //   SpawnFurniture(FurnitureArray[4], current, 0);
+                                // placed[arrayPosition] = true;
                             }
                             break;
                     }
                 }
             }
+            return placed;
         }
 
         public void SpawnFurniture(GameObject furniture, Transform current, int rotation)
