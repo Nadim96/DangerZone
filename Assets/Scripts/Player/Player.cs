@@ -17,6 +17,8 @@ namespace Assets.Scripts.Player
 
         public static Player Instance { get; private set; }
 
+        public bool IsAlive { get { return Health > 0; } }
+
         private void Awake()
         {
             Instance = this;
