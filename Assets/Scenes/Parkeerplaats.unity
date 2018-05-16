@@ -12133,7 +12133,7 @@ Prefab:
     - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224989744259650888, guid: eb9f3900075bf004a98fd7ed6c2b4126,
         type: 2}
@@ -12343,6 +12343,36 @@ Prefab:
     - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 403496885}
+    - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 114735019506933696, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
