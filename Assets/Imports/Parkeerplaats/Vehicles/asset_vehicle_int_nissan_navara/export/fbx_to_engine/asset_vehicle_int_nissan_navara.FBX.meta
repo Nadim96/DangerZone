@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: 753f96749065cf040b41313ef514c747
+timeCreated: 1525866921
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: body
+    100004: door_lf
+    100006: door_rf
+    100008: ESM_CONNECTOR007
+    100010: ESM_CONNECTOR_driver_seat_lf
+    100012: ESM_CONNECTOR_driver_seat_rf
+    100014: ESM_CONNECTOR_head
+    100016: ESM_head_light_direction
+    100018: ESM_head_lights
+    100020: ESM_LICENSE_PLATE001
+    100022: ESM_LICENSE_PLATE002
+    100024: interior
+    100026: wheel_lb
+    100028: wheel_lf
+    100030: wheel_rb
+    100032: wheel_rf
+    400000: //RootNode
+    400002: body
+    400004: door_lf
+    400006: door_rf
+    400008: ESM_CONNECTOR007
+    400010: ESM_CONNECTOR_driver_seat_lf
+    400012: ESM_CONNECTOR_driver_seat_rf
+    400014: ESM_CONNECTOR_head
+    400016: ESM_head_light_direction
+    400018: ESM_head_lights
+    400020: ESM_LICENSE_PLATE001
+    400022: ESM_LICENSE_PLATE002
+    400024: interior
+    400026: wheel_lb
+    400028: wheel_lf
+    400030: wheel_rb
+    400032: wheel_rf
+    2300000: body
+    2300002: door_lf
+    2300004: door_rf
+    2300006: ESM_CONNECTOR007
+    2300008: ESM_CONNECTOR_driver_seat_lf
+    2300010: ESM_CONNECTOR_driver_seat_rf
+    2300012: ESM_CONNECTOR_head
+    2300014: ESM_head_light_direction
+    2300016: ESM_head_lights
+    2300018: ESM_LICENSE_PLATE001
+    2300020: ESM_LICENSE_PLATE002
+    2300022: interior
+    2300024: wheel_lb
+    2300026: wheel_lf
+    2300028: wheel_rb
+    2300030: wheel_rf
+    3300000: body
+    3300002: door_lf
+    3300004: door_rf
+    3300006: ESM_CONNECTOR007
+    3300008: ESM_CONNECTOR_driver_seat_lf
+    3300010: ESM_CONNECTOR_driver_seat_rf
+    3300012: ESM_CONNECTOR_head
+    3300014: ESM_head_light_direction
+    3300016: ESM_head_lights
+    3300018: ESM_LICENSE_PLATE001
+    3300020: ESM_LICENSE_PLATE002
+    3300022: interior
+    3300024: wheel_lb
+    3300026: wheel_lf
+    3300028: wheel_rb
+    3300030: wheel_rf
+    4300000: body
+    4300002: door_lf
+    4300004: door_rf
+    4300006: interior
+    4300008: wheel_rb
+    4300010: wheel_lf
+    4300012: wheel_rf
+    4300014: wheel_lb
+    4300016: ESM_CONNECTOR_driver_seat_lf
+    4300018: ESM_CONNECTOR_driver_seat_rf
+    4300020: ESM_CONNECTOR007
+    4300022: ESM_CONNECTOR_head
+    4300024: ESM_LICENSE_PLATE001
+    4300026: ESM_LICENSE_PLATE002
+    4300028: ESM_head_lights
+    4300030: ESM_head_light_direction
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_1
+    second: {fileID: 2100000, guid: 8dfc75ba178114f46a2c5a558384f3c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_2
+    second: {fileID: 2100000, guid: cf201af8766df3b48ac056495c3f5422, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_3
+    second: {fileID: 2100000, guid: 62274ccf3e4a2e2438f60561266fa24c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_4
+    second: {fileID: 2100000, guid: b144650056a29024a87158b3932d46c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #2'
+    second: {fileID: 2100000, guid: e9861417e56e51c469f05b85e8df7783, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #3'
+    second: {fileID: 2100000, guid: cce6b8ad15ddac443b8b6523eba7a035, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #4'
+    second: {fileID: 2100000, guid: 02c8de05f55d30e448d61c1d98d28080, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 11a5ba66bc80b8f468078bcb459e9606, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: int
+    second: {fileID: 2100000, guid: 04482ca5ae4496f49a973b7f5a3ee99a, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

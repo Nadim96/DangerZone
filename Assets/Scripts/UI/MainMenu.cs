@@ -24,6 +24,7 @@ namespace Assets.Scripts.UI
             Bunker,
             Door,
             Street,
+            Parkeerplaats,
             StreetTutorial,
             None
         }
@@ -76,6 +77,9 @@ namespace Assets.Scripts.UI
                     break;
                 case "Street":
                     returnScene = SceneToLoad.Street;
+                    break;
+                case "Parkeerplaats":
+                    returnScene = SceneToLoad.Parkeerplaats;
                     break;
                 case "StreetTutorial":
                     returnScene = SceneToLoad.StreetTutorial;
