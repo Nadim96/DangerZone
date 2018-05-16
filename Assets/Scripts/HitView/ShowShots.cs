@@ -85,6 +85,7 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Reset()
         {
+            current = 0;
             FriendlyShots.Clear();
             EnemyShots.Clear();
         }
