@@ -72,13 +72,11 @@ namespace Assets.Scripts.Items
             RaycastHit hit;
             if (Physics.Raycast(RaycastObject.transform.position, barrelDirection, out hit))
             {
-                Debug.DrawLine(RaycastObject.transform.position, hit.transform.position, Color.green, 5f);
-
                 // Adds shots to statistics
                 ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
                 if (showShots != null)
                 {
-                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, hit.point));
+                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, RaycastObject, hit.point), true);
                 }
 
                 HandleHit(hit);
@@ -112,6 +110,13 @@ namespace Assets.Scripts.Items
                 else
                 {
                     HandleHit(hit);
+                }
+
+                // Adds shots to statistics
+                ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
+                if (showShots != null)
+                {
+                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, this.gameObject.transform.GetComponentInParent<NPC>().gameObject, hit.point), false);
                 }
             }
         }
