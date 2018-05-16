@@ -139,7 +139,6 @@ namespace Assets.Scripts.HitView
         /// <returns></returns>
         private GameObject CreateHitSkin(GameObject npc, Material shader, Transform parent)
         {
-            Debug.Log(npc.name);
             GameObject skin = GameObject.Instantiate(npc.gameObject.transform.Find("AnimRig").Find("SkinRig").gameObject);
             skin.transform.parent = parent;
 

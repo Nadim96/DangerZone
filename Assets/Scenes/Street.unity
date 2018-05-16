@@ -3258,6 +3258,10 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1078751721598134, guid: e170eb43b2591df46bd37ddaf51ad46e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e170eb43b2591df46bd37ddaf51ad46e, type: 2}
   m_IsPrefabParent: 0
@@ -3720,6 +3724,10 @@ Prefab:
     - target: {fileID: 4977376552444064, guid: ef5007ef675daf34cbb038121d6f8022, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304182041193918, guid: ef5007ef675daf34cbb038121d6f8022, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ef5007ef675daf34cbb038121d6f8022, type: 2}
@@ -16909,7 +16917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ec7e64c4feb954db1a01dd1732c727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Debug: 1
+  Debug: 0
   Sensitivity: 0.25
   Inversed: 0
   Speed: 5
