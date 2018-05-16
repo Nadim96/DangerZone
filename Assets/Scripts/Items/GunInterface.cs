@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Scripts.Audio;
 using Assets.Scripts.HitView;
 using Assets.Scripts.NPCs;
+using Assets.Scripts.Scenario;
 using Assets.Scripts.Utility;
 using UnityEngine;
 
@@ -74,7 +75,7 @@ namespace Assets.Scripts.Items
             {
                 // Adds shots to statistics
                 ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
-                if (showShots != null)
+                if (showShots != null && ScenarioBase.Instance.Started)
                 {
                     showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, RaycastObject, hit.point), true);
                 }
