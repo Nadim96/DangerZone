@@ -63,7 +63,10 @@ namespace Assets.Scripts.HitView
             else
             {
                 GameObject sr = CreateShotRepresentation(shot.Origin, shot.ImpactPoint, Color.red, EnemyFire);
+                NPC npc = shot.OriginObject.GetComponentInParent<NPC>();
+                GameObject skinenemy = CreateHitSkin(npc.gameObject, WhiteShader, FriendlyFire);
                 EnemyShots.Objects.Add(sr);
+                EnemyShots.Objects.Add(skinenemy);
 
                 Player.Player player = shot.Hit.GetComponentInParent<Player.Player>();
                 if (player != null)
