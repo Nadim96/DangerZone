@@ -14,7 +14,7 @@ public class ScenarioPresets : MonoBehaviour
     [SerializeField] private int StarterEnemiesMax;
     [SerializeField] private int StarterCivMin;
     [SerializeField] private int StarterCivMax;
-   // [SerializeField] private float StarterReactionSpeed;
+    [SerializeField] private float StarterReactionSpeed;
     [SerializeField] private int StarterRoomSizeMin;
     [SerializeField] private int StarterRoomSizeMax;
     [SerializeField] private WeaponSize StarterWeaponSize;
@@ -25,7 +25,7 @@ public class ScenarioPresets : MonoBehaviour
     [SerializeField] private int AverageEnemiesMax;
     [SerializeField] private int AverageCivMin;
     [SerializeField] private int AverageCivMax;
-   // [SerializeField] private float AverageReactionSpeed;
+    [SerializeField] private float AverageReactionSpeed;
     [SerializeField] private int AverageRoomSizeMin;
     [SerializeField] private int AverageRoomSizeMax;
     [SerializeField] private WeaponSize AverageWeaponSize;
@@ -36,7 +36,7 @@ public class ScenarioPresets : MonoBehaviour
     [SerializeField] private int AdvancedEnemiesMax;
     [SerializeField] private int AdvancedCivMin;
     [SerializeField] private int AdvancedCivMax;
-   // [SerializeField] private float AdvancedReactionSpeed;
+    [SerializeField] private float AdvancedReactionSpeed;
     [SerializeField] private int AdvancedRoomSizeMin;
     [SerializeField] private int AdvancedRoomSizeMax;
     [SerializeField] private WeaponSize AdvancedWeaponSize;
@@ -65,6 +65,7 @@ public class ScenarioPresets : MonoBehaviour
         ScenarioSettings.MinRoomSize = this.StarterRoomSizeMin;
         ScenarioSettings.MaxRoomSize = this.StarterRoomSizeMax;
         ScenarioSettings.WeaponSize = this.StarterWeaponSize;
+        ScenarioSettings.ReactionTime = this.StarterReactionSpeed;
 
         SceneManager.LoadSceneAsync(LevelName);
     }
@@ -78,6 +79,7 @@ public class ScenarioPresets : MonoBehaviour
         ScenarioSettings.MinRoomSize = this.AverageRoomSizeMin;
         ScenarioSettings.MaxRoomSize = this.AverageRoomSizeMax;
         ScenarioSettings.WeaponSize = this.AverageWeaponSize;
+        ScenarioSettings.ReactionTime = this.AverageReactionSpeed;
 
         SceneManager.LoadSceneAsync(LevelName);
     }
@@ -91,6 +93,7 @@ public class ScenarioPresets : MonoBehaviour
         ScenarioSettings.MinRoomSize = this.AdvancedRoomSizeMin;
         ScenarioSettings.MaxRoomSize = this.AdvancedRoomSizeMax;
         ScenarioSettings.WeaponSize = this.AdvancedWeaponSize;
+        ScenarioSettings.ReactionTime = this.AdvancedReactionSpeed;
 
         SceneManager.LoadSceneAsync(LevelName);
     }

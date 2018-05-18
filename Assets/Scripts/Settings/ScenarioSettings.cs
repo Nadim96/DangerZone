@@ -24,6 +24,7 @@ namespace Assets.Scripts.Settings
         private const int DEFAULT_MIN_ROOMSIZE = 3;
 
         private const int DEFAULT_MAX_ROOMSIZE = 10;
+        private const float DEFAULT_REACTION_TIME = 0.5f;
         private const bool DEFAULT_LIGHTS = true;
 
         private const LevelType DEFAULT_LEVEL_TYPE = LevelType.Middle;
@@ -49,6 +50,7 @@ namespace Assets.Scripts.Settings
 
         public static int MinRoomSize { get; set; }
         public static int MaxRoomSize { get; set; }
+        public static float ReactionTime { get; set; }
 
         public static LevelType LevelType { get; set; }
         public static TargetType TargetType { get; set; }
@@ -70,6 +72,7 @@ namespace Assets.Scripts.Settings
 
             MinRoomSize = DEFAULT_MIN_ROOMSIZE;
             MaxRoomSize = DEFAULT_MAX_ROOMSIZE;
+            ReactionTime = DEFAULT_REACTION_TIME;
             LevelType = DEFAULT_LEVEL_TYPE;
             TargetType = DEFAULT_TARGET_TYPE;
             GoalType = DEFAULT_GOAL_TYPE;

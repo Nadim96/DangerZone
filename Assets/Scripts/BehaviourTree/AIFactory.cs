@@ -4,6 +4,7 @@ using Assets.Scripts.BehaviourTree.Decorator;
 using Assets.Scripts.BehaviourTree.Leaf.Actions;
 using Assets.Scripts.BehaviourTree.Leaf.Conditions;
 using Assets.Scripts.Points;
+using Assets.Scripts.Settings;
 
 namespace Assets.Scripts.BehaviourTree
 {
@@ -399,7 +400,7 @@ namespace Assets.Scripts.BehaviourTree
                     // Point weapon at either the player or another NPC
                     new ExecuteOnce(new Sequence
                     {
-                        new Wait(0.3f),
+                        new Wait(ScenarioSettings.ReactionTime),
                         new EquipWeapon(d),
                         new Wait(1f),
                         new CausePanic(d),
