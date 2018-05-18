@@ -330,11 +330,7 @@ namespace Assets.Scripts.BehaviourTree
 
         private static BT CreateEasyBT(DataModel d)
         {
-            return new BT(new Selector
-            {
-             
-                //attack
-                new Sequence
+            Sequence attackStill = new Sequence
                 {
                     new IsHostile(d),
                     new CanAttack(d),
@@ -345,9 +341,25 @@ namespace Assets.Scripts.BehaviourTree
                     new Wait(2f),
                     new UseItem(d),
                     new RandomWait(0.5f, 1.5f)
-                },
-                //panic
-                new Sequence
+                };
+
+            Sequence attackMoving = new Sequence
+                {
+                    new IsHostile(d),
+                    new CanAttack(d),
+                    new SetTarget(d, true),
+                    new EquipWeapon(d),
+                    new CausePanic(d),
+                    new TurnToFaceTarget(d),
+                    new Wait(2f),
+                    new UseItem(d),
+                    new RandomWait(0.5f, 1.5f),
+                    new SetMovementSpeed(d, false),
+                    new SetTargetWaypoint(d),
+                    new Seek(d, x => x.MovePosition),
+                };
+
+            Sequence runAway = new Sequence
                 {
                     new IsHostile(d, true),
                     new CanAttack(d),
@@ -362,9 +374,23 @@ namespace Assets.Scripts.BehaviourTree
                             new TriggerAnimation(d, "Nervous"),
                         })
                      ),
-                },
-                //wander    
-                new While(new CanAttack(d, true),
+                };
+
+            Sequence standStill = new Sequence
+                {
+                    new IsHostile(d, true),
+                    new CanAttack(d),
+                    new SetMovementSpeed(d, true),
+                    new Wander(d),
+                     new While(new IsPanicking(d), //panic
+                        new ExecuteOnce(new Sequence //run away
+                        {
+                            new TriggerAnimation(d, "Nervous"),
+                        })
+                     ),
+                };
+
+            While wander = new While(new CanAttack(d, true),
                     new Sequence
                     {
                         new SetMovementSpeed(d, false),
@@ -372,8 +398,34 @@ namespace Assets.Scripts.BehaviourTree
                         new Seek(d, x => x.MovePosition),
                         new RandomWait(0.5f, 1)
                     }
-                ),
-            });
+                );
+
+            switch (ScenarioSettings.MovementType)
+            {
+                case MovementType.Active:
+                    return new BT(new Selector
+                    {
+                        attackMoving,
+                        runAway ,
+                        wander ,
+                    });
+                case MovementType.Medium:
+                    return new BT(new Selector
+                    {
+                        attackStill,
+                        runAway ,
+                         wander ,
+                    });
+                case MovementType.Still:
+                    return new BT(new Selector
+                    {
+                        attackStill,
+                        standStill ,
+                         wander ,
+                    });
+                default:
+                    return null;
+            }
         }
 
         private static BT CreateDoorBT(DataModel d)
