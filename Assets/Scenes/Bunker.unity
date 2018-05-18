@@ -3671,6 +3671,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4241149803925434, guid: b6c1cd581d5fd79439ba26709293544b, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b6c1cd581d5fd79439ba26709293544b, type: 2}
   m_IsPrefabParent: 0
@@ -12590,6 +12594,10 @@ Prefab:
     - target: {fileID: 4797394251553052, guid: 277b4eaab65d2ac4a8c5dc2ea553a937, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797394251553052, guid: 277b4eaab65d2ac4a8c5dc2ea553a937, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 277b4eaab65d2ac4a8c5dc2ea553a937, type: 2}
@@ -22930,7 +22938,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4739116967563112, guid: b8be6ce3d5442d34cb765e246ca12175, type: 2}
       propertyPath: m_LocalScale.y
-      value: 70.00003
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b8be6ce3d5442d34cb765e246ca12175, type: 2}
@@ -27661,7 +27669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &900775085
 Transform:
   m_ObjectHideFlags: 0
