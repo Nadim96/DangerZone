@@ -229,7 +229,7 @@ namespace Assets.Scripts.Scenario
             SetSpawnPoint();
             PlayerGun.PlayerGunInterface.ReloadGun();
             HideGameOverReason();
-            IsPanicking.playerShot = false;
+           
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
             {
@@ -271,6 +271,7 @@ namespace Assets.Scripts.Scenario
             if (dead)
                 yield return new WaitForSeconds(2);
             if (Started) yield break;
+            IsPanicking.playerShot = false;
             Scenario.GameOver.instance.SetEndscreen(dead);
 
             if (dead)
