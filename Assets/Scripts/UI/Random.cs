@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.BehaviourTree;
 using Assets.Scripts.Scenario;
 using Assets.Scripts.Settings;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.UI
         [SerializeField] private Dropdown _weaponType;
         [SerializeField] private Dropdown _levelType;
         [SerializeField] private Dropdown _Lights;
+        [SerializeField] private Dropdown _MovementType;
 
         private void Start()
         {
@@ -41,6 +43,12 @@ namespace Assets.Scripts.UI
 
             _levelType.OnSelectedIndexChanged += OnLevelTypeChanged;
             _Lights.OnSelectedIndexChanged += LightsOnOnSelectedIndexChanged;
+            _MovementType.OnSelectedIndexChanged += _MovementType_OnSelectedIndexChanged;
+        }
+
+        private void _MovementType_OnSelectedIndexChanged(int obj)
+        {
+            ScenarioSettings.MovementType = (MovementType)obj;
         }
 
         private void LightsOnOnSelectedIndexChanged(int i)

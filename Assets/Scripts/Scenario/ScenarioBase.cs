@@ -67,6 +67,7 @@ namespace Assets.Scripts.Scenario
         private VR_Controller_Gun PlayerGun;
 
 
+
         /// <summary>
         /// Reasons why a stage has ended
         /// </summary>
@@ -92,6 +93,7 @@ namespace Assets.Scripts.Scenario
         public GameObject IngameUI;
         public GameObject GameOverScreen;
         public Text GameOverScreenText;
+        public GameObject UIRootFloor;
 
         /// <summary>
         /// Timestamp of when Scenario is started
@@ -138,9 +140,9 @@ namespace Assets.Scripts.Scenario
 
         protected virtual void Start()
         {
-#if UNITY_EDITOR
+
             Audio.AudioController.LoadAudio();
-#endif
+            UIRootFloor.SetActive(false);
 
             if (PersonTargetPrefabs == null || PersonTargetPrefabs.Count == 0)
                 throw new Exception("Scenario will not be able to spawn NPC's. " +
@@ -226,7 +228,6 @@ namespace Assets.Scripts.Scenario
         {
             SetSpawnPoint();
             PlayerGun.PlayerGunInterface.ReloadGun();
-
             HideGameOverReason();
             IsPanicking.playerShot = false;
             //stop old scenario if it isnt stopped yet
@@ -431,6 +432,7 @@ namespace Assets.Scripts.Scenario
         /// <param name="reason"></param>
         public void ShowGameOverReason(StageEndReason reason)
         {
+            UIRootFloor.SetActive(false);
             GameOverScreen.SetActive(true);
 
             switch (reason)

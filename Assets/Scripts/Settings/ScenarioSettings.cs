@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Environment;
+﻿using Assets.Scripts.BehaviourTree;
+using Assets.Scripts.Environment;
 using Assets.Scripts.Scenario;
 
 namespace Assets.Scripts.Settings
@@ -21,16 +22,20 @@ namespace Assets.Scripts.Settings
         private const int DEFAULT_MAX_ENEMIES = 3;
         private const int DEFAULT_MIN_FRIENDLIES = 1;
         private const int DEFAULT_MAX_FRIENDLIES = 2;
-        private const int DEFAULT_MIN_ROOMSIZE = 3;
 
+        private const int DEFAULT_MIN_ROOMSIZE = 3;
         private const int DEFAULT_MAX_ROOMSIZE = 10;
+
+        private const float DEFAULT_REACTION_TIME = 0.5f;
         private const bool DEFAULT_LIGHTS = true;
 
         private const LevelType DEFAULT_LEVEL_TYPE = LevelType.Middle;
         private const TargetType DEFAULT_TARGET_TYPE = TargetType.Person;
         private const GoalType DEFAULT_GOAL_TYPE = GoalType.Neutralise;
         private const WeaponSize DEFAULT_WEAPON_SIZE = WeaponSize.Small;
-        private const bool DEFAULT_TARGETS_CAN_WALK = true;
+        private const MovementType DEFAULT_MOVEMENT_TYPE = MovementType.Still;
+
+        private const int DEFAULT_ENGAGEMENT_DISTANCE = 10;
 
         #endregion
 
@@ -49,12 +54,15 @@ namespace Assets.Scripts.Settings
 
         public static int MinRoomSize { get; set; }
         public static int MaxRoomSize { get; set; }
+        public static float ReactionTime { get; set; }
 
         public static LevelType LevelType { get; set; }
         public static TargetType TargetType { get; set; }
         public static GoalType GoalType { get; set; }
         public static WeaponSize WeaponSize { get; set; }
-        public static bool TargetsCanWalk { get; set; }
+        public static MovementType MovementType { get; set; }
+
+        public static int EngagementDistance { get; set; }
 
         static ScenarioSettings()
         {
@@ -70,13 +78,16 @@ namespace Assets.Scripts.Settings
 
             MinRoomSize = DEFAULT_MIN_ROOMSIZE;
             MaxRoomSize = DEFAULT_MAX_ROOMSIZE;
+            ReactionTime = DEFAULT_REACTION_TIME;
             LevelType = DEFAULT_LEVEL_TYPE;
             TargetType = DEFAULT_TARGET_TYPE;
             GoalType = DEFAULT_GOAL_TYPE;
             WeaponSize = DEFAULT_WEAPON_SIZE;
-            TargetsCanWalk = DEFAULT_TARGETS_CAN_WALK;
+            MovementType = DEFAULT_MOVEMENT_TYPE;
 
-            Lights = DEFAULT_TARGETS_CAN_WALK;
+            Lights = DEFAULT_LIGHTS;
+
+            EngagementDistance = DEFAULT_ENGAGEMENT_DISTANCE;
         }
     }
 }

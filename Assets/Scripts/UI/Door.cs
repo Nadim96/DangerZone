@@ -20,6 +20,7 @@ namespace Assets.Scripts.UI
         [SerializeField] private Dropdown _targetType;
         [SerializeField] private Dropdown _weaponType;
         [SerializeField] private Dropdown _lightsType;
+        [SerializeField] private Dropdown _reactionSpeed;
 
         private void Start()
         {
@@ -45,6 +46,23 @@ namespace Assets.Scripts.UI
             _targetType.OnSelectedIndexChanged += OnTargetTypeChanged;
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
             _lightsType.OnSelectedIndexChanged += LightsTypeOnOnSelectedIndexChanged;
+            _reactionSpeed.OnSelectedIndexChanged += _reactionSpeed_OnSelectedIndexChanged;
+        }
+
+        private void _reactionSpeed_OnSelectedIndexChanged(int obj)
+        {
+            switch (obj)
+            {
+                case 1:
+                    ScenarioSettings.ReactionTime = 1;
+                    break;
+                case 2:
+                    ScenarioSettings.ReactionTime = 0.5f;
+                    break;
+                case 3:
+                    ScenarioSettings.ReactionTime = 0.3f;
+                    break;
+            }
         }
 
         private void LightsTypeOnOnSelectedIndexChanged(int i)
