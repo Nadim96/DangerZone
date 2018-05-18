@@ -21,6 +21,7 @@ namespace Assets.Scripts.UI
         [SerializeField] private Dropdown _weaponType;
         [SerializeField] private Dropdown _timeOfDayInput;
         [SerializeField] private Dropdown _weatherInput;
+        [SerializeField] private Dropdown _engagementDistance;
 
         private void Start()
         {
@@ -41,6 +42,23 @@ namespace Assets.Scripts.UI
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
             _timeOfDayInput.OnSelectedIndexChanged += OnTimeOfDayChanged;
             _weatherInput.OnSelectedIndexChanged += OnWeatherChanged;
+            _engagementDistance.OnSelectedIndexChanged += _engagementDistance_OnSelectedIndexChanged_engagementDistance_OnSelectedIndexChanged;
+                }
+
+        private void _engagementDistance_OnSelectedIndexChanged_engagementDistance_OnSelectedIndexChanged(int obj)
+        {
+            switch (obj)
+            {
+                case 1:
+                    ScenarioSettings.EngagementDistance = 4;
+                    break;
+                case 2:
+                    ScenarioSettings.EngagementDistance = 8;
+                    break;
+                case 3:
+                    ScenarioSettings.EngagementDistance = 10;
+                    break;
+            }
         }
 
         /// <summary>
