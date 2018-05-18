@@ -76,7 +76,10 @@ namespace Assets.Scripts.Scenario
             CivilianDied,
             OutOfAmmo,
             Succes
-        } 
+        }
+
+        public List<Transform> spawnPoints;
+
         /// <summary>
         /// amount of target still alive in scene
         /// </summary>
@@ -221,6 +224,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+            SetSpawnPoint();
             PlayerGun.PlayerGunInterface.ReloadGun();
 
             HideGameOverReason();
@@ -248,7 +252,6 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void GameOver()
         {
-            Debug.Log("GAMEOVER");
             Started = false;
 
             //StartCoroutine("gameoverWait", false);
@@ -460,6 +463,22 @@ namespace Assets.Scripts.Scenario
             GameOverScreen.SetActive(false);
         }
 
+        private void SetSpawnPoint()
+        {
+            if (spawnPoints.Count < 1) return;
+            // Set playarea position
+            GameObject playerArea = GameObject.Find("[CameraRig]");
+
+            if (!playerArea)
+                throw new NullReferenceException("Unable to find [PlayerArea] GameObject.");
+            System.Random r = new System.Random();
+
+            Transform SpawnPoint = spawnPoints[r.Next(0, spawnPoints.Count)];
+
+            playerArea.transform.position = SpawnPoint.position;
+            playerArea.transform.rotation = SpawnPoint.rotation;
+
+        }
 
     }
 }
