@@ -376,7 +376,6 @@ namespace Assets.Scripts.BehaviourTree
             });
         }
 
-
         private static BT CreateDoorBT(DataModel d)
         {
             return new BT(new Sequence

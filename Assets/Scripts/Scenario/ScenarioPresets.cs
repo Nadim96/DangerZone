@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Scenario;
+﻿using Assets.Scripts.BehaviourTree;
+using Assets.Scripts.Scenario;
 using Assets.Scripts.Settings;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ public class ScenarioPresets : MonoBehaviour
     [SerializeField] private int StarterRoomSizeMin;
     [SerializeField] private int StarterRoomSizeMax;
     [SerializeField] private WeaponSize StarterWeaponSize;
-    // [SerializeField] private int StarterDistanceMin;
-    //  [SerializeField] private int StarterDistanceMax;
+    [SerializeField] private MovementType StarterMovementType;
+    [SerializeField] private int StarterEngagmentDistance;
     [Header("Average")]
     [SerializeField] private int AverageEnemiesMin;
     [SerializeField] private int AverageEnemiesMax;
@@ -29,8 +30,8 @@ public class ScenarioPresets : MonoBehaviour
     [SerializeField] private int AverageRoomSizeMin;
     [SerializeField] private int AverageRoomSizeMax;
     [SerializeField] private WeaponSize AverageWeaponSize;
-    // [SerializeField] private int AverageDistanceMin;
-    //  [SerializeField] private int AverageDistanceMax;
+    [SerializeField] private MovementType AverageMovementType;
+    [SerializeField] private int AverageEngagmentDistance;
     [Header("Advanced")]
     [SerializeField] private int AdvancedEnemiesMin;
     [SerializeField] private int AdvancedEnemiesMax;
@@ -40,8 +41,8 @@ public class ScenarioPresets : MonoBehaviour
     [SerializeField] private int AdvancedRoomSizeMin;
     [SerializeField] private int AdvancedRoomSizeMax;
     [SerializeField] private WeaponSize AdvancedWeaponSize;
-    // [SerializeField] private int AdvancedDistanceMin;
-    //  [SerializeField] private int AdvancedDistanceMax;
+    [SerializeField] private MovementType AdvancedMovementType;
+    [SerializeField] private int AdvancedEngagmentDistance;
 
 
     // Use this for initialization
@@ -66,6 +67,8 @@ public class ScenarioPresets : MonoBehaviour
         ScenarioSettings.MaxRoomSize = this.StarterRoomSizeMax;
         ScenarioSettings.WeaponSize = this.StarterWeaponSize;
         ScenarioSettings.ReactionTime = this.StarterReactionSpeed;
+        ScenarioSettings.MovementType = this.StarterMovementType;
+        ScenarioSettings.EngagementDistance = this.StarterEngagmentDistance;
 
         SceneManager.LoadSceneAsync(LevelName);
     }
@@ -80,6 +83,8 @@ public class ScenarioPresets : MonoBehaviour
         ScenarioSettings.MaxRoomSize = this.AverageRoomSizeMax;
         ScenarioSettings.WeaponSize = this.AverageWeaponSize;
         ScenarioSettings.ReactionTime = this.AverageReactionSpeed;
+        ScenarioSettings.MovementType = this.AverageMovementType;
+        ScenarioSettings.EngagementDistance = this.AverageEngagmentDistance;
 
         SceneManager.LoadSceneAsync(LevelName);
     }
@@ -94,6 +99,8 @@ public class ScenarioPresets : MonoBehaviour
         ScenarioSettings.MaxRoomSize = this.AdvancedRoomSizeMax;
         ScenarioSettings.WeaponSize = this.AdvancedWeaponSize;
         ScenarioSettings.ReactionTime = this.AdvancedReactionSpeed;
+        ScenarioSettings.MovementType = this.AdvancedMovementType;
+        ScenarioSettings.EngagementDistance = this.AdvancedEngagmentDistance;
 
         SceneManager.LoadSceneAsync(LevelName);
     }

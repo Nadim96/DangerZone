@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Items;
+using Assets.Scripts.Settings;
 using UnityEngine;
 
 namespace Assets.Scripts.BehaviourTree.Leaf.Conditions
@@ -29,7 +30,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Conditions
                     DataModel.Npc.transform.position,
                     DataModel.Target.transform.position);
 
-                return distance <=10f;
+                return distance <= ScenarioSettings.EngagementDistance;
             }
 
             return false; // Unable to cast: NPC is not holding a weapon
