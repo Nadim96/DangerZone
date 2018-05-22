@@ -112,8 +112,9 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Next()
         {
-            if (current == AllFeedback.Count - 1) return;
-            current++;
+            if (current == AllFeedback.Count - 1) 
+                current = 0;
+             else current++;
             Show(true);
         }
 
@@ -122,8 +123,8 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Previous()
         {
-            if (current == 0) return;
-            current--;
+            if (current == 0) current = AllFeedback.Count;
+            else  current--;
             Show(true);
         }
 
