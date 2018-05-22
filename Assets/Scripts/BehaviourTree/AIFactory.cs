@@ -453,8 +453,8 @@ namespace Assets.Scripts.BehaviourTree
                     {
                         new Wait(ScenarioSettings.ReactionTime),
                         new EquipWeapon(d),
-                        new Wait(1f),
                         new CausePanic(d),
+                        new Wait(1f),
                         new RandomSelector
                         {
                            // new SetTarget(d),
