@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Audio;
+using Assets.Scripts.BehaviourTree.Leaf.Conditions;
 using Assets.Scripts.HitView;
 using Assets.Scripts.NPCs;
 using Assets.Scripts.Scenario;
+using Assets.Scripts.UI;
 using Assets.Scripts.Utility;
 using UnityEngine;
 
@@ -66,6 +68,7 @@ namespace Assets.Scripts.Items
         /// </summary>
         public virtual void Shoot()
         {
+            IsPanicking.playerShot = true;
             PlayGunEffects();
 
             Vector3 barrelDirection = RaycastObject.transform.TransformDirection(Vector3.up);
@@ -81,7 +84,10 @@ namespace Assets.Scripts.Items
                 }
 
                 HandleHit(hit);
+
+
             }
+
         }
 
         /// <summary>
@@ -174,7 +180,7 @@ namespace Assets.Scripts.Items
                 true
             );
 
-            bool hitNPC = (hit.transform.gameObject.GetComponentInParent<NPC>() != null) ? true :false;
+            bool hitNPC = (hit.transform.gameObject.GetComponentInParent<NPC>() != null) ? true : false;
             if (hitNPC)
             {
                 Statistics.ShotsHit++;
