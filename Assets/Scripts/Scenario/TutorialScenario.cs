@@ -46,8 +46,8 @@ namespace Assets.Scripts.Scenario
             },
             {
                 "Goal",
-                "JE DOEL IS OM VERDACHTEN TE NEUTRALISEREN EN HIERBIJ GEEN BURGERS AAN TE WIJZEN OF TE RAKEN. " + '\n' + '\n' +
-                "JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN, NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."
+                "JE DOEL IS OM VERDACHTEN TE NEUTRALISEREN EN HIERBIJ GEEN BURGERS AAN TE WIJZEN OF TE RAKEN. " + 
+                "JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN" +'\n' + '\n' +"NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."
             },
             {
                 "Cover",
@@ -107,6 +107,7 @@ namespace Assets.Scripts.Scenario
 
         protected override void Start()
         {
+            OnMenuPlayButton();
             base.Start();
             SetMenuEnabled(true);
             timer = 0;
@@ -130,11 +131,13 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void OnMenuPlayButton()
         {
+            Debug.Log("Button Pressed");
             switch (CurrentStage) {
                 case Stage.Practise:
+                    Debug.Log("Practice MODE");
                     SetMenuEnabled(false);
+                    SetLoadType();
                     Scenario.GameOver.instance.HideEndScreen();
-
                     SetDifficulty(Difficulty.Street);
                     Started = true;
                     AttackTriggered = false;
