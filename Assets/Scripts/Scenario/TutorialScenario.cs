@@ -39,20 +39,18 @@ namespace Assets.Scripts.Scenario
                 "DIT IS EEN VAARDIGHEIDSTRAINING IN EEN RIJKE CONTEXT."
             },
             {
-                "Movement",
-                "DE BLAUWE LIJNEN OP DE GROND GEVEN HET SPEELVELD AAN."+ '\n' + '\n' +
-                "HIERIN KUN JE VRIJ BEWEGEN ZONDER IN HET ECHT ERGENS TEGENAAN TE LOPEN." +'\n' + '\n' +
+                "Movement",'\n' +
+                "DE BLAUWE LIJNEN OP DE GROND GEVEN HET SPEELVELD AAN. HIERIN KUN JE RONDLOPEN ZONDER IN HET ECHT ERGENS TEGENAAN TE LOPEN." +'\n' + '\n' + '\n' +
                 "LOOP DOOR DE RUIMTE OM VERDER TE GAAN."
             },
             {
                 "Goal",
                 "JE DOEL IS OM VERDACHTEN TE NEUTRALISEREN EN HIERBIJ GEEN BURGERS AAN TE WIJZEN OF TE RAKEN. " + 
-                "JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN" +'\n' + '\n' +"NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."
+                "JE HEBT 15 KOGELS OM DIT DOEL TE BEREIKEN." +'\n' + '\n' +"NEUTRALISEER DE VERDACHTE OM VERDER TE GAAN."
             },
             {
                 "Cover",
-                "ZORG ERVOOR DAT JE ZELF NIET GERAAKT WORDT. " + '\n' + '\n' +
-                "DIT KAN BIJVOORBEELD DOOR DEKKING TE ZOEKEN ACHTER VERSCHILLENDE OBJECTEN IN HET SPEL."
+                "OM HET SPEL TE WINNEN MAG JE ZELF NIET GERAAKT WORDEN. DIT KUN JE DOEN DOOR GEBRUIK TE MAKEN VAN DEKKING ACHTER VERSCHILLENDE OBJECTEN IN HET SPEL."
             },
             {
                 "Practise",
@@ -61,9 +59,8 @@ namespace Assets.Scripts.Scenario
             },
             {
                 "PractiseSucces",
-                "GOED GEDAAN. " +'\n' + '\n' +
-                "SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENUO."  +'\n' + '\n' +
-                "OF DRUK OP RESTART OM OPNIEUW TE OEFENEN"
+                "GOED GEDAAN! " +'\n' + '\n' +
+                "SCHIET OP 'STOP' ONDER JE VOETEN OM TERUG TE GAAN NAAR HET HOOFDMENU, OF DRUK OP RESTART OM OPNIEUW TE OEFENEN."
             },
             {
                 "PractiseAgent",
