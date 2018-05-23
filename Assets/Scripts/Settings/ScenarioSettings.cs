@@ -85,7 +85,7 @@ namespace Assets.Scripts.Settings
             WeaponSize = DEFAULT_WEAPON_SIZE;
             MovementType = DEFAULT_MOVEMENT_TYPE;
 
-            Lights = DEFAULT_LIGHTS;
+            Lights = true;
 
             EngagementDistance = DEFAULT_ENGAGEMENT_DISTANCE;
         }

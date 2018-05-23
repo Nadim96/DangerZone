@@ -19,7 +19,6 @@ namespace Assets.Scripts.UI
         [SerializeField] private NumericUpDown _maxRoomSize;
         [SerializeField] private Dropdown _targetType;
         [SerializeField] private Dropdown _weaponType;
-        [SerializeField] private Dropdown _lightsType;
         [SerializeField] private Dropdown _reactionSpeed;
 
         private void Start()
@@ -33,7 +32,6 @@ namespace Assets.Scripts.UI
             _maxRoomSize.Value = ScenarioSettings.MaxRoomSize;
             _targetType.Select((int) ScenarioSettings.TargetType);
             _weaponType.Select((int) ScenarioSettings.WeaponSize);
-            _lightsType.Select(ScenarioSettings.Lights ? 0 : 1);
 
             _minEnemies.OnValueChanged += OnMinEnemiesChanged;
             _maxEnemies.OnValueChanged += OnMaxEnemiesChanged;
@@ -45,7 +43,6 @@ namespace Assets.Scripts.UI
 
             _targetType.OnSelectedIndexChanged += OnTargetTypeChanged;
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
-            _lightsType.OnSelectedIndexChanged += LightsTypeOnOnSelectedIndexChanged;
             _reactionSpeed.OnSelectedIndexChanged += _reactionSpeed_OnSelectedIndexChanged;
         }
 
@@ -68,7 +65,7 @@ namespace Assets.Scripts.UI
         private void LightsTypeOnOnSelectedIndexChanged(int i)
         {
             //i = 0 is the on selection
-            ScenarioSettings.Lights = (i == 0);
+            ScenarioSettings.Lights = true;
         }
 
         private void MaxRoomSizeOnOnValueChanged(int i)
