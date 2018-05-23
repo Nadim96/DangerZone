@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Items;
+﻿using Assets.Scripts.BehaviourTree.Leaf.Conditions;
+using Assets.Scripts.Items;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -18,12 +19,6 @@ namespace Assets.Scripts.Player
         protected override void Update()
         {
             base.Update();
-             
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                PlayerGunInterface.Shoot();
-            }
-
             if (PlayerGunInterface != null)
             {
                 if (Controller.GetPressDown(GripButton))

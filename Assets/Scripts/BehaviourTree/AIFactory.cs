@@ -5,6 +5,7 @@ using Assets.Scripts.BehaviourTree.Leaf.Actions;
 using Assets.Scripts.BehaviourTree.Leaf.Conditions;
 using Assets.Scripts.Points;
 using Assets.Scripts.Settings;
+using UnityEngine;
 
 namespace Assets.Scripts.BehaviourTree
 {
@@ -80,123 +81,9 @@ namespace Assets.Scripts.BehaviourTree
 
         private static BT CreateStreetBT(DataModel d)
         {
-            Sequence rootSelector = new Sequence
-            {
-                new While(new IsPanicking(d), //panic
-                    
-                    new Sequence //run away
-                    {
-                        new SetMovementSpeed(d, true),
-                        new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
-                        new Succeeder(new Seek(d, x => x.Target)),
-                        new Despawn(d)
-                    }
-                ),
-                new Sequence
-                {
-                    new Sequence {
-                    //Attack
-                    new While( //Continues as long as everthing returns true
-                        new Sequence //Step 1. If NPC is hostile continue
-                        {
-                            new IsHostile(d),
-                            new CanAttack(d)
-                        },
-                        new Sequence //Step 2, starting attack
-                        {
-                            new SetMovementSpeed(d, true), //Allows npc to run
-                            new RandomSelector { //Selects NPC or Player at random.
-                                new SetTarget(d),
-                                new SetTarget(d,true)
-                            },
-                            new Selector //Equiping a weapon
-                            {
-                                new IsWeaponEquipped(d), //If NPC has a weapon, do nothing else equip
-                                new Sequence
-                                {
-                                    new EquipRandomWeapon(d),
-                                    new Wait(3f)
-                                }
-                            },
-                            new While( //movetotarget
-                                new Sequence
-                                {
-                                    new IsWithinWeaponsRange(d, true),
-                                    new CanSeeTarget(d, true)
-                                },
-                            new Seek(d, x => x.Target) //If the target is not visable, seek the target.
-                            ),
-                            new While(
-                                new Sequence //use conditions
-                                {
-                                    new IsWithinWeaponsRange(d),
-                                    new IsTargetAlive(d),
-                                    new TurnToFaceTarget(d)
-                                },
-                                new Repeater( //use weapon
-                                    new Sequence
-                                    {
-                                        new ReloadWeapon(d),
-                                        new CausePanic(d),
-                                        new UseItem(d),
-                                        new Wait(1f)
-                                    }, true)
-                            )
-                        }
-                    )
-                    },
-                    new Sequence {
-                        new While
-                            ( //Continues as long as everthing returns true
-                                new Sequence //Step 1. If NPC is hostile continue
-                                {
-                                    new IsHostile(d),
-                                    new CanAttack(d)
-                                },
-                                new Sequence {
-                                     new Sequence //Step 2, starting attack
-                                {
-                                    new SetTarget(d,true)
-                                },
-                                new While
-                                ( //movetotarget
-                                    new Sequence
-                                    {
-                                        new IsWithinWeaponsRange(d, true),
-                                        new CanSeeTarget(d, true)
-                                    },
-                                    new Seek(d, x => x.Target) //If the target is not visable, seek the target.
-                                 ),
-                                new While
-                                (
-                                    new Sequence //use conditions
-                                    {
-                                        new IsWithinWeaponsRange(d),
-                                        new IsTargetAlive(d),
-                                        new TurnToFaceTarget(d)
-                                    },
-                                    new Repeater
-                                    ( //use weapon
-                                        new Sequence
-                                        {
-                                            new ReloadWeapon(d),
-                                            new CausePanic(d),
-                                            new UseItem(d),
-                                            new Wait(1f)
-                                        }, true
-                                     )
-                                 )
+            Sequence wander = new Sequence {
 
-                                }
-
-                             )}
-
-
-                },
-               new Sequence
-                {
-                    //Wander
-                    new While(
+                new While(
                         new Sequence{
                             new RandomSelector
                             {
@@ -215,8 +102,96 @@ namespace Assets.Scripts.BehaviourTree
                                 }
                             }
                             },
-                        new Sequence{})
+                        new Sequence
+                        {
                         }
+                    )
+            };
+
+            Sequence attack = new Sequence
+            {
+                new While
+               (
+                    new CanSeeTarget(d, true),
+                    new Seek(d, x => x.Target)
+                ),
+                new ReloadWeapon(d),
+                new CausePanic(d),
+                new UseItem(d),
+                new Wait(1f)
+            };
+
+            Selector equipWeapon = new Selector //Equiping a weapon
+            {
+                new IsWeaponEquipped(d), //If NPC has a weapon, do nothing else equip
+                new Sequence
+                {
+                    new EquipRandomWeapon(d),
+                    new Wait(3f)
+                }
+            };
+
+            While runIntoRange = new While( //movetotarget
+                new Sequence
+                {
+                    new IsWithinWeaponsRange(d, true),
+                    new CanSeeTarget(d, true)
+                },
+                new Seek(d, x => x.Target) //If the target is not visable, seek the target.
+            );
+
+            RandomSelector selectTarget = new RandomSelector
+            {
+                new SetTarget(d),
+                new SetTarget(d,true)
+            };
+
+            Sequence canAttack = new Sequence //use conditions
+            {
+               // new While(new CanSeeTarget(d, true), new Succeeder(new Seek(d, x => x.Target)), ),  
+                  // new CanSeeTarget(d),
+                //  new Seek(d, x => x.Target),
+                new IsWithinWeaponsRange(d),
+                new IsTargetAlive(d),
+                new TurnToFaceTarget(d, true,180),
+            };
+
+            Sequence flee = new Sequence //run away
+            {
+                new SetMovementSpeed(d, true),
+                new SetTarget(d, PointType.Despawn, PointList.GetSafestPoint),
+                new Succeeder(new Seek(d, x => x.Target)),
+                new Despawn(d)
+            };
+
+            Sequence rootSelector = new Sequence
+            {
+                new While(
+                    new IsPanicking(d), //panic
+                    flee
+                ),
+                new Sequence {
+                    new While( //Continues as long as everthing returns true
+                        new Sequence //Step 1. If NPC is hostile continue
+                        {
+                            new IsHostile(d),
+                            new CanAttack(d)
+                        },
+                        new Sequence //Step 2, starting attack
+                        {
+                            new SetMovementSpeed(d, true), //Allows npc to run
+                            selectTarget,
+                            equipWeapon,
+                            runIntoRange,
+                            new While(
+
+                                canAttack,
+                                new Repeater( attack, true)
+                            ),
+                        }
+                    )
+                },
+                wander,
             };
             return new BT(rootSelector);
         }
@@ -467,7 +442,7 @@ namespace Assets.Scripts.BehaviourTree
                     }),
 
                     new CanSeeTarget(d),
-                    new TurnToFaceTarget(d, 120f),
+                    new TurnToFaceTarget(d, false, 120f),
 
                     // Attack the player
                     new While(new Sequence()

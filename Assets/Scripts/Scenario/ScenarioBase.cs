@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.BehaviourTree.Leaf.Actions;
 using Assets.Scripts.BehaviourTree.Leaf.Conditions;
 using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
@@ -166,6 +167,7 @@ namespace Assets.Scripts.Scenario
         public void OnPlayerShoot(bool gunempty) {
             if (gunempty && Started) {
                 StartCoroutine(WaitHitCheck());
+               
             }
         }
 
@@ -226,18 +228,22 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+       
+
             SetSpawnPoint();
             PlayerGun.PlayerGunInterface.ReloadGun();
             HideGameOverReason();
-           
+            
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
             {
                 Stop();
             }
+            
             Load();
             Create();
             Spawn();
+
             ScenarioStartedTime = Time.time;
             Started = true;
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
@@ -246,6 +252,16 @@ namespace Assets.Scripts.Scenario
 
             Statistics.Reset();
             Statistics.Show(false);
+
+            StartCoroutine(ResetPanic());
+        }
+
+        public IEnumerator ResetPanic()
+        {
+
+            yield return new WaitForSeconds(0.1f);
+            IsPanicking.playerShot = false;
+            CausePanic._isTriggered = false;
         }
 
         /// <summary>
@@ -255,7 +271,6 @@ namespace Assets.Scripts.Scenario
         {
             Started = false;
 
-            //StartCoroutine("gameoverWait", false);
             bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
             StartCoroutine("gameoverWait", dead);
@@ -271,7 +286,8 @@ namespace Assets.Scripts.Scenario
             if (dead)
                 yield return new WaitForSeconds(2);
             if (Started) yield break;
-            IsPanicking.playerShot = false;
+           
+          
             Scenario.GameOver.instance.SetEndscreen(dead);
 
             if (dead)
@@ -298,6 +314,7 @@ namespace Assets.Scripts.Scenario
                 t.Destroy();
             }
             Targets = new List<Target>();
+           
         }
 
         public void BackToMainMenu(float delay)
@@ -345,6 +362,7 @@ namespace Assets.Scripts.Scenario
                 if (target is TargetNpc)
                 {
                     TargetNpc tnpc = ((TargetNpc)target);
+                    tnpc.NPC.IsPanicking = false;
                     tnpc.NPC.OnNPCDeathEvent += OnNpcDeath;
                     tnpc.NPC.OnNPCHitEvent += OnNpcHit;
                 }

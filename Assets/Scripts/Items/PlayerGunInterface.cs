@@ -72,7 +72,7 @@ namespace Assets.Scripts.Items
 
        public override void Shoot()
        {
-           IsPanicking.playerShot = true;
+        
             if (_currentRoundsInMag > 0)
             {
                 base.Shoot();
@@ -93,7 +93,7 @@ namespace Assets.Scripts.Items
         }
 
         public void OnShootEvent(bool empty) {
-        
+            
         }
 
         public void ReloadGun()

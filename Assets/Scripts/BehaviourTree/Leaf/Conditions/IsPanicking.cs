@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Items;
+using UnityEngine;
 
 namespace Assets.Scripts.BehaviourTree.Leaf.Conditions
 {
@@ -20,7 +21,11 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Conditions
 
         protected override bool CheckCondition()
         {
-            return !model.Npc.IsHostile && (DataModel.Npc != null && DataModel.Npc.IsPanicking || playerShot);
+            bool hostile = model.Npc.IsHostile;
+            bool nul = DataModel.Npc != null;
+            bool isPanic = DataModel.Npc.IsPanicking;
+            bool con = !hostile && (nul && (isPanic || playerShot));
+            return con;
         }
     }
 }

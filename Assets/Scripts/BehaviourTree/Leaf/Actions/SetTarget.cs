@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Assets.Scripts.NPCs;
 using Assets.Scripts.Points;
 using Assets.Scripts.Scenario;
@@ -27,6 +28,10 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
         public SetTarget(DataModel dataModel, bool targetPlayer = false) : base(dataModel)
         {
             _targetPlayer = targetPlayer;
+            if ((NPC.Npcs.Where(x => !x.IsHostile).Count() == 0))
+            {
+                _targetPlayer = true;
+            }
         }
 
         /// <summary>
@@ -59,7 +64,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
             {
                 return SetTargetToPlayer();
             }
-            
+
             return SetTargetToClosestOtherNpc();
         }
 
@@ -76,7 +81,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
 
             GameObject target = _selectPointAlgorithm(_pointType, DataModel.Npc.transform.position);
 
-          
+
             if (target != null)
             {
                 DataModel.Target = target;
@@ -112,7 +117,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
             foreach (NPC npc in NPC.Npcs)
             {
                 if (DataModel.Npc == npc || !npc.IsAlive) continue;
-                
+
                 float distance = (DataModel.Npc.transform.position - npc.transform.position).sqrMagnitude;
 
                 if (distance < closestDistance)

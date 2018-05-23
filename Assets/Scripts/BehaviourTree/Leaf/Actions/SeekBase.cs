@@ -76,6 +76,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
 
             if (IsStuck())
             {
+                Debug.Log("I AM STUCK MOFO");
                 return Status.Failure;
             }
 
