@@ -29,7 +29,6 @@ namespace Assets.Scripts.UI
             _maxEnemies.Value = ScenarioSettings.MaxEnemies;
             _minFriendlies.Value = ScenarioSettings.MinFriendlies;
             _maxFriendlies.Value = ScenarioSettings.MaxFriendlies;
-            _targetType.Select((int)ScenarioSettings.TargetType);
             _weaponType.Select((int)ScenarioSettings.WeaponSize);
             _levelType.Select((int)ScenarioSettings.LevelType);
             _Lights.Select(ScenarioSettings.Lights? 0:1);

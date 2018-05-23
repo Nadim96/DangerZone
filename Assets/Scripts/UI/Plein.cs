@@ -29,7 +29,6 @@ namespace Assets.Scripts.UI
             _maxEnemies.Value = ScenarioSettings.MaxEnemies;
             _minFriendlies.Value = ScenarioSettings.MinFriendlies;
             _maxFriendlies.Value = ScenarioSettings.MaxFriendlies;
-            _targetType.Select((int)ScenarioSettings.TargetType);
             _weaponType.Select((int)ScenarioSettings.WeaponSize);
             _timeOfDayInput.Select((int)ScenarioSettings.TimeOfDay);
             _weatherInput.Select((int)ScenarioSettings.Weather);
@@ -38,7 +37,6 @@ namespace Assets.Scripts.UI
             _maxEnemies.OnValueChanged += OnMaxEnemiesChanged;
             _minFriendlies.OnValueChanged += OnMinFriendliesChanged;
             _maxFriendlies.OnValueChanged += OnMaxFriendliesChanged;
-            _targetType.OnSelectedIndexChanged += OnTargetTypeChanged;
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
             _timeOfDayInput.OnSelectedIndexChanged += OnTimeOfDayChanged;
             _weatherInput.OnSelectedIndexChanged += OnWeatherChanged;
