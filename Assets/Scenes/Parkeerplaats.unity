@@ -12398,6 +12398,31 @@ Prefab:
       propertyPath: m_FillAmount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114246936191118182, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114246936191118182, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_FontData.m_AlignByGeometry
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114246936191118182, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_FontData.m_BestFit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224696919553704836, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -16.829987
+      objectReference: {fileID: 0}
+    - target: {fileID: 224696919553704836, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -16.83
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb9f3900075bf004a98fd7ed6c2b4126, type: 2}
   m_IsPrefabParent: 0
