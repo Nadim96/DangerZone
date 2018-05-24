@@ -177,6 +177,7 @@ namespace Assets.Scripts.HitView
             sphere.GetComponent<MeshRenderer>().material.color = Color.red;
             sphere.transform.parent = parent;
             sphere.transform.position = location;
+            sphere.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             sphere.SetActive(false);
 
             return sphere;
