@@ -173,7 +173,7 @@ namespace Assets.Scripts.HitView
         private GameObject CreateHitSphere(Vector3 location, Transform parent)
         {
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            sphere.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            sphere.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
             sphere.GetComponent<MeshRenderer>().material.color = Color.red;
             sphere.transform.parent = parent;
             sphere.transform.position = location;
