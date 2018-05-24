@@ -111,15 +111,22 @@ namespace Assets.Scripts.Utility
             //_deadFriendlies.SetText("Dode burgers: " + string.Format("{0}", DeadFriendliesByEnemy + DeadFriendliesByPlayer));
             //_deadEnemies.SetText("Dode verdachten: " + string.Format("{0}", DeadHostilesByEnemy + DeadHostilesByPlayer));
             //_timesHit.SetText("Keren geraakt:" + PlayerHit.ToString());
+            if (showShots.AllFeedback[showShots.current].Text == "TIPS")
+            {
+                _shotsFired.SetText("Maak juist gebruik van dekking om alle verdachten uit te kunnen schakelen.");
+                _timeAimedOnCivilians.SetText("");
+            }
+            else {
+                int hitPercentage = ShotsFired > 0 ? (int)((ShotsHit * 1.0) / (ShotsFired * 1.0) * 100.0) : 0;
 
+                _shotsFired.SetText("SCHOTEN RAAK: " + ShotsHit + "/" + ShotsFired + "(" + hitPercentage + "%)");
 
-            int hitPercentage = ShotsFired > 0 ? (int)((ShotsHit*1.0) / (ShotsFired*1.0) * 100.0) : 0;
+                int civsAimedAt = NpcsAimedAt.FindAll(t => t.IsHostile == false).Count;
 
-            _shotsFired.SetText("Schoten raak: " + ShotsHit + "/" + ShotsFired + "(" + hitPercentage+ "%)");
+                _timeAimedOnCivilians.SetText("BURGERS AANGEWEZEN: " + civsAimedAt + string.Format("({0}s)", Math.Round(TimeSpentAimingOnCivilians, 2)));
+            }
 
-            int civsAimedAt = NpcsAimedAt.FindAll(t => t.IsHostile == false).Count;
-
-            _timeAimedOnCivilians.SetText("Burgers aangewezen: " + civsAimedAt + string.Format("({0}s)", Math.Round(TimeSpentAimingOnCivilians,2)));
+         
         }
 
         /// <summary>

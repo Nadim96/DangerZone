@@ -25,18 +25,23 @@ namespace Assets.Scripts.HitView
         /// <summary>
         /// List of shot representation
         /// </summary>
-        private FeedbackCollection FriendlyShots = new FeedbackCollection("Jouw schoten");
-        private FeedbackCollection EnemyShots = new FeedbackCollection("Verdachte schoten");
-        private FeedbackCollection Tips = new FeedbackCollection("Tips");
+        private FeedbackCollection FriendlyShots = new FeedbackCollection("EIGEN VUUR");
+        private FeedbackCollection EnemyShots = new FeedbackCollection("VIJANDELIJKE VUUR");
+        private FeedbackCollection Tips = new FeedbackCollection("TIPS");
 
-        private List<FeedbackCollection> AllFeedback;
-        private int current = 0;
+        public List<FeedbackCollection> AllFeedback;
+        public int current = 0;
 
         public void Start()
         {
-            AllFeedback = new List<FeedbackCollection>() { FriendlyShots, EnemyShots, Tips };
-
             Tips.Objects.AddRange(TipObjects);
+            if (Settings.ScenarioSettings.IsBeginnerNiveau)
+            {
+                AllFeedback = new List<FeedbackCollection>() { FriendlyShots, EnemyShots, Tips };
+            }
+            else {
+                AllFeedback = new List<FeedbackCollection>() { FriendlyShots, EnemyShots};
+            }
         }
 
         /// <summary>
@@ -115,6 +120,7 @@ namespace Assets.Scripts.HitView
             if (current == AllFeedback.Count - 1) 
                 current = 0;
              else current++;
+          
             Show(true);
         }
 

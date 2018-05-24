@@ -59,6 +59,7 @@ public class ScenarioPresets : MonoBehaviour
 
     public void LoadStarterPreset()
     {
+        ScenarioSettings.IsBeginnerNiveau = true;
         ScenarioSettings.MinEnemies = this.StarterEnemiesMin;
         ScenarioSettings.MaxEnemies = this.StarterEnemiesMax;
         ScenarioSettings.MinFriendlies = this.StarterCivMin;
@@ -75,6 +76,7 @@ public class ScenarioPresets : MonoBehaviour
 
     public void LoadAveragePreset()
     {
+        ScenarioSettings.IsBeginnerNiveau = false;
         ScenarioSettings.MinEnemies = this.AverageEnemiesMin;
         ScenarioSettings.MaxEnemies = this.AverageEnemiesMax;
         ScenarioSettings.MinFriendlies = this.AverageCivMin;
@@ -91,6 +93,7 @@ public class ScenarioPresets : MonoBehaviour
 
     public void LoadAdvancedPreset()
     {
+        ScenarioSettings.IsBeginnerNiveau = false;
         ScenarioSettings.MinEnemies = this.AdvancedEnemiesMin;
         ScenarioSettings.MaxEnemies = this.AdvancedEnemiesMax;
         ScenarioSettings.MinFriendlies = this.AdvancedCivMin;

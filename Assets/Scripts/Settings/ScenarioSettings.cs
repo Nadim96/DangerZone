@@ -42,7 +42,6 @@ namespace Assets.Scripts.Settings
         public static int NumOfPeople { get; set; }
         public static TimeOfDayType TimeOfDay { get; set; }
         public static WeatherType Weather { get; set; }
-
         public static bool IsRandomScenario { get; set; }
 
         public static int MinEnemies { get; set; }
@@ -62,10 +61,13 @@ namespace Assets.Scripts.Settings
         public static WeaponSize WeaponSize { get; set; }
         public static MovementType MovementType { get; set; }
 
+        public static bool IsBeginnerNiveau { get; set; }
+
         public static int EngagementDistance { get; set; }
 
         static ScenarioSettings()
         {
+            IsBeginnerNiveau = false;
             NumOfPeople = DEFAULT_NUM_OF_PEOPLE;
             TimeOfDay = DEFAULT_TIME_OF_DAY;
             Weather = DEFAULT_WEATHER;

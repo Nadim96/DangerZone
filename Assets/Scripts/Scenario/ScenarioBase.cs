@@ -457,19 +457,19 @@ namespace Assets.Scripts.Scenario
             switch (reason)
             {
                 case StageEndReason.AgentDied:
-                    GameOverScreenText.text = "Je bent geraakt.";
+                    GameOverScreenText.text = "JE BENT GERAAKT.";
                     break;
                 case StageEndReason.CivilianDied:
-                    GameOverScreenText.text = "Je hebt een burger geraakt.";
+                    GameOverScreenText.text = "JE HEBT EEN BURGER GERAAKT.";
                     break;
                 case StageEndReason.OutOfAmmo:
-                    GameOverScreenText.text = "Je 15 kogels zijn op.";
+                    GameOverScreenText.text = "JE 15 KOGELS ZIJN OP.";
                     break;
                 case StageEndReason.Succes:
-                    GameOverScreenText.text = "Goed gedaan!";
+                    GameOverScreenText.text = "GOED GEDAAN!";
                     break;
                 default:
-                    GameOverScreenText.text = "Game over";
+                    GameOverScreenText.text = "GAME OVER";
                     break;
             }
 
