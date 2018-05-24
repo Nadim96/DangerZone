@@ -202,7 +202,7 @@ namespace Assets.Scripts.HitView
             obj.transform.LookAt(end);
 
             obj.GetComponent<MeshRenderer>().material.color = color;
-
+            obj.GetComponent<MeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             obj.SetActive(false);
 
             return obj;
