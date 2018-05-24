@@ -8110,6 +8110,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 224696919553704836, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -17.399994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224696919553704836, guid: eb9f3900075bf004a98fd7ed6c2b4126,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -17.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb9f3900075bf004a98fd7ed6c2b4126, type: 2}
   m_IsPrefabParent: 0
