@@ -67,6 +67,11 @@ namespace Assets.Scripts.Scenario
         public GameObject PlayerGunObject;
         private VR_Controller_Gun PlayerGun;
 
+        /// <summary>
+        /// True = locked
+        /// </summary>
+        private bool _FeedBackSchermLock;
+
 
 
         /// <summary>
@@ -228,8 +233,8 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
-       
 
+            _FeedBackSchermLock = false;
             SetSpawnPoint();
             PlayerGun.PlayerGunInterface.ReloadGun();
             HideGameOverReason();
@@ -451,6 +456,8 @@ namespace Assets.Scripts.Scenario
         /// <param name="reason"></param>
         public void ShowGameOverReason(StageEndReason reason)
         {
+            if (_FeedBackSchermLock) return;
+            _FeedBackSchermLock = true;
             UIRootFloor.SetActive(false);
             GameOverScreen.SetActive(true);
 
