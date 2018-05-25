@@ -65,7 +65,7 @@ namespace Assets.Scripts.Scenario
         public List<Target> Targets { get; private set; }
 
         public GameObject PlayerGunObject;
-        private VR_Controller_Gun PlayerGun;
+        public VR_Controller_Gun PlayerGun;
 
         /// <summary>
         /// True = locked

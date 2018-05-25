@@ -129,6 +129,7 @@ namespace Assets.Scripts.Scenario
         public void OnMenuPlayButton()
         {
             Debug.Log("Button Pressed");
+            PlayerGun.PlayerGunInterface.ReloadGun();
             switch (CurrentStage) {
                 case Stage.Practise:
                     Debug.Log("Practice MODE");
@@ -173,6 +174,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void OnRestartButton()
         {
+            PlayerGun.PlayerGunInterface.ReloadGun();
             Play();
             Scenario.GameOver.instance.HideEndScreen();
             SetMenuEnabled(false);
