@@ -104,7 +104,6 @@ namespace Assets.Scripts.Scenario
 
         protected override void Start()
         {
-            OnMenuPlayButton();
             base.Start();
             SetMenuEnabled(true);
             timer = 0;
@@ -141,12 +140,10 @@ namespace Assets.Scripts.Scenario
                     AttackTriggered = false;
                     ScenarioStartedTime = Time.time;
                     timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
-
-                    if (!HasLostBefore)
+                    //if (!HasLostBefore)
                     {
                         ClearNPCS();
                         Time.timeScale = 1f;
-
                         base.Load();
                         base.Create();
                         base.Spawn();
@@ -195,7 +192,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// Starts the next stage
         /// </summary>
-        public override void Play()
+        public override void Play()      
         {
             // Increments to the next stage if not practise
             if (CurrentStage != Stage.Practise)
@@ -288,9 +285,9 @@ namespace Assets.Scripts.Scenario
         {
             EndStage(CurrentStage, StageEndReason.AgentDied);
             Scenario.GameOver.instance.SetEndscreen(false);
-            UIRoot.SetActive(true);
             Time.timeScale = 0.0f;
             //SetMenuEnabled(true);
+            SetIngameUIVisible();
         }
 
         /// <summary>
@@ -434,6 +431,7 @@ namespace Assets.Scripts.Scenario
                     EnableCoverBodies(false);
                     break;
                 case Stage.Practise:
+                    UIRootFloor.SetActive(true);
                     switch (reason)
                     {
                         case StageEndReason.Succes:
