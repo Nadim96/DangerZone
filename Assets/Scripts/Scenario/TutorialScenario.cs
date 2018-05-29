@@ -432,6 +432,7 @@ namespace Assets.Scripts.Scenario
                     break;
                 case Stage.Practise:
                     UIRootFloor.SetActive(true);
+                    IngameMenuStartButton.SetActive(false);
                     switch (reason)
                     {
                         case StageEndReason.Succes:
