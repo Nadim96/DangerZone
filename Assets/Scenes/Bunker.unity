@@ -57774,6 +57774,10 @@ Prefab:
       propertyPath: m_Text
       value: 'Je hebt een burger geraakt '
       objectReference: {fileID: 0}
+    - target: {fileID: 1686251558473146, guid: 17689d4a16b5bc047b8a05acbc6c3c91, type: 2}
+      propertyPath: m_Name
+      value: FeedbackTypeText
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 17689d4a16b5bc047b8a05acbc6c3c91, type: 2}
   m_IsPrefabParent: 0
