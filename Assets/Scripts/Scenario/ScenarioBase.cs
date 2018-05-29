@@ -458,7 +458,7 @@ namespace Assets.Scripts.Scenario
         {
             if (_FeedBackSchermLock) return;
             _FeedBackSchermLock = true;
-            UIRootFloor.SetActive(true);
+            UIRootFloor.SetActive(false);
             GameOverScreen.SetActive(true);
 
             switch (reason)
