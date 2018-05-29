@@ -11787,53 +11787,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4170325278655816, guid: 0d42a150a104b794c90a6e484943ab58, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170325278655816, guid: 0d42a150a104b794c90a6e484943ab58, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170325278655816, guid: 0d42a150a104b794c90a6e484943ab58, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170325278655816, guid: 0d42a150a104b794c90a6e484943ab58, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170325278655816, guid: 0d42a150a104b794c90a6e484943ab58, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170325278655816, guid: 0d42a150a104b794c90a6e484943ab58, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
+    - target: {fileID: 64368474194141580, guid: 0d42a150a104b794c90a6e484943ab58,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d42a150a104b794c90a6e484943ab58, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1178080159 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1856117372807946, guid: 0d42a150a104b794c90a6e484943ab58,
-    type: 2}
-  m_PrefabInternal: {fileID: 1178080158}
---- !u!208 &1178080160
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1178080159}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.528, y: 0.27800003, z: 0.93}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.006, y: 0.006, z: 0.25}
-  m_TimeToStationary: 0.5
 --- !u!1 &1178383536
 GameObject:
   m_ObjectHideFlags: 0
