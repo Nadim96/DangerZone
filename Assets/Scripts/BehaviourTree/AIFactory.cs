@@ -114,8 +114,8 @@ namespace Assets.Scripts.BehaviourTree
                 new UseItem(d),
                 new CausePanic(d),
                 new Wait(1f),
-               new Succeeder( new While
-               (
+                new Succeeder( new While
+                (
                     new CanSeeTarget(d, true),
                     new Seek(d, x => x.Target)
                 )),
@@ -135,7 +135,7 @@ namespace Assets.Scripts.BehaviourTree
                 new Sequence
                 {
                     new IsWithinWeaponsRange(d, true),
-                    new CanSeeTarget(d, true)
+                   // new CanSeeTarget(d, true)
                 },
                 new Seek(d, x => x.Target) //If the target is not visable, seek the target.
             );
@@ -148,9 +148,6 @@ namespace Assets.Scripts.BehaviourTree
 
             Sequence canAttack = new Sequence //use conditions
             {
-               // new While(new CanSeeTarget(d, true), new Succeeder(new Seek(d, x => x.Target)), ),  
-                  // new CanSeeTarget(d),
-                //  new Seek(d, x => x.Target),
                 new IsWithinWeaponsRange(d),
                 new IsTargetAlive(d),
                 new TurnToFaceTarget(d, true,180),
