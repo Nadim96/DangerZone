@@ -98,7 +98,7 @@ namespace Assets.Scripts.Utility
         void Update()
         {
             //update only once every second
-            if (_lastUpdate + 1 > Time.time) return;
+            if (_lastUpdate + 1 < Time.time) return;
             _lastUpdate = Time.time;
 
             //_gameTime.SetText(FormatTime(Time.timeSinceLevelLoad));
