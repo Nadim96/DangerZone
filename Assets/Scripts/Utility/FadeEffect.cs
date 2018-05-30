@@ -93,8 +93,9 @@ namespace Assets.Scripts.Utility
         {
             if (alpha < 0 || alpha > 1)
                 throw new ArgumentOutOfRangeException("alpha", "Alpha value must be within the [0, 255] range.");
-
+            if (_fadeMaterial.GetType().GetProperty("color") == null) yield return null;
             var c = _fadeMaterial.color;
+
             //this probably should be unscaleddeltatime to prevent timescale 0 when gameover from messing with it
             //but im to afraid to change it this late into the project.
             for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / duration) 
