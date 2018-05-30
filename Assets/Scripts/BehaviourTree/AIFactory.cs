@@ -110,15 +110,15 @@ namespace Assets.Scripts.BehaviourTree
 
             Sequence attack = new Sequence
             {
+                new ReloadWeapon(d),
+                new UseItem(d),
+                new CausePanic(d),
+                new Wait(1f),
                new Succeeder( new While
                (
                     new CanSeeTarget(d, true),
                     new Seek(d, x => x.Target)
                 )),
-                new ReloadWeapon(d),
-                new CausePanic(d),
-                new UseItem(d),
-                new Wait(1f)
             };
 
             Selector equipWeapon = new Selector //Equiping a weapon
