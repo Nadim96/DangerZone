@@ -180,7 +180,7 @@ namespace Assets.Scripts.BehaviourTree
                         new Sequence //Step 2, starting attack
                         {
                             new SetMovementSpeed(d, true), //Allows npc to run
-                            selectTarget,
+                            new While(new IsTargetAlive(d, true), selectTarget),
                             equipWeapon,
                             runIntoRange,
                             new While(

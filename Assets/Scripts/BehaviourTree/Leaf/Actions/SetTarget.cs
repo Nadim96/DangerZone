@@ -28,7 +28,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
         public SetTarget(DataModel dataModel, bool targetPlayer = false) : base(dataModel)
         {
             _targetPlayer = targetPlayer;
-            if ((NPC.Npcs.Where(x => !x.IsHostile).Count() == 0))
+            if ((NPC.Npcs.Where(x => !x.IsHostile  && x.IsAlive).Count() == 0))
             {
                 _targetPlayer = true;
             }
@@ -112,20 +112,10 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
                 return Status.Failure;
             }
 
-            NPC closestNpc = null;
-            float closestDistance = float.MaxValue;
-            foreach (NPC npc in NPC.Npcs)
-            {
-                if (DataModel.Npc == npc || !npc.IsAlive) continue;
-
-                float distance = (DataModel.Npc.transform.position - npc.transform.position).sqrMagnitude;
-
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestNpc = npc;
-                }
-            }
+            NPC closestNpc = NPC.Npcs
+                .Where(x => x != DataModel.Npc && x.IsAlive && !x.IsHostile)
+                .OrderBy(x => (DataModel.Npc.transform.position - x.transform.position).sqrMagnitude)
+                .FirstOrDefault();
 
             if (closestNpc != null)
             {
