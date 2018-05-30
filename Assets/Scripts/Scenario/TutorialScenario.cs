@@ -71,6 +71,11 @@ namespace Assets.Scripts.Scenario
                 "PractiseCiv",
                 "HELAAS, JE HEBT EEN BURGER NEERGESCHOTEN." + '\n' + '\n' +     
                 "SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
+            },
+            {
+                "PracticeAmmo",
+                "HELAAS, JE 15 KOGELS ZIJN OP."+ '\n' + '\n' +
+                               "SCHIET OP 'RESTART' ONDER JE VOETEN OM HET OPNIEUW TE PROBEREN."
             }
 
         };
@@ -357,6 +362,22 @@ namespace Assets.Scripts.Scenario
             }
         }
 
+        public override void OnPlayerShoot(bool empty) {
+            if (empty && Started)
+            {
+                StartCoroutine(WaitHitCheck());
+                Debug.Log("Empty");
+            }
+        }
+
+        public override IEnumerator WaitHitCheck() {
+            yield return new WaitForSecondsRealtime(1f);
+            if (Started)
+            {
+                EndStage(CurrentStage, StageEndReason.OutOfAmmo);
+            }
+        }
+
         /// <summary>
         /// Updates during the stage
         /// </summary>
@@ -462,6 +483,15 @@ namespace Assets.Scripts.Scenario
                                 SetMenuEnabled(true);
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
+                        case StageEndReason.OutOfAmmo:
+                            string y = "";
+                            Messages.TryGetValue("PracticeAmmo", out y);
+                            SetMenuText(y);
+
+                            HasLostBefore = true;
+                            SetMenuEnabled(true);
+                            Scenario.GameOver.instance.SetEndscreen(false);
+                            break;
                     }
                     break;
             }
@@ -519,6 +549,7 @@ namespace Assets.Scripts.Scenario
                 EndStage(CurrentStage, StageEndReason.CivilianDied);
             }
         }
+
 
         /// <summary>
         /// Sets the current diffeculty

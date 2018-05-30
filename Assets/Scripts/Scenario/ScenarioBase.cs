@@ -169,14 +169,14 @@ namespace Assets.Scripts.Scenario
         /// Event that triggers if the gun has fired
         /// </summary>
         /// <param name="gunempty"></param>
-        public void OnPlayerShoot(bool gunempty) {
+        public virtual void OnPlayerShoot(bool gunempty) {
             if (gunempty && Started) {
                 StartCoroutine(WaitHitCheck());
-               
+                Debug.Log("Empty");
             }
         }
 
-        IEnumerator WaitHitCheck()
+        public virtual IEnumerator WaitHitCheck()
         {
             yield return new WaitForSecondsRealtime(1f);
             if (Started) {
