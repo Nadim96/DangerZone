@@ -28,10 +28,10 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
         public SetTarget(DataModel dataModel, bool targetPlayer = false) : base(dataModel)
         {
             _targetPlayer = targetPlayer;
-            if ((NPC.Npcs.Where(x => !x.IsHostile  && x.IsAlive).Count() == 0))
-            {
-                _targetPlayer = true;
-            }
+            //if (!(NPC.Npcs.Where(x => !x.IsHostile && x.IsAlive).Count() > 0))
+            //{
+            //   _targetPlayer = true;
+            //}
         }
 
         /// <summary>
@@ -122,8 +122,8 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
                 DataModel.Target = closestNpc.gameObject;
                 return Status.Success;
             }
+            else return SetTargetToPlayer();
 
-            return Status.Failure;
         }
     }
 }

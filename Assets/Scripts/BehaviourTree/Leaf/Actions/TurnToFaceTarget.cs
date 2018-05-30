@@ -73,8 +73,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
             }
 
             Quaternion targetRotation = Quaternion.LookRotation(relativePos.normalized);
-            thisNpc.rotation =
-                Quaternion.RotateTowards(thisNpc.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            thisNpc.rotation = Quaternion.RotateTowards(thisNpc.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
 
             bool isFacing = Quaternion.Angle(thisNpc.rotation, targetRotation) < _isFacingTargetTreshold;
 

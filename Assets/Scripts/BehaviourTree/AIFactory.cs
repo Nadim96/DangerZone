@@ -110,11 +110,11 @@ namespace Assets.Scripts.BehaviourTree
 
             Sequence attack = new Sequence
             {
-                new While
+               new Succeeder( new While
                (
                     new CanSeeTarget(d, true),
                     new Seek(d, x => x.Target)
-                ),
+                )),
                 new ReloadWeapon(d),
                 new CausePanic(d),
                 new UseItem(d),
