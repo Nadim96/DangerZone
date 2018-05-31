@@ -113,10 +113,10 @@ namespace Assets.Scripts.Utility
             //_timesHit.SetText("Keren geraakt:" + PlayerHit.ToString());
             if (showShots.AllFeedback[showShots.current].Text == "TIPS")
             {
-                _shotsFired.SetText("Maak juist gebruik van dekking om alle verdachten uit te kunnen schakelen.");
-                _timeAimedOnCivilians.SetText("");
+                _timeAimedOnCivilians.SetText("Maak juist gebruik van dekking om alle verdachten uit te kunnen schakelen.");
+                _shotsFired.SetText("");
             }
-            else if(!Scenario.ScenarioBase.Instance.FeedBackSchermLock) {
+            else {
                
                 int hitPercentage = ShotsFired > 0 ? (int)((ShotsHit * 1.0) / (ShotsFired * 1.0) * 100.0) : 0;
 

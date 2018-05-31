@@ -17,7 +17,6 @@ namespace Assets.Scripts.UI
         [SerializeField] private NumericUpDown _maxFriendlies;
         [SerializeField] private NumericUpDown _minRoomSize;
         [SerializeField] private NumericUpDown _maxRoomSize;
-        [SerializeField] private Dropdown _targetType;
         [SerializeField] private Dropdown _weaponType;
         [SerializeField] private Dropdown _reactionSpeed;
 
@@ -30,7 +29,6 @@ namespace Assets.Scripts.UI
 
             _minRoomSize.Value = ScenarioSettings.MinRoomSize;
             _maxRoomSize.Value = ScenarioSettings.MaxRoomSize;
-            _targetType.Select((int) ScenarioSettings.TargetType);
             _weaponType.Select((int) ScenarioSettings.WeaponSize);
 
             _minEnemies.OnValueChanged += OnMinEnemiesChanged;
@@ -41,7 +39,6 @@ namespace Assets.Scripts.UI
             _minRoomSize.OnValueChanged += MinRoomSizeOnOnValueChanged;
             _maxRoomSize.OnValueChanged += MaxRoomSizeOnOnValueChanged;
 
-            _targetType.OnSelectedIndexChanged += OnTargetTypeChanged;
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
             _reactionSpeed.OnSelectedIndexChanged += _reactionSpeed_OnSelectedIndexChanged;
         }

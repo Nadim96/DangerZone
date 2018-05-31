@@ -183,7 +183,12 @@ namespace Assets.Scripts.Items
             bool hitNPC = (hit.transform.gameObject.GetComponentInParent<NPC>() != null) ? true : false;
             if (hitNPC)
             {
-                Statistics.ShotsHit++;
+                if (ScenarioBase.Instance != null)
+                {
+                    if (ScenarioBase.Instance.Started) {
+                        Statistics.ShotsHit++;
+                    }
+                }
             }
 
             // Check tags to see if it hit the environment or something else

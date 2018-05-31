@@ -78,8 +78,14 @@ namespace Assets.Scripts.Items
                 base.Shoot();
                 HandleSuicide();
                 _currentRoundsInMag--;
-               // Debug.Log("SHOOT");
-                Statistics.ShotsFired++;
+                // Debug.Log("SHOOT");
+                if (ScenarioBase.Instance != null)
+                {
+                    if (ScenarioBase.Instance.Started)
+                    {
+                        Statistics.ShotsFired++;
+                    }
+                }
                 AudioController.PlayAudio(gameObject, AudioCategory.GunShoot2);
 
             }

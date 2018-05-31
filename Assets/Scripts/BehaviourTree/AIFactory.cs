@@ -150,7 +150,7 @@ namespace Assets.Scripts.BehaviourTree
             {
                 new IsWithinWeaponsRange(d),
                 new IsTargetAlive(d),
-                new TurnToFaceTarget(d, true,180),
+                new TurnToFaceTarget(d,180),
             };
 
             Sequence flee = new Sequence //run away
@@ -439,7 +439,7 @@ namespace Assets.Scripts.BehaviourTree
                     }),
 
                     new CanSeeTarget(d),
-                    new TurnToFaceTarget(d, false, 120f),
+                    new TurnToFaceTarget(d, 120f),
 
                     // Attack the player
                     new While(new Sequence()

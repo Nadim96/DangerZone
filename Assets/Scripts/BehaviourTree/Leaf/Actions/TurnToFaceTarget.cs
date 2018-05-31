@@ -21,19 +21,17 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
 
         private readonly float _rotationSpeed;
         private readonly float _isFacingTargetTreshold;
-        private readonly bool _debug;
 
         /// <summary>
         /// Give reference to datamodel and set RotationSpeed in degrees.
         /// </summary>
         /// <param name="dataModel"></param>
         /// <param name="rotationSpeed"></param>
-        public TurnToFaceTarget(DataModel dataModel,bool debug = false ,float rotationSpeed = DEFAULT_ROTATION_SPEED,
+        public TurnToFaceTarget(DataModel dataModel ,float rotationSpeed = DEFAULT_ROTATION_SPEED,
             float isFacingTargetTreshold = DEFAULT_IS_FACING_TARGET_THRESHOLD) : base(dataModel)
         {
             _rotationSpeed = rotationSpeed;
             _isFacingTargetTreshold = isFacingTargetTreshold;
-            _debug = debug;
         }
 
         protected override Status Update()
@@ -45,10 +43,6 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
 
             bool isFacingTarget = RotateToFaceObject(DataModel.Npc.transform, DataModel.Target.transform);
 
-            if (_debug)
-            {
-                Debug.Log("rotating");
-            }
 
             return isFacingTarget ? Status.Success : Status.Running;
         }

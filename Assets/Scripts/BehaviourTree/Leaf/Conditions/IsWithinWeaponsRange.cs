@@ -32,7 +32,6 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Conditions
                     DataModel.Npc.transform.position,
                     DataModel.Target.transform.position);
 
-               Debug.Log("Range: " + (distance <= ScenarioSettings.EngagementDistance)); 
 
                 return distance <= ScenarioSettings.EngagementDistance;
             }

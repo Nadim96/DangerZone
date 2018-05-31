@@ -17,7 +17,6 @@ namespace Assets.Scripts.UI
         [SerializeField] private NumericUpDown _minFriendlies;
         [SerializeField] private NumericUpDown _maxFriendlies;
 
-        [SerializeField] private Dropdown _targetType;
         [SerializeField] private Dropdown _weaponType;
         [SerializeField] private Dropdown _timeOfDayInput;
         [SerializeField] private Dropdown _weatherInput;

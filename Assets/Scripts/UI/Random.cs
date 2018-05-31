@@ -17,10 +17,7 @@ namespace Assets.Scripts.UI
         [SerializeField] private NumericUpDown _minFriendlies;
         [SerializeField] private NumericUpDown _maxFriendlies;
 
-        [SerializeField] private Dropdown _targetType;
         [SerializeField] private Dropdown _weaponType;
-        [SerializeField] private Dropdown _levelType;
-        [SerializeField] private Dropdown _Lights;
         [SerializeField] private Dropdown _MovementType;
 
         private void Start()
@@ -30,18 +27,13 @@ namespace Assets.Scripts.UI
             _minFriendlies.Value = ScenarioSettings.MinFriendlies;
             _maxFriendlies.Value = ScenarioSettings.MaxFriendlies;
             _weaponType.Select((int)ScenarioSettings.WeaponSize);
-            _levelType.Select((int)ScenarioSettings.LevelType);
-            _Lights.Select(ScenarioSettings.Lights? 0:1);
 
             _minEnemies.OnValueChanged += OnMinEnemiesChanged;
             _maxEnemies.OnValueChanged += OnMaxEnemiesChanged;
             _minFriendlies.OnValueChanged += OnMinFriendliesChanged;
             _maxFriendlies.OnValueChanged += OnMaxFriendliesChanged;
-            _targetType.OnSelectedIndexChanged += OnTargetTypeChanged;
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
 
-            _levelType.OnSelectedIndexChanged += OnLevelTypeChanged;
-            _Lights.OnSelectedIndexChanged += LightsOnOnSelectedIndexChanged;
             _MovementType.OnSelectedIndexChanged += _MovementType_OnSelectedIndexChanged;
         }
 
