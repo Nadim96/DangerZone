@@ -27,7 +27,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
         /// </summary>
         /// <param name="dataModel"></param>
         /// <param name="rotationSpeed"></param>
-        public TurnToFaceTarget(DataModel dataModel, float rotationSpeed = DEFAULT_ROTATION_SPEED,
+        public TurnToFaceTarget(DataModel dataModel ,float rotationSpeed = DEFAULT_ROTATION_SPEED,
             float isFacingTargetTreshold = DEFAULT_IS_FACING_TARGET_THRESHOLD) : base(dataModel)
         {
             _rotationSpeed = rotationSpeed;
@@ -42,6 +42,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
             }
 
             bool isFacingTarget = RotateToFaceObject(DataModel.Npc.transform, DataModel.Target.transform);
+
 
             return isFacingTarget ? Status.Success : Status.Running;
         }
@@ -65,9 +66,8 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
                 relativePos.Scale(new Vector3(1, 0, 1));
             }
 
-            Quaternion targetRotation = Quaternion.LookRotation(relativePos);
-            thisNpc.rotation =
-                Quaternion.RotateTowards(thisNpc.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            Quaternion targetRotation = Quaternion.LookRotation(relativePos.normalized);
+            thisNpc.rotation = Quaternion.RotateTowards(thisNpc.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
 
             bool isFacing = Quaternion.Angle(thisNpc.rotation, targetRotation) < _isFacingTargetTreshold;
 

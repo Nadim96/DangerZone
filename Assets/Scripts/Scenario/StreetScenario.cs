@@ -6,8 +6,9 @@ namespace Assets.Scripts.Scenario
     {
         protected override void Load()
         {
+            LoadStyle.SetDifficulty(Difficulty.Street);
             base.Load();
-            LoadStyle.SetDifficulty(Difficulty.Easy);
+     
         }
         public override void Stop()
         {

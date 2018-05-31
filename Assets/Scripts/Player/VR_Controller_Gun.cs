@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Items;
+﻿using Assets.Scripts.BehaviourTree.Leaf.Conditions;
+using Assets.Scripts.Items;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -9,7 +11,7 @@ namespace Assets.Scripts.Player
     {
         private const ushort HAPTIC_PULSE_DURATION = 3999;
 
-        private PlayerGunInterface PlayerGunInterface
+        public PlayerGunInterface PlayerGunInterface
         {
             get { return GetComponentInChildren<PlayerGunInterface>(); }
         }
@@ -17,12 +19,11 @@ namespace Assets.Scripts.Player
         protected override void Update()
         {
             base.Update();
-
             if (PlayerGunInterface != null)
             {
                 if (Controller.GetPressDown(GripButton))
                 {
-                    PlayerGunInterface.ReloadGun();
+                  //  PlayerGunInterface.ReloadGun();
                 }
 
                 if (Controller.GetPressDown(TriggerButton))

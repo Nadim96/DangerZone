@@ -42,16 +42,12 @@ namespace Assets.Scripts.Scenario
             ScenarioBase scenario = ScenarioBase.Instance;
             scenario.TargetType = ScenarioSettings.TargetType;
             scenario.GoalType = ScenarioSettings.GoalType;
-            scenario.name = GetName();
-
-           
-
-           
+            scenario.name = GetName();                  
         }
 
         public void Create()
         {
-            int enemies = RNG.Next(ScenarioSettings.MinEnemies, ScenarioSettings.MaxEnemies + 1);
+           int enemies = RNG.Next(ScenarioSettings.MinEnemies, ScenarioSettings.MaxEnemies + 1);
             int friendlies = RNG.Next(ScenarioSettings.MinFriendlies, ScenarioSettings.MaxFriendlies + 1);
             for (int i = 0; i < enemies; i++)
                 CreateRandomTarget(true);

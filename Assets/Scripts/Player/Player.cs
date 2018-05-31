@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Scenario;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -15,6 +16,8 @@ namespace Assets.Scripts.Player
         public float Health = DEFAULT_HEALTH;
 
         public static Player Instance { get; private set; }
+
+        public bool IsAlive { get { return Health > 0; } }
 
         private void Awake()
         {
@@ -44,6 +47,7 @@ namespace Assets.Scripts.Player
         {
 
             Scenario.ScenarioBase.Instance.GameOver();
+            Scenario.ScenarioBase.Instance.ShowGameOverReason(ScenarioBase.StageEndReason.AgentDied);
         }
     }
 }

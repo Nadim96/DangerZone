@@ -24,6 +24,7 @@ namespace Assets.Scripts.UI
             Bunker,
             Door,
             Street,
+            Parkeerplaats,
             StreetTutorial,
             None
         }
@@ -77,6 +78,9 @@ namespace Assets.Scripts.UI
                 case "Street":
                     returnScene = SceneToLoad.Street;
                     break;
+                case "Parkeerplaats":
+                    returnScene = SceneToLoad.Parkeerplaats;
+                    break;
                 case "StreetTutorial":
                     returnScene = SceneToLoad.StreetTutorial;
                     break;
@@ -91,7 +95,7 @@ namespace Assets.Scripts.UI
         /// <param name="level"></param>
         public void LoadLevel(string level)
         {
-            ScenarioSettings.IsRandomScenario = (level == SceneToLoad.Door.ToString());
+            //ScenarioSettings.IsRandomScenario = (level == SceneToLoad.Door.ToString());
             StartCoroutine(LoadSceneCoroutine(stringToScene(level)));
         }
     

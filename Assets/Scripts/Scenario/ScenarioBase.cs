@@ -2,10 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.BehaviourTree.Leaf.Actions;
+using Assets.Scripts.BehaviourTree.Leaf.Conditions;
+using Assets.Scripts.Items;
 using Assets.Scripts.NPCs;
+using Assets.Scripts.Player;
 using Assets.Scripts.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Scenario
 {
@@ -59,6 +64,29 @@ namespace Assets.Scripts.Scenario
         public GoalType GoalType { get; set; }
         public List<Target> Targets { get; private set; }
 
+        public GameObject PlayerGunObject;
+        public VR_Controller_Gun PlayerGun;
+
+        /// <summary>
+        /// True = locked
+        /// </summary>
+        public bool FeedBackSchermLock;
+
+
+
+        /// <summary>
+        /// Reasons why a stage has ended
+        /// </summary>
+        public enum StageEndReason
+        {
+            AgentDied,
+            CivilianDied,
+            OutOfAmmo,
+            Succes
+        }
+
+        public List<Transform> spawnPoints;
+
         /// <summary>
         /// amount of target still alive in scene
         /// </summary>
@@ -69,6 +97,9 @@ namespace Assets.Scripts.Scenario
 
         public GameObject ingameUITrigger;
         public GameObject IngameUI;
+        public GameObject GameOverScreen;
+        public Text GameOverScreenText;
+        public GameObject UIRootFloor;
 
         /// <summary>
         /// Timestamp of when Scenario is started
@@ -97,10 +128,7 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public void SetLoadType()
         {
-            if (Settings.ScenarioSettings.IsRandomScenario)
-                LoadStyle = new LoadRandom();
-            else
-                LoadStyle = new LoadXml();
+            LoadStyle = new LoadRandom();
         }
 
         /// <summary>
@@ -118,27 +146,59 @@ namespace Assets.Scripts.Scenario
 
         protected virtual void Start()
         {
-#if UNITY_EDITOR
+
             Audio.AudioController.LoadAudio();
-#endif
+            UIRootFloor.SetActive(false);
 
             if (PersonTargetPrefabs == null || PersonTargetPrefabs.Count == 0)
                 throw new Exception("Scenario will not be able to spawn NPC's. " +
                                     "Please ensure the Spawnable NPC list is filled.");
             SetLoadType();
 
+            foreach (PlayerGunInterface gun in PlayerGunInterface.AllPlayerGuns) {
+                gun.OnShoot = OnPlayerShoot;
+            }
+
             if (StartOnLoad)
                 Play();
+            PlayerGun = PlayerGunObject.GetComponent<VR_Controller_Gun>();
+
+        }
+
+        /// <summary>
+        /// Event that triggers if the gun has fired
+        /// </summary>
+        /// <param name="gunempty"></param>
+        public virtual void OnPlayerShoot(bool gunempty) {
+            if (gunempty && Started) {
+                StartCoroutine(WaitHitCheck());
+                Debug.Log("Empty");
+            }
+        }
+
+        public virtual IEnumerator WaitHitCheck()
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            if (Started) {
+                ShowGameOverReason(StageEndReason.OutOfAmmo);
+                GameOver();
+            }
+          
         }
 
         public virtual void SetIngameUIVisible()
         {
             EnableIngameMenu = true;
+
         }
 
         protected virtual void Update()
         {
             MeshRenderer meshRenderer = ingameUITrigger.GetComponent<MeshRenderer>();
+
+            if (Input.GetKeyDown(KeyCode.R)) {
+                Play();
+            }
 
             //check endgame 
             if (NPC.HostileNpcs.Count == 0 && Started)
@@ -173,19 +233,40 @@ namespace Assets.Scripts.Scenario
         /// </summary>
         public virtual void Play()
         {
+
+            FeedBackSchermLock = false;
+            SetSpawnPoint();
+            PlayerGun.PlayerGunInterface.ReloadGun();
+            HideGameOverReason();
+            
             //stop old scenario if it isnt stopped yet
             if (ScenarioStartedTime != 0)
             {
                 Stop();
             }
+            
             Load();
             Create();
             Spawn();
+
             ScenarioStartedTime = Time.time;
             Started = true;
             PlayerCameraEye.GetComponent<Player.Player>().Health = 100;
             timeBeforeAttack = RNG.NextFloat(minTimeElapsedBeforeAttack, maxTimeElapsedBeforeAttack);
             Time.timeScale = 1f;
+
+            Statistics.Reset();
+            Statistics.Show(false);
+
+            StartCoroutine(ResetPanic());
+        }
+
+        public IEnumerator ResetPanic()
+        {
+
+            yield return new WaitForSeconds(0.1f);
+            IsPanicking.playerShot = false;
+            CausePanic._isTriggered = false;
         }
 
         /// <summary>
@@ -197,7 +278,6 @@ namespace Assets.Scripts.Scenario
 
             bool dead = NPC.HostileNpcs.All(hostileNpc => !hostileNpc.IsAlive);
 
-            Debug.Log(dead);
             StartCoroutine("gameoverWait", dead);
         }
 
@@ -211,8 +291,17 @@ namespace Assets.Scripts.Scenario
             if (dead)
                 yield return new WaitForSeconds(2);
             if (Started) yield break;
+           
+          
             Scenario.GameOver.instance.SetEndscreen(dead);
+
+            if (dead)
+            {
+                ShowGameOverReason(StageEndReason.Succes);
+            }
             Time.timeScale = 0.0f; // Set time still
+
+            Statistics.Show(true);
         }
 
         /// <summary>
@@ -223,13 +312,14 @@ namespace Assets.Scripts.Scenario
             Started = false;
             AttackTriggered = false;
             ScenarioStartedTime = 0;
-
             Time.timeScale = 1;
             Scenario.GameOver.instance.HideEndScreen();
 
-            foreach (Target t in Targets)
+            foreach (Target t in Targets) {
                 t.Destroy();
+            }
             Targets = new List<Target>();
+           
         }
 
         public void BackToMainMenu(float delay)
@@ -272,8 +362,42 @@ namespace Assets.Scripts.Scenario
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
                 target.Spawn(prefab);
+
+                if (target is TargetNpc)
+                {
+                    TargetNpc tnpc = ((TargetNpc)target);
+                    tnpc.NPC.IsPanicking = false;
+                    tnpc.NPC.OnNPCDeathEvent += OnNpcDeath;
+                    tnpc.NPC.OnNPCHitEvent += OnNpcHit;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Event triggered on the death of an NPC
+        /// </summary>
+        /// <param name="npc">NPC that died</param>
+        /// <param name="hitmessage">info about the hit that killed the NPC</param>
+        private void OnNpcDeath(NPC npc, HitMessage hitmessage)
+        {
+            if (hitmessage.IsPlayer)
+            {
+                StartCoroutine("gameoverWait", false);
+            }
+        }
+
+        /// <summary>
+        /// Even triggerd when an npc gets hit
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="hitmessage"></param>
+        protected virtual void OnNpcHit(NPC npc, HitMessage hitmessage)
+        {
+            if (!npc.IsHostile && hitmessage.IsPlayer)
+            {
+                GameOver();
+                ShowGameOverReason(StageEndReason.CivilianDied);
             }
         }
 
@@ -297,6 +421,7 @@ namespace Assets.Scripts.Scenario
             }
         }
 
+
         /// <summary>
         /// create waypoint at stated position
         /// </summary>
@@ -304,7 +429,7 @@ namespace Assets.Scripts.Scenario
         /// <param name="position"></param>
         /// <returns></returns>
         public Waypoint CreateWaypoint(Target target, Vector3 position)
-        {        
+        {
             Transform t = Instantiate(WaypointPrefab, position, Quaternion.identity);
             Waypoint waypoint = t.GetComponent<Waypoint>();
             if (waypoint == null)
@@ -324,5 +449,64 @@ namespace Assets.Scripts.Scenario
 
             return PersonTargetPrefabs[RNG.Next(0, PersonTargetPrefabs.Count)];
         }
+
+        /// <summary>
+        /// Shows reason of gameover
+        /// </summary>
+        /// <param name="reason"></param>
+        public virtual void ShowGameOverReason(StageEndReason reason)
+        {
+            if (FeedBackSchermLock) return;
+            FeedBackSchermLock = true;
+            UIRootFloor.SetActive(false);
+            GameOverScreen.SetActive(true);
+
+            switch (reason)
+            {
+                case StageEndReason.AgentDied:
+                    GameOverScreenText.text = "JE BENT GERAAKT.";
+                    break;
+                case StageEndReason.CivilianDied:
+                    GameOverScreenText.text = "JE HEBT EEN BURGER GERAAKT.";
+                    break;
+                case StageEndReason.OutOfAmmo:
+                    GameOverScreenText.text = "JE 15 KOGELS ZIJN OP.";
+                    break;
+                case StageEndReason.Succes:
+                    GameOverScreenText.text = "GOED GEDAAN!";
+                    break;
+                default:
+                    GameOverScreenText.text = "GAME OVER";
+                    break;
+            }
+
+
+        }
+
+        /// <summary>
+        /// Hides the game over message.
+        /// </summary>
+        public void HideGameOverReason()
+        {
+            GameOverScreen.SetActive(false);
+        }
+
+        private void SetSpawnPoint()
+        {
+            if (spawnPoints.Count < 1) return;
+            // Set playarea position
+            GameObject playerArea = GameObject.Find("[CameraRig]");
+
+            if (!playerArea)
+                throw new NullReferenceException("Unable to find [PlayerArea] GameObject.");
+            System.Random r = new System.Random();
+
+            Transform SpawnPoint = spawnPoints[r.Next(0, spawnPoints.Count)];
+
+            playerArea.transform.position = SpawnPoint.position;
+            playerArea.transform.rotation = SpawnPoint.rotation;
+
+        }
+
     }
 }

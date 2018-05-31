@@ -14,7 +14,8 @@ namespace Assets.Scripts.Scenario
         public GameObject PlayAreaLocationCorner;
         public GameObject PlayAreaLocationLevelWall;
         public GameObject PlayAreaLocationLevelMiddle;
-        
+        // Enable correct cover
+        GameObject g;
         /// <summary>
         /// list of all lights in level
         /// </summary>
@@ -31,21 +32,28 @@ namespace Assets.Scripts.Scenario
         {
             base.Start();
             SetLights();
-            SetSpawnArea(ScenarioSettings.LevelType);
+            SetSpawnArea();
 
         }
 
         protected override void Load()
         {
             LoadStyle.SetDifficulty(Difficulty.Easy);
-            base.Load();
+            base.Load();          
+        }
+
+        public override void Play()
+        {
+            if (g != null) g.SetActive(false);
+            base.Play();
+            SetSpawnArea();
         }
 
         /// <summary>
         /// sets the player to selected spawnarea
         /// </summary>
         /// <param name="levelType"></param>
-        private void SetSpawnArea(LevelType levelType)
+        private void SetSpawnArea()
         {
             // Set playarea position
             GameObject playerArea = GameObject.Find("[CameraRig]");
@@ -56,21 +64,23 @@ namespace Assets.Scripts.Scenario
             if (!PlayAreaLocationCorner || !PlayAreaLocationLevelWall || !PlayAreaLocationLevelMiddle)
                 throw new NullReferenceException("Unable to find the different PlayAreaLocation objects.");
 
-            // Enable correct cover
-            GameObject g;
-            switch (levelType)
+            System.Random r = new System.Random();
+
+            int location = r.Next(0, 3);
+            switch (location)
             {
-                case LevelType.Corner:
+                case 0:
                     g = PlayAreaLocationCorner;
                     break;
-                case LevelType.Wall:
+                case 1:
                     g = PlayAreaLocationLevelWall;
                     break;
-                case LevelType.Middle:
+                case 2:
                     g = PlayAreaLocationLevelMiddle;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("levelType", levelType, null);
+                    g = PlayAreaLocationCorner;
+                    break;
             }
             playerArea.transform.position = g.transform.position;
 

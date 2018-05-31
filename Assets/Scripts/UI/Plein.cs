@@ -17,10 +17,10 @@ namespace Assets.Scripts.UI
         [SerializeField] private NumericUpDown _minFriendlies;
         [SerializeField] private NumericUpDown _maxFriendlies;
 
-        [SerializeField] private Dropdown _targetType;
         [SerializeField] private Dropdown _weaponType;
         [SerializeField] private Dropdown _timeOfDayInput;
         [SerializeField] private Dropdown _weatherInput;
+        [SerializeField] private Dropdown _engagementDistance;
 
         private void Start()
         {
@@ -28,7 +28,6 @@ namespace Assets.Scripts.UI
             _maxEnemies.Value = ScenarioSettings.MaxEnemies;
             _minFriendlies.Value = ScenarioSettings.MinFriendlies;
             _maxFriendlies.Value = ScenarioSettings.MaxFriendlies;
-            _targetType.Select((int)ScenarioSettings.TargetType);
             _weaponType.Select((int)ScenarioSettings.WeaponSize);
             _timeOfDayInput.Select((int)ScenarioSettings.TimeOfDay);
             _weatherInput.Select((int)ScenarioSettings.Weather);
@@ -37,10 +36,26 @@ namespace Assets.Scripts.UI
             _maxEnemies.OnValueChanged += OnMaxEnemiesChanged;
             _minFriendlies.OnValueChanged += OnMinFriendliesChanged;
             _maxFriendlies.OnValueChanged += OnMaxFriendliesChanged;
-            _targetType.OnSelectedIndexChanged += OnTargetTypeChanged;
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
             _timeOfDayInput.OnSelectedIndexChanged += OnTimeOfDayChanged;
             _weatherInput.OnSelectedIndexChanged += OnWeatherChanged;
+            _engagementDistance.OnSelectedIndexChanged += _engagementDistance_OnSelectedIndexChanged_engagementDistance_OnSelectedIndexChanged;
+                }
+
+        private void _engagementDistance_OnSelectedIndexChanged_engagementDistance_OnSelectedIndexChanged(int obj)
+        {
+            switch (obj)
+            {
+                case 1:
+                    ScenarioSettings.EngagementDistance = 4;
+                    break;
+                case 2:
+                    ScenarioSettings.EngagementDistance = 8;
+                    break;
+                case 3:
+                    ScenarioSettings.EngagementDistance = 10;
+                    break;
+            }
         }
 
         /// <summary>

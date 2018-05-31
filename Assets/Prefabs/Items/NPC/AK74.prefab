@@ -894,7 +894,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6f07aceb24155d04299ea4f6daaf1dcb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4abe614b7f0e6a5498d77da3bf2f34ee, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -952,7 +952,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1035,8 +1035,6 @@ MonoBehaviour:
   RaycastObject: {fileID: 1248773275915880}
   MuzzleFlash: {fileID: 198055376771088360}
   MuzzleFlashLight: {fileID: 108250124851769958}
-  BulletCasing: {fileID: 1942551344619302, guid: 5ecea9de972e8e34380ca1d62dc379b3,
-    type: 2}
   BulletCasingSpawnLocation: {fileID: 1769167764285854}
   SmokePuff: {fileID: 198751832735866266}
   BloodOnHit: {fileID: 198146296074399244, guid: daee700df95e38d41a1302c7f1da1354,
@@ -1047,6 +1045,7 @@ MonoBehaviour:
     type: 2}
   BulletHitWood: {fileID: 198000011002288308, guid: beb3acff7ab73944fb8f470f24d74ed3,
     type: 2}
+  casingPool: {fileID: 0}
 --- !u!137 &137040419191914936
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

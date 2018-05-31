@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Assets.Scripts.NPCs;
 using Assets.Scripts.Points;
 using Assets.Scripts.Scenario;
@@ -59,7 +60,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
             {
                 return SetTargetToPlayer();
             }
-            
+
             return SetTargetToClosestOtherNpc();
         }
 
@@ -76,7 +77,7 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
 
             GameObject target = _selectPointAlgorithm(_pointType, DataModel.Npc.transform.position);
 
-          
+
             if (target != null)
             {
                 DataModel.Target = target;
@@ -107,28 +108,18 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Actions
                 return Status.Failure;
             }
 
-            NPC closestNpc = null;
-            float closestDistance = float.MaxValue;
-            foreach (NPC npc in NPC.Npcs)
-            {
-                if (DataModel.Npc == npc || !npc.IsAlive) continue;
-                
-                float distance = (DataModel.Npc.transform.position - npc.transform.position).sqrMagnitude;
-
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestNpc = npc;
-                }
-            }
+            NPC closestNpc = NPC.Npcs
+                .Where(x => x != DataModel.Npc && x.IsAlive && !x.IsHostile)
+                .OrderBy(x => (DataModel.Npc.transform.position - x.transform.position).sqrMagnitude)
+                .FirstOrDefault();
 
             if (closestNpc != null)
             {
                 DataModel.Target = closestNpc.gameObject;
                 return Status.Success;
             }
+            else return SetTargetToPlayer();
 
-            return Status.Failure;
         }
     }
 }

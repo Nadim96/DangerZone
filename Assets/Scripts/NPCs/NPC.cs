@@ -1,17 +1,19 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts.Utility;
+﻿using Assets.Scripts.BehaviourTree;
 using Assets.Scripts.HitView;
-using UnityEngine;
-using UnityEngine.AI;
-using Assets.Scripts.BehaviourTree;
 using Assets.Scripts.Items;
 using Assets.Scripts.Scenario;
+using Assets.Scripts.Utility;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Scripts.NPCs
 {
-    public delegate void OnDeath(NPC npc, HitMessage hitmessage);
+    // Delegates for the events
+    public delegate void OnNPCDeathEvent(NPC npc, HitMessage hitmessage);
+    public delegate void OnNPCHitEvent(NPC npc, HitMessage hitmessage);
 
     /// <inheritdoc />
     /// <summary>
@@ -140,8 +142,8 @@ namespace Assets.Scripts.NPCs
         private float _timeBeforeNervous;
 
         // Events 
-
-        public OnDeath OnDeath;
+        public OnNPCDeathEvent OnNPCDeathEvent;
+        public OnNPCHitEvent OnNPCHitEvent;
 
         static NPC()
         {
@@ -165,7 +167,8 @@ namespace Assets.Scripts.NPCs
             Ragdoll = GetComponent<Ragdoll02>();
             IsAlive = true;
 
-            OnDeath += OnDeathEvent;
+            OnNPCDeathEvent += OnDeathEvent;
+            OnNPCHitEvent += OnHitEvent;
 
             _hp = DEFAULT_STARTING_HP;
 
@@ -280,6 +283,18 @@ namespace Assets.Scripts.NPCs
                     Ragdoll.RagOn(hitMessage);
                 }
             }
+
+            OnNPCHitEvent(this, hitMessage);
+
+        }
+
+        /// <summary>
+        /// Even that triggers when the npc gets hit
+        /// </summary>
+        /// <param name="npc"></param>
+        /// <param name="hitmessage"></param>
+        private void OnHitEvent(NPC npc, HitMessage hitmessage)
+        {
         }
 
         /// <summary>
@@ -314,26 +329,6 @@ namespace Assets.Scripts.NPCs
                 Ragdoll.stateType = StateType.One;
                 Ragdoll.ragFull = true;
             }
-        }
-
-        /// <summary>
-        /// Save the all the NPCs in the scene to a list
-        /// </summary>
-        /// <param name="hitmessage"></param>
-        private void SaveHit(HitMessage hitmessage)
-        {
-            // Gameobject that got hit
-            List<GameObject> tempList = new List<GameObject> {HitLocation.Save(this, hitmessage.PointOfImpact)};
-
-            // Add rest of the npcs to the list
-            foreach (NPC npc in Npcs)
-            {
-                // Return if current. to prevent the same NPC is added twice
-                if (npc.gameObject.Equals(gameObject)) continue;
-                tempList.Add(HitLocation.Save(npc));
-            }
-
-            ShowNpcHit.HitNPCs.Add(tempList);
         }
 
         /// <summary>
@@ -393,15 +388,16 @@ namespace Assets.Scripts.NPCs
             }
 
 
-            OnDeath(this, hitMessage);
+            OnNPCDeathEvent(this, hitMessage);
         }
 
         /// <summary>
         /// Even that is triggered when a NPC dies
         /// </summary>
         /// <param name="npc"></param>
-        public void OnDeathEvent(NPC npc, HitMessage hitmessage)
+        private void OnDeathEvent(NPC npc, HitMessage hitmessage)
         {
+          
         }
 
         /// <summary>

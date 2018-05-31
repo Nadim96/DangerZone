@@ -13,17 +13,13 @@ namespace Assets.Scripts.Points
     /// </summary>
     public class PointList : MonoBehaviour
     {
-        public static List<GameObject> EnemySpawn { get; private set; }
-        public static List<GameObject> Interest { get; private set; }
-        public static List<GameObject> Idle { get; private set; }
-        public static List<GameObject> Despawn { get; private set; }
+        public static List<GameObject> EnemySpawn { get { return GameObject.FindGameObjectsWithTag("PointForEnemySpawn").ToList(); } }
+        public static List<GameObject> Interest { get { return GameObject.FindGameObjectsWithTag("PointOfInterest").ToList(); } }
+        public static List<GameObject> Idle { get { return GameObject.FindGameObjectsWithTag("PointForIdle").ToList(); } }
+        public static List<GameObject> Despawn { get { return GameObject.FindGameObjectsWithTag("PointForDespawn").ToList(); } }
 
         private void Start()
         {
-            Interest = GameObject.FindGameObjectsWithTag("PointOfInterest").ToList();
-            Despawn = GameObject.FindGameObjectsWithTag("PointForDespawn").ToList();
-            EnemySpawn = GameObject.FindGameObjectsWithTag("PointForEnemySpawn").ToList();
-            Idle = GameObject.FindGameObjectsWithTag("PointForIdle").ToList();
         }
 
         /// <summary>
@@ -98,7 +94,7 @@ namespace Assets.Scripts.Points
                 if (!GetClosestHostilePosToPos(midPoint, out hostilePos))
                 {
                     // Since there are no hostiles, simply return the closest despawn point.
-                    return GetClosestPoint(type, position);
+                   return GetClosestPoint(type, position);
                 }
 
                 float distance = (hostilePos - midPoint).sqrMagnitude;
@@ -123,7 +119,7 @@ namespace Assets.Scripts.Points
             {
                 if (hostileNpc.transform == null) continue;
 
-                float distance = (position - hostileNpc.transform.position).sqrMagnitude;
+                float distance = (position - hostileNpc.transform.position).magnitude;
 
                 if (distance < closestDistance)
                 {
@@ -131,8 +127,7 @@ namespace Assets.Scripts.Points
                     hostilePos = hostileNpc.transform.position;
                 }
             }
-
-            return hostilePos == Vector3.zero;
+            return hostilePos != Vector3.zero;
         }
 
         private static List<GameObject> GetListFromEnum(PointType type)

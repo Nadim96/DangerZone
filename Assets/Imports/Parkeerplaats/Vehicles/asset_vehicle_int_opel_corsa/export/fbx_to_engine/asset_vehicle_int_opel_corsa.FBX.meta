@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: ed358aa9b29df7544aed7c18e142db1e
+timeCreated: 1525862860
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: body
+    100004: door_bonnet
+    100006: door_boot
+    100008: door_lf
+    100010: door_rf
+    100012: ESM_CONNECTOR001
+    100014: ESM_CONNECTOR_driver_seat_lf
+    100016: ESM_CONNECTOR_driver_seat_rf
+    100018: ESM_CONNECTOR_seat_lb
+    100020: ESM_CONNECTOR_seat_rb
+    100022: ESM_LICENSE_PLATE001
+    100024: ESM_LICENSE_PLATE002
+    100026: interior
+    100028: wheel_lb
+    100030: wheel_lf
+    100032: wheel_rb
+    100034: wheel_rf
+    400000: //RootNode
+    400002: body
+    400004: door_bonnet
+    400006: door_boot
+    400008: door_lf
+    400010: door_rf
+    400012: ESM_CONNECTOR001
+    400014: ESM_CONNECTOR_driver_seat_lf
+    400016: ESM_CONNECTOR_driver_seat_rf
+    400018: ESM_CONNECTOR_seat_lb
+    400020: ESM_CONNECTOR_seat_rb
+    400022: ESM_LICENSE_PLATE001
+    400024: ESM_LICENSE_PLATE002
+    400026: interior
+    400028: wheel_lb
+    400030: wheel_lf
+    400032: wheel_rb
+    400034: wheel_rf
+    2300000: body
+    2300002: door_bonnet
+    2300004: door_boot
+    2300006: door_lf
+    2300008: door_rf
+    2300010: ESM_CONNECTOR001
+    2300012: ESM_CONNECTOR_driver_seat_lf
+    2300014: ESM_CONNECTOR_driver_seat_rf
+    2300016: ESM_CONNECTOR_seat_lb
+    2300018: ESM_CONNECTOR_seat_rb
+    2300020: ESM_LICENSE_PLATE001
+    2300022: ESM_LICENSE_PLATE002
+    2300024: interior
+    2300026: wheel_lb
+    2300028: wheel_lf
+    2300030: wheel_rb
+    2300032: wheel_rf
+    3300000: body
+    3300002: door_bonnet
+    3300004: door_boot
+    3300006: door_lf
+    3300008: door_rf
+    3300010: ESM_CONNECTOR001
+    3300012: ESM_CONNECTOR_driver_seat_lf
+    3300014: ESM_CONNECTOR_driver_seat_rf
+    3300016: ESM_CONNECTOR_seat_lb
+    3300018: ESM_CONNECTOR_seat_rb
+    3300020: ESM_LICENSE_PLATE001
+    3300022: ESM_LICENSE_PLATE002
+    3300024: interior
+    3300026: wheel_lb
+    3300028: wheel_lf
+    3300030: wheel_rb
+    3300032: wheel_rf
+    4300000: door_rf
+    4300002: door_lf
+    4300004: interior
+    4300006: door_bonnet
+    4300008: body
+    4300010: ESM_CONNECTOR001
+    4300012: ESM_LICENSE_PLATE001
+    4300014: ESM_CONNECTOR_driver_seat_lf
+    4300016: ESM_CONNECTOR_driver_seat_rf
+    4300018: ESM_CONNECTOR_seat_rb
+    4300020: ESM_CONNECTOR_seat_lb
+    4300022: wheel_lf
+    4300024: wheel_rf
+    4300026: wheel_rb
+    4300028: wheel_lb
+    4300030: door_boot
+    4300032: ESM_LICENSE_PLATE002
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 1 - Default
+    second: {fileID: 2100000, guid: 4ed2f436032915e4da6a8c32e820ed7d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_1
+    second: {fileID: 2100000, guid: 9655f6d3fb2897b4a9eb3e534c71e3e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_2
+    second: {fileID: 2100000, guid: 7d4d8d2d28706db4596fde872890b659, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_3
+    second: {fileID: 2100000, guid: 5a4db77a7f7fd9541b6f88cd6c3d017d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ESM_ConnectorMaterial_4
+    second: {fileID: 2100000, guid: 83dfb832ff19a354998dbd5c81303922, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #1'
+    second: {fileID: 2100000, guid: a61b6e026f37a6c47a95e4c5e4c44915, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'Material #8'
+    second: {fileID: 2100000, guid: f6be1153a438a1e4fac9f3fc92cdd225, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 11a5ba66bc80b8f468078bcb459e9606, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

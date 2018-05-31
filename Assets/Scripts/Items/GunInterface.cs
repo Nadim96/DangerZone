@@ -2,6 +2,11 @@
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Audio;
+using Assets.Scripts.BehaviourTree.Leaf.Conditions;
+using Assets.Scripts.HitView;
+using Assets.Scripts.NPCs;
+using Assets.Scripts.Scenario;
+using Assets.Scripts.UI;
 using Assets.Scripts.Utility;
 using UnityEngine;
 
@@ -63,6 +68,7 @@ namespace Assets.Scripts.Items
         /// </summary>
         public virtual void Shoot()
         {
+            IsPanicking.playerShot = true;
             PlayGunEffects();
 
             Vector3 barrelDirection = RaycastObject.transform.TransformDirection(Vector3.up);
@@ -70,10 +76,18 @@ namespace Assets.Scripts.Items
             RaycastHit hit;
             if (Physics.Raycast(RaycastObject.transform.position, barrelDirection, out hit))
             {
-                Debug.DrawLine(RaycastObject.transform.position, hit.transform.position, Color.green, 5f);
+                // Adds shots to statistics
+                ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
+                if (showShots != null && ScenarioBase.Instance.Started)
+                {
+                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, RaycastObject, hit.point), true);
+                }
 
                 HandleHit(hit);
+
+
             }
+
         }
 
         /// <summary>
@@ -103,6 +117,13 @@ namespace Assets.Scripts.Items
                 else
                 {
                     HandleHit(hit);
+                }
+
+                // Adds shots to statistics
+                ShowShots showShots = UnityEngine.Object.FindObjectOfType<ShowShots>();
+                if (showShots != null)
+                {
+                    showShots.Save(new Shot(hit.transform.gameObject, RaycastObject.transform.position, this.gameObject.transform.GetComponentInParent<NPC>().gameObject, hit.point), false);
                 }
             }
         }
@@ -158,6 +179,17 @@ namespace Assets.Scripts.Items
                 ImpactForce,
                 true
             );
+
+            bool hitNPC = (hit.transform.gameObject.GetComponentInParent<NPC>() != null) ? true : false;
+            if (hitNPC)
+            {
+                if (ScenarioBase.Instance != null)
+                {
+                    if (ScenarioBase.Instance.Started) {
+                        Statistics.ShotsHit++;
+                    }
+                }
+            }
 
             // Check tags to see if it hit the environment or something else
             switch (hit.transform.tag)

@@ -17,9 +17,8 @@ namespace Assets.Scripts.UI
         [SerializeField] private NumericUpDown _maxFriendlies;
         [SerializeField] private NumericUpDown _minRoomSize;
         [SerializeField] private NumericUpDown _maxRoomSize;
-        [SerializeField] private Dropdown _targetType;
         [SerializeField] private Dropdown _weaponType;
-        [SerializeField] private Dropdown _lightsType;
+        [SerializeField] private Dropdown _reactionSpeed;
 
         private void Start()
         {
@@ -30,9 +29,7 @@ namespace Assets.Scripts.UI
 
             _minRoomSize.Value = ScenarioSettings.MinRoomSize;
             _maxRoomSize.Value = ScenarioSettings.MaxRoomSize;
-            _targetType.Select((int) ScenarioSettings.TargetType);
             _weaponType.Select((int) ScenarioSettings.WeaponSize);
-            _lightsType.Select(ScenarioSettings.Lights ? 0 : 1);
 
             _minEnemies.OnValueChanged += OnMinEnemiesChanged;
             _maxEnemies.OnValueChanged += OnMaxEnemiesChanged;
@@ -42,15 +39,30 @@ namespace Assets.Scripts.UI
             _minRoomSize.OnValueChanged += MinRoomSizeOnOnValueChanged;
             _maxRoomSize.OnValueChanged += MaxRoomSizeOnOnValueChanged;
 
-            _targetType.OnSelectedIndexChanged += OnTargetTypeChanged;
             _weaponType.OnSelectedIndexChanged += OnWeaponSizeChanged;
-            _lightsType.OnSelectedIndexChanged += LightsTypeOnOnSelectedIndexChanged;
+            _reactionSpeed.OnSelectedIndexChanged += _reactionSpeed_OnSelectedIndexChanged;
+        }
+
+        private void _reactionSpeed_OnSelectedIndexChanged(int obj)
+        {
+            switch (obj)
+            {
+                case 1:
+                    ScenarioSettings.ReactionTime = 1;
+                    break;
+                case 2:
+                    ScenarioSettings.ReactionTime = 0.5f;
+                    break;
+                case 3:
+                    ScenarioSettings.ReactionTime = 0.3f;
+                    break;
+            }
         }
 
         private void LightsTypeOnOnSelectedIndexChanged(int i)
         {
             //i = 0 is the on selection
-            ScenarioSettings.Lights = (i == 0);
+            ScenarioSettings.Lights = true;
         }
 
         private void MaxRoomSizeOnOnValueChanged(int i)
