@@ -38,7 +38,7 @@ namespace Assets.Scripts.HitView
                 obj.SetActive(show);
             }
         }
-
+        //Extra comment
         /// <summary>
         /// Clears the feedback
         /// </summary>
