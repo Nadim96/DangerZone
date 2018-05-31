@@ -8,9 +8,11 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Conditions
     /// <summary>
     /// Checks if targetNpc is within range of the owner. Fails if there is no NPC, no target, no item or out of range.
     /// </summary>
+    /// 
     public class IsWithinWeaponsRange : Condition
     {
-        public IsWithinWeaponsRange(DataModel dataModel, bool negate = false, Mode mode = Mode.InstantCheck) :
+
+        public IsWithinWeaponsRange(DataModel dataModel,  bool negate = false, Mode mode = Mode.InstantCheck) :
             base(dataModel, negate, mode)
         {
         }
@@ -30,8 +32,11 @@ namespace Assets.Scripts.BehaviourTree.Leaf.Conditions
                     DataModel.Npc.transform.position,
                     DataModel.Target.transform.position);
 
+               Debug.Log("Range: " + (distance <= ScenarioSettings.EngagementDistance)); 
+
                 return distance <= ScenarioSettings.EngagementDistance;
             }
+
 
             return false; // Unable to cast: NPC is not holding a weapon
         }
