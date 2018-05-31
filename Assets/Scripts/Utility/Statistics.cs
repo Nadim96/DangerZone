@@ -116,7 +116,8 @@ namespace Assets.Scripts.Utility
                 _shotsFired.SetText("Maak juist gebruik van dekking om alle verdachten uit te kunnen schakelen.");
                 _timeAimedOnCivilians.SetText("");
             }
-            else {
+            else if(!Scenario.ScenarioBase.Instance.FeedBackSchermLock) {
+               
                 int hitPercentage = ShotsFired > 0 ? (int)((ShotsHit * 1.0) / (ShotsFired * 1.0) * 100.0) : 0;
 
                 _shotsFired.SetText("SCHOTEN RAAK: " + ShotsHit + "/" + ShotsFired + "(" + hitPercentage + "%)");

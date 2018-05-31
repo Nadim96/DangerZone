@@ -292,7 +292,7 @@ namespace Assets.Scripts.Scenario
             Scenario.GameOver.instance.SetEndscreen(false);
             Time.timeScale = 0.0f;
             //SetMenuEnabled(true);
-            SetIngameUIVisible();
+            // SetIngameUIVisible();
         }
 
         /// <summary>
@@ -452,8 +452,7 @@ namespace Assets.Scripts.Scenario
                     EnableCoverBodies(false);
                     break;
                 case Stage.Practise:
-                    UIRootFloor.SetActive(true);
-                    IngameMenuStartButton.SetActive(false);
+                   
                     switch (reason)
                     {
                         case StageEndReason.Succes:
@@ -493,8 +492,15 @@ namespace Assets.Scripts.Scenario
                             Scenario.GameOver.instance.SetEndscreen(false);
                             break;
                     }
+                    UIRootFloor.SetActive(true);
+                    IngameMenuStartButton.SetActive(false);
                     break;
             }
+        }
+
+        public override void ShowGameOverReason(StageEndReason reason)
+        {
+            
         }
 
         /// <summary>

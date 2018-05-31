@@ -70,7 +70,7 @@ namespace Assets.Scripts.Scenario
         /// <summary>
         /// True = locked
         /// </summary>
-        private bool _FeedBackSchermLock;
+        public bool FeedBackSchermLock;
 
 
 
@@ -234,7 +234,7 @@ namespace Assets.Scripts.Scenario
         public virtual void Play()
         {
 
-            _FeedBackSchermLock = false;
+            FeedBackSchermLock = false;
             SetSpawnPoint();
             PlayerGun.PlayerGunInterface.ReloadGun();
             HideGameOverReason();
@@ -454,10 +454,10 @@ namespace Assets.Scripts.Scenario
         /// Shows reason of gameover
         /// </summary>
         /// <param name="reason"></param>
-        public void ShowGameOverReason(StageEndReason reason)
+        public virtual void ShowGameOverReason(StageEndReason reason)
         {
-            if (_FeedBackSchermLock) return;
-            _FeedBackSchermLock = true;
+            if (FeedBackSchermLock) return;
+            FeedBackSchermLock = true;
             UIRootFloor.SetActive(false);
             GameOverScreen.SetActive(true);
 

@@ -129,7 +129,7 @@ namespace Assets.Scripts.HitView
         /// </summary>
         public void Previous()
         {
-            if (current == 0) current = AllFeedback.Count;
+            if (current == 0) current = AllFeedback.Count-1;
             else  current--;
             Show(true);
         }
