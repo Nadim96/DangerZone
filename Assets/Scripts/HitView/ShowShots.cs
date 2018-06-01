@@ -26,7 +26,7 @@ namespace Assets.Scripts.HitView
         /// List of shot representation
         /// </summary>
         private FeedbackCollection FriendlyShots = new FeedbackCollection("EIGEN VUUR");
-        private FeedbackCollection EnemyShots = new FeedbackCollection("VIJANDELIJKE VUUR");
+        private FeedbackCollection EnemyShots = new FeedbackCollection("VIJANDELIJK VUUR");
         private FeedbackCollection Tips = new FeedbackCollection("TIPS");
 
         public List<FeedbackCollection> AllFeedback;
